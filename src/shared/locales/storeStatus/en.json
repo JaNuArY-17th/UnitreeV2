@@ -1,0 +1,34 @@
+{
+  "banner": {
+    "createStore": {
+      "title": "Create a store to use this feature"
+    },
+    "pending": {
+      "title": "Store is pending approval from admin"
+    },
+    "locked": {
+      "title": "Store is locked. Contact support for help"
+    }
+  },
+  "locked": {
+    "title": "Account Locked",
+    "message": "Your store account is currently locked. This may be due to a terms of service violation or a security request.",
+    "hint": "Contact our support team for quick resolution. Average response time: 24 business hours.",
+    "primaryAction": "Contact Support",
+    "secondaryAction": "Go Back"
+  },
+  "pending": {
+    "title": "Pending Approval",
+    "message": "Your store profile is being reviewed and approved by the ENSOGO team. This process typically takes 1-3 business days.",
+    "hint": "You'll receive a notification as soon as your account is approved. Make sure push notifications are enabled.",
+    "primaryAction": "Check Status",
+    "secondaryAction": "Go Back"
+  },
+  "unknown": {
+    "title": "Unable to Access",
+    "message": "We couldn't determine your account status. Please try reloading or check your network connection.",
+    "hint": "If the issue persists, please contact customer support.",
+    "primaryAction": "Reload",
+    "secondaryAction": "Go Back"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/FZ Poppins-Black.ttf",
+      "sha1": "55f1a36d1c6bbc0bd478440eb522e89dac4c1d76"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-BlackItalic.ttf",
+      "sha1": "29042eb08d215cb98942fdbb5de3204e6dd2a7e3"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-Bold.ttf",
+      "sha1": "c73e37ec00fd19614a78e1cf87a4eed98e8cf3f0"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-BoldItalic.ttf",
+      "sha1": "66fae47c5c430e956fb70ca55bc95c01e1420047"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-ExtraBold.ttf",
+      "sha1": "12c537cd143be6ccd69cc49fd932a882f28ae10d"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-ExtraBoldItalic.ttf",
+      "sha1": "9012a7fdf545ebc2cc3c7eade42829587cbc7e4e"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-ExtraLight.ttf",
+      "sha1": "5efd3b0bc5abde59ea27032d335bd9b35c6615a6"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-ExtraLightItalic.ttf",
+      "sha1": "5d1e3d2f1c4a721c184260d2ff1e6508ed1934c9"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-Italic.ttf",
+      "sha1": "04fc2fd7fa7406d80aabd102de794b9fc6a5f9b2"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-Light.ttf",
+      "sha1": "d42b459f1dc58e397bbde39d3b31ad4ad108f595"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-LightItalic.ttf",
+      "sha1": "98244c21a55fc7846226a8969068c25438359143"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-Medium.ttf",
+      "sha1": "4fa2c6c33a4cfe35544c20ba3eae00cb18c1c466"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-MediumItalic.ttf",
+      "sha1": "cb41e049dff85868257ea2de0eec502678b3a401"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-Regular.ttf",
+      "sha1": "e51f16418af2b2bd6fc20d4dc3cc5768aefa492b"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-SemiBold.ttf",
+      "sha1": "a7f185477292896b7535a31a44168875fc68b16d"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-SemiBoldItalic.ttf",
+      "sha1": "468e8d67cef7838cffc6ce428c14a707c6e02bef"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-Thin.ttf",
+      "sha1": "f1fd86e9736a4173b8f558b8deaab0d3bde89cde"
+    },
+    {
+      "path": "assets/fonts/FZ Poppins-ThinItalic.ttf",
+      "sha1": "6d2e3ae2a004a51e9dd3431e91338e3c16d42b2d"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "screen": {
+    "title": "Bank Account",
+    "empty": "No bank account information available",
+    "reload": "Reload",
+    "error": "An error occurred while loading data",
+    "retry": "Retry",
+    "accountInfo": "Account Information",
+    "accountNumber": "Account Number",
+    "accountHolder": "Account Holder",
+    "balance": "Balance",
+    "accountType": "Account Type",
+    "status": "Status",
+    "currency": "Currency",
+    "active": "Active",
+    "inactive": "Inactive",
+    "unknown": "Unknown",
+    "econtractSectionTitle": "E-contract Service",
+    "econtractSectionDesc": "Sign e-contracts quickly and securely",
+    "econtractButton": "Sign E-contract",
+    "store": "Store",
+    "user": "User"
+  }
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>RCTNewArchEnabled</key>
+	<true/>
+	<key>UIStoryboardVersion</key>
+	<integer>1</integer>
+	<key>UIViewControllerIdentifiersToNibNames</key>
+	<dict>
+		<key>Camera</key>
+		<string>Camera</string>
+		<key>DataProcessing</key>
+		<string>DataProcessing</string>
+		<key>Document</key>
+		<string>Document</string>
+		<key>FaceCircle</key>
+		<string>FaceCircle</string>
+		<key>FaceOval</key>
+		<string>FaceOval</string>
+		<key>ScanQRCode</key>
+		<string>ScanQRCode</string>
+	</dict>
+</dict>
+</plist>

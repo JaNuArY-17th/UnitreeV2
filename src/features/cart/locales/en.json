@@ -1,0 +1,92 @@
+{
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "error": "Error"
+  },
+  "title": "Cart",
+  "searchProduct": "Search more products",
+  "summary": {
+    "total": "Total",
+    "discount": "Discount",
+    "enterDiscount": "Enter discount amount"
+  },
+  "payment": {
+    "cash": "Cash Payment",
+    "transfer": "Transfer"
+  },
+  "checkout": "Pay {{amount}}",
+  "emptyCart": "Empty Cart",
+  "emptyDescription": "Add products to create order",
+  "unit": "Bottle",
+  "remove": "Remove",
+  "voiceInput": {
+    "title": "Voice to add product",
+    "usage": "Used 16/100 times",
+    "instructions": "Say quantity + product name + price",
+    "example": "Example: 1 case Coca, price 133 thousand",
+    "placeholder": "Recognition results will appear here",
+    "listening": "Listening...",
+    "processing": "Processing...",
+    "tapToSpeak": "Tap to speak",
+    "tapToStop": "Tap to stop",
+    "holdToSpeak": "Hold to speak",
+    "release": "Release to finish",
+    "detectedProduct": "Detected product:",
+    "tryAgain": "Try Again",
+    "addProduct": "Add Product",
+    "notAvailable": "Voice recognition not available on this device",
+    "noItemsRecognized": "Could not recognize any products. Please try again with clearer speech.",
+    "recognitionTips": "Tip: Speak slowly, clearly and include quantity, product name and price"
+  },
+  "paymentConfirm": {
+    "title": "Payment Confirmation",
+    "instruction": "Scan QR code to complete payment",
+    "generating": "Generating QR Code...",
+    "loading": "Loading...",
+    "accountInfo": "Account Information",
+    "accountNumber": "Account",
+    "paymentContent": "Payment Content",
+    "content": "Payment for {{count}} item(s)",
+    "productList": "Product List",
+    "quantity": "Qty",
+    "totalAmount": "Total Amount",
+    "defaultStoreName": "ESPay Store",
+    "defaultUserName": "ESPay User",
+    "defaultAddress": "Vietnam",
+    "cartPayment": "Cart Payment",
+    "download": {
+      "success": "Success",
+      "savedToLibrary": "QR code saved to photo library"
+    },
+    "cancelWarning": {
+      "title": "Cancel Payment?",
+      "message": "Payment has not been confirmed yet. Are you sure you want to go back?"
+    },
+    "success": {
+      "title": "Payment Successful!",
+      "message": "Your transaction has been processed successfully.",
+      "redirecting": "Redirecting to Home in 5 seconds...",
+      "goHomeNow": "Go to Home Now"
+    }
+  },
+  "checkingOut": "Processing...",
+  "draftOrders": {
+    "title": "Draft Orders",
+    "loading": "Loading...",
+    "deleteDraftOrderTitle": "Delete Draft Order",
+    "deleteDraftOrderMessage": "Are you sure you want to delete this draft order?",
+    "delete": "Delete",
+    "itemCount": "{{count}} item(s)",
+    "moreItems": "+{{count}} more item(s)",
+    "noDraftOrders": "No Draft Orders",
+    "noDraftOrdersDesc": "Unpaid orders will appear here"
+  },
+  "productStatus": {
+    "available": "Available",
+    "outOfStock": "Out of Stock",
+    "discontinued": "Discontinued"
+  },
+  "searchProducts": "Search products...",
+  "selectProduct": "Select product"
+}

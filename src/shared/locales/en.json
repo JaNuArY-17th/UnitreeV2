@@ -1,0 +1,144 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "ok": "OK",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "scan": "Scan",
+    "enable": "Enable",
+    "continue": "Continue",
+    "retry": "Retry",
+    "delete": "Delete",
+    "optional": "Optional",
+    "viewAll": "View All"
+  },
+  "timeAgo": {
+    "justNow": "Just now",
+    "minutesAgo_one": "{{count}} minute ago",
+    "minutesAgo_other": "{{count}} minutes ago",
+    "hoursAgo_one": "{{count}} hour ago",
+    "hoursAgo_other": "{{count}} hours ago",
+    "daysAgo_one": "{{count}} day ago",
+    "daysAgo_other": "{{count}} days ago",
+    "weeksAgo_one": "{{count}} week ago",
+    "weeksAgo_other": "{{count}} weeks ago",
+    "monthsAgo_one": "{{count}} month ago",
+    "monthsAgo_other": "{{count}} months ago",
+    "yearsAgo_one": "{{count}} year ago",
+    "yearsAgo_other": "{{count}} years ago"
+  },
+  "verification": {
+    "notVerified": {
+      "title": "Verify your identity and sign contract to start using services now.",
+      "description": "Finish eKYC to start using services.",
+      "action": "Verify now"
+    },
+    "cardVerified": {
+      "title": "Sign your brokerage contract with ENSOGO to start transferring now.",
+      "description": "Sign to enable deposits, withdrawals, and transferring.",
+      "action": "Sign now"
+    }
+  },
+  "otp": {
+    "title": "OTP Verification",
+    "subtitle": "Please enter the OTP code to continue.",
+    "loadingTitle": "Loading...",
+    "loadingSubtitle": "Please wait while we process your request...",
+    "resendText": "Didn't receive the code?",
+    "resendButtonText": "Resend code",
+    "resendButtonDisabledText": "Resend in",
+    "continueButtonText": "Continue"
+  },
+  "navigation": {
+    "home": "Home",
+    "history": "History",
+    "report": "Report",
+    "promo": "Promo",
+    "profile": "Profile",
+    "qrScan": "QR Scan",
+    "tabs": {
+      "home": "Home",
+      "history": "History",
+      "report": "Report",
+      "profile": "Profile",
+      "scan": "Scan"
+    }
+  },
+  "profile": {
+    "account": {
+      "title": "Account",
+      "profileDetails": "Profile Details",
+      "shopDetails": "Shop Details",
+      "myWallet": "My Wallet"
+    },
+    "support": {
+      "title": "Support",
+      "rateUs": "Rate us",
+      "aboutGastos": "About Gastos",
+      "helpSupport": "Help & Support"
+    },
+    "refer": {
+      "title": "Refer & Earn",
+      "subtitle": "Refer & Earn up to $55 for each friend!"
+    },
+    "profileDetail": {
+      "title": "Profile Details",
+      "subtitle": "Your profile details information are given below.",
+      "ownerName": "Owner Name",
+      "phoneNumber": "Phone Number",
+      "emailAddress": "Email Address",
+      "guidedBy": "Guided by:",
+      "validate": "Validate",
+      "logOut": "Log Out",
+      "logoutSession": "Logout from this session",
+      "deleteAccount": "Delete Account",
+      "deleteAccountDescription": "Delete your account permanently",
+      "deleteAccountConfirm": "Are you sure you want to delete your account? This action cannot be undone."
+    }
+  },
+  "inventory": {
+    "title": "Inventory Management",
+    "menu": {
+      "inventoryHistory": "Inventory History",
+      "inventoryHistoryDesc": "View import, export and adjustment history",
+      "stockCheck": "Stock Check",
+      "stockCheckDesc": "Create and manage stock check papers"
+    },
+    "history": {
+      "title": "Inventory Transaction History",
+      "filter": "Filter",
+      "filterBy": "Filter by transaction type",
+      "clearFilter": "Clear filter",
+      "emptyMessage": "No transactions yet",
+      "types": {
+        "all": "All transactions",
+        "import": "Import",
+        "export": "Export",
+        "adjustment": "Adjustment",
+        "sale": "Sale",
+        "return": "Return",
+        "reconcile": "Stock Check"
+      }
+    },
+    "stockCheck": {
+      "title": "Stock Check",
+      "create": "Create Stock Check",
+      "emptyMessage": "No stock check papers yet",
+      "status": {
+        "pending": "Pending",
+        "complete": "Complete",
+        "cancel": "Cancelled"
+      },
+      "actions": {
+        "view": "View Details",
+        "confirm": "Confirm",
+        "cancel": "Cancel"
+      }
+    }
+  }
+}

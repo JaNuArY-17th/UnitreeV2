@@ -1,0 +1,172 @@
+{
+  "title": "Identity Verification",
+  "subtitle": "Capture your ID document and face for verification",
+  "instructions": {
+    "step1": "Prepare your ID card or Passport",
+    "step2": "Take photos of front and back of document",
+    "step3": "Take a selfie for verification"
+  },
+  "buttons": {
+    "start": "Start Verification",
+    "retry": "Retry",
+    "confirm": "Confirm",
+    "retake": "Retake",
+    "cancel": "Cancel"
+  },
+  "status": {
+    "initializing": "Initializing eKYC...",
+    "capturing": "Capturing...",
+    "processing": "Processing...",
+    "completed": "Verification Successful",
+    "failed": "Verification Failed"
+  },
+  "steps": {
+    "idle": "Prepare",
+    "initializing": "Initialize",
+    "capturing": "Capture",
+    "processing": "Process",
+    "completed": "Complete",
+    "error": "Error"
+  },
+  "messages": {
+    "success": "Verification completed successfully",
+    "processing": "Processing your documents...",
+    "sdkError": "eKYC SDK is not available on this device or not properly initialized",
+    "networkError": "Network error, please check your connection and try again",
+    "timeoutError": "Verification process timed out. Please check your network connection and try again",
+    "generalError": "An error occurred, please try again",
+    "userCancelled": "Verification process was cancelled",
+    "faceMatchError": "Face does not match the document photo",
+    "livenessError": "Unable to confirm face liveness",
+    "ocrError": "Unable to read information from document",
+    "invalidDocument": "Invalid document detected",
+    "retryLimit": "Maximum retry attempts reached"
+  },
+  "validation": {
+    "invalidIdNumber": "Invalid ID number",
+    "invalidName": "Invalid name",
+    "invalidDate": "Invalid date",
+    "invalidAddress": "Invalid address",
+    "missingData": "Missing required data",
+    "lowQuality": "Image quality too low",
+    "noFaceDetected": "No face detected",
+    "multipleFaces": "Multiple faces detected"
+  },
+  "tips": {
+    "title": "Tips:",
+    "lighting": "Ensure adequate lighting",
+    "flatDocument": "Keep document flat and clear",
+    "noObstruction": "Do not obstruct your face",
+    "stayStill": "Stay still during capture",
+    "goodAngle": "Hold document at good angle"
+  },
+  "results": {
+    "title": "Verification Results",
+    "subtitle": "Information extracted from your document",
+    "personalInfo": "Personal Information",
+    "verificationStatus": "Verification Status",
+    "faceMatch": "Face Comparison",
+    "liveness": "Liveness Detection",
+    "valid": "Valid",
+    "invalid": "Invalid",
+    "warning": "Warning",
+    "noData": "No information available"
+  },
+  "fields": {
+    "idNumber": "ID Number",
+    "fullName": "Full Name",
+    "dateOfBirth": "Date of Birth",
+    "gender": "Gender",
+    "nationality": "Nationality",
+    "address": "Address",
+    "placeOfOrigin": "Place of Origin",
+    "dateOfExpiry": "Date of Expiry",
+    "issueDate": "Issue Date",
+    "documentType": "Document Type"
+  },
+  "continue": "Continue",
+  "processing": "Processing...",
+  "closeLabel": "Close",
+  "common": {
+    "ok": "OK",
+    "close": "Close",
+    "cancel": "Cancel",
+    "retry": "Retry"
+  },
+  "error": {
+    "sdkUnavailable": "SDK Unavailable",
+    "sdkUnavailableMessage": "eKYC SDK is not found or not supported on this device.",
+    "verificationError": "Verification Error",
+    "genericError": "An error occurred during verification. Please try again.",
+    "cancelled": "Cancelled",
+    "userCancelled": "You have cancelled the verification process.",
+    "timeout": "Timeout",
+    "timeoutMessage": "The verification process has timed out. Please try again.",
+    "permission": "Missing Permissions",
+    "permissionMessage": "The app needs camera permission to perform verification.",
+    "network": "Connection Error",
+    "networkMessage": "Check your network connection and try again.",
+    "documentExpired": "Document Expired",
+    "documentExpiredMessage": "Your document has expired. Please use a valid document to complete the verification.",
+    "validationFailed": "Validation Failed",
+    "validationFailedMessage": "The document does not meet verification requirements. Please check your document and try again.",
+    "fakeDocument": "Invalid Document",
+    "fakeDocumentMessage": "The system detected that the document may be invalid or forged. Please use an official document.",
+    "livenessCheckFailed": "Liveness check failed",
+    "livenessCheckFailedMessage": "Please remove any mask, ensure your face is fully visible, and try again."
+  },
+  "errors": {
+    "title": "An error occurred",
+    "message": "The application encountered an unexpected error. Please try again or restart the application.",
+    "reportError": "Report Error",
+    "debugInfo": "Debug Info:"
+  },
+  "summaryChecks": {
+    "ocrDataQuality": "OCR Data Quality",
+    "documentAuthentic": "Document Authentic",
+    "faceMatch": "Face Match",
+    "realPerson": "Real Person",
+    "noMask": "No Mask",
+    "dataQuality": "Data Quality"
+  },
+  "validationErrors": {
+    "unexpected": "Validation error: {{message}}",
+    "ocrMissing": "OCR data is missing",
+    "requiredField": "Required field missing: {{field}}",
+    "invalidCardType": "Invalid card type: {{type}}",
+    "invalidIdFormat": "Invalid ID format",
+    "invalidDobFormat": "Invalid date of birth format",
+    "invalidDoiFormat": "Invalid date of issue format",
+    "invalidDoeFormat": "Invalid date of expiry format",
+    "documentExpired": "Document has expired",
+    "frontCardValidationFailed": "Front card validation failed",
+    "frontCardLivenessFailed": "Front card liveness check failed",
+    "frontCardFakeDetected": "Front card detected as fake",
+    "frontCardPrintedPhoto": "Front card photo detected as printed",
+    "frontCardFaceSwapDetected": "Face swapping detected on front card",
+    "frontCardHighFakeLivenessProb": "High fake liveness probability: {{prob}}",
+    "frontCardHighFaceSwapProb": "High face swapping probability: {{prob}}",
+    "backCardValidationFailed": "Back card validation failed",
+    "backCardLivenessFailed": "Back card liveness check failed",
+    "backCardFakeDetected": "Back card detected as fake",
+    "faceComparisonFailed": "Face comparison failed",
+    "facesDoNotMatch": "Faces do not match",
+    "faceMatchingLowConfidence": "Face matching confidence too low: {{prob}}%",
+    "multipleFacesInImages": "Multiple faces detected in images",
+    "faceLivenessFailed": "Face liveness check failed",
+    "livenessNotRealPerson": "Liveness check failed - not a real person",
+    "eyesNotOpen": "Eyes are not open",
+    "faceTooBlurry": "Face image is too blurry",
+    "ageOutOfRange": "Age out of valid range: {{age}}",
+    "multipleFacesInSelfie": "Multiple faces detected in selfie",
+    "maskDetectionFailed": "Mask detection check failed",
+    "personWearingMask": "Person is wearing a mask"
+  },
+  "validationWarnings": {
+    "lowConfidenceForField": "Low confidence for {{field}}: {{confidence}}",
+    "incompleteAddressInfo": "Incomplete address information",
+    "imagePathsMissing": "Image paths are missing",
+    "missingImagePath": "Missing image path: {{path}}",
+    "genderMismatch": "Gender mismatch between ID and face detection"
+  }
+}

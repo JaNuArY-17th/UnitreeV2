@@ -1,0 +1,15 @@
+diff --git a/node_modules/@ascendtis/react-native-voice-to-text/ios/VoiceToText.mm b/node_modules/@ascendtis/react-native-voice-to-text/ios/VoiceToText.mm
+index a856a65..7905c80 100644
+--- a/node_modules/@ascendtis/react-native-voice-to-text/ios/VoiceToText.mm
++++ b/node_modules/@ascendtis/react-native-voice-to-text/ios/VoiceToText.mm
+@@ -154,7 +154,9 @@ RCT_EXPORT_METHOD(startListening:(RCTPromiseResolveBlock)resolve
+ 
+             [self setupAudioSession];
+ 
+-            _speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:[NSLocale currentLocale]];
++            // Force Vietnamese locale for speech recognition
++            NSLocale *vietnameseLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"vi-VN"];
++            _speechRecognizer = [[SFSpeechRecognizer alloc] initWithLocale:vietnameseLocale];
+             if (!_speechRecognizer.isAvailable) {
+                 [self sendEventWithName:@"onSpeechError" body:@{@"message": @"Recognizer not available"}];
+                 reject(@"NOT_AVAILABLE", @"Recognizer not available", nil);

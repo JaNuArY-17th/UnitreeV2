@@ -1,0 +1,259 @@
+{
+  "transfer": {
+    "title": "Chuyển Tiền",
+    "receiver": "Người nhận",
+    "amount": "Số tiền",
+    "note": "Nội dung chuyển tiền",
+    "continue": "Chuyển tiền",
+    "ok": "Đồng ý",
+    "maximumAmount": "Vượt quá hạn mức",
+    "maximumAmountDescription": "Số tiền tối đa cho một giao dịch là {{maxAmount}} VNĐ",
+    "minimumAmount": "Dưới hạn mức tối thiểu",
+    "minimumAmountDescription": "Số tiền tối thiểu cho một giao dịch là 5.000 VNĐ",
+    "accountNumber": "Số tài khoản",
+    "accountNumberLabel": "Số TK: ",
+    "bank": "Ngân hàng",
+    "methods": {
+      "bank": "Ngân hàng",
+      "ezyWallet": "ESPay"
+    },
+    "quickNotes": {
+      "rent": "Tiền nhà",
+      "payment": "Thanh toán",
+      "food": "Ăn uống",
+      "shopping": "Mua hàng",
+      "monthly": "Hàng tháng",
+      "tuition": "Học phí",
+      "bill": "Hoá đơn",
+      "travel": "Du lịch",
+      "deposit": "Đặt cọc",
+      "salary": "Trả lương",
+      "debt": "Trả nợ"
+    },
+    "notePrefix": {
+      "placeholder": "Nhập nội dung chuyển tiền"
+    },
+    "errors": {
+      "title": "Lỗi",
+      "invalidAmount": "Số tiền không hợp lệ",
+      "insufficientBalance": "Số dư không đủ",
+      "insufficientBalanceHelper": "Số dư không đủ để thực hiện giao dịch",
+      "balanceExceeded": "Số tiền chuyển vượt quá số dư khả dụng."
+    },
+    "confirmTitle": "Xác nhận chuyển tiền",
+    "transferAmount": "Số tiền",
+    "transferDetails": "Chi tiết chuyển tiền",
+    "recipient": "Người nhận",
+    "bankName": "Ngân hàng",
+    "paymentSource": "Nguồn tiền",
+    "availableBalance": "Số dư khả dụng",
+    "totalAmount": "Tổng tiền",
+    "confirming": "Đang xử lý...",
+    "confirmTransfer": "Xác nhận chuyển tiền",
+    "missingData": "Thiếu thông tin giao dịch",
+    "initiateFailed": "Không thể khởi tạo giao dịch",
+    "networkError": "Lỗi kết nối mạng",
+    "otpVerification": "Xác thực OTP",
+    "otpSentTo": "Nhập mã 6 số được gửi tới",
+    "toConfirm": "để xác nhận giao dịch này.",
+    "didNotReceive": "Không nhận được mã?",
+    "resendCode": "Gửi lại mã",
+    "resendIn": "Gửi lại sau {{seconds}}s",
+    "resending": "Đang gửi lại...",
+    "otpInvalid": "Mã OTP không hợp lệ. Vui lòng thử lại.",
+    "resendFailed": "Gửi lại OTP thất bại. Vui lòng thử lại.",
+    "processing": "Đang xử lý chuyển tiền",
+    "processingSubtitle": "Vui lòng đợi trong khi chúng tôi xử lý giao dịch của bạn...",
+    "transferSuccessful": "Chuyển tiền thành công!",
+    "transferCompleted": "Giao dịch chuyển tiền của bạn đã được thực hiện thành công",
+    "transactionId": "Mã giao dịch",
+    "transactionCode": "Mã giao dịch",
+    "description": "Nội dung",
+    "transferTime": "Thời gian chuyển",
+    "status": "Trạng thái",
+    "completed": "Hoàn thành",
+    "viewDetails": "Xem chi tiết",
+    "backToHome": "Về trang chủ",
+    "viewHistory": "Xem lịch sử",
+    "verifyTransfer": "Xác nhận chuyển tiền"
+  },
+  "transferMethod": {
+    "accountNumber": "Số tài khoản",
+    "title": "Thông tin người nhận",
+    "bankTransfer": "Chuyển khoản ngân hàng",
+    "ezyWallet": "ESPay Wallet",
+    "searchBank": "Tìm kiếm ngân hàng",
+    "searchWallet": "Tìm kiếm ví điện tử...",
+    "searchUser": "Tìm kiếm theo tên hoặc số tài khoản",
+    "savedAccounts": "Tài khoản đã lưu",
+    "manage": "Quản lý",
+    "addRecipient": "Thêm người nhận",
+    "recentRecipients": "Người nhận đã lưu",
+    "noRecentRecipients": "Chưa có người nhận đã lưu",
+    "selectBank": "Chọn ngân hàng",
+    "userList": "Danh sách người dùng",
+    "loadingBanks": "Đang tải danh sách ngân hàng...",
+    "loadingWallets": "Đang tải danh sách ví...",
+    "noBanksFound": "Không tìm thấy ngân hàng nào",
+    "noWalletsFound": "Không tìm thấy ví điện tử nào",
+    "errorLoadingBanks": "Lỗi tải danh sách ngân hàng",
+    "serviceInfo": "Thông tin dịch vụ",
+    "retry": "Thử lại",
+    "walletNumber": "Số tài khoản ESPay",
+    "enterWalletNumber": "Nhập số tài khoản ESPay",
+    "continue": "Tiếp tục",
+    "check": "Kiểm tra",
+    "accountName": "Tên tài khoản",
+    "enterAccountNumber": "Nhập số tài khoản",
+    "errors": {
+      "accountRequired": "Vui lòng nhập số tài khoản",
+      "bankRequired": "Vui lòng chọn ngân hàng",
+      "accountNotFound": "Không tìm thấy tài khoản",
+      "verifyFirst": "Vui lòng xác minh tài khoản trước"
+    },
+    "verify": "Kiểm tra tài khoản"
+  },
+  "bankAccount": {
+    "accountNumber": "Số tài khoản"
+  },
+  "verification": {
+    "required": "Cần xác thực tài khoản",
+    "transferMoneyMessage": "Bạn cần xác thực tài khoản để sử dụng tính năng chuyển tiền",
+    "verifyNow": "Xác thực ngay"
+  },
+  "common": {
+    "checkingVerification": "Đang kiểm tra xác thực..."
+  },
+  "screen": {
+    "title": "QR thanh toán"
+  },
+  "qrCode": {
+    "instruction": "Quét mã để thanh toán",
+    "autoUpdate": "Tự động cập nhật sau {{seconds}}s.",
+    "update": "Cập nhật",
+    "promotion": "Sử dụng khuyến mãi hoặc nhập mã",
+    "copyTitle": "Sao chép mã QR",
+    "copyMessage": "Bạn có muốn sao chép dữ liệu mã QR không?",
+    "paymentFor": "Thanh toán cho",
+    "paymentMethods": "Phương thức thanh toán được hỗ trợ"
+  },
+  "business": {
+    "cafeBistro": "Quán Café Bistro",
+    "address": "M-31, Bhopal, Madhya Pradesh"
+  },
+  "accountSelector": {
+    "title": "Tài khoản/Thẻ",
+    "viewAll": "Xem tất cả",
+    "addAccount": "Thêm tài khoản",
+    "promotionTitle": "Ưu tiên Ví Trả Sau cho tất cả",
+    "promotionSubtitle": "giao dịch từ bây giờ",
+    "select": "Chọn"
+  },
+  "receiveAction": {
+    "title": "QR Nhận tiền",
+    "description": "Đưa mã này cho người khác để nhận tiền"
+  },
+  "bottomActions": {
+    "qrPayment": "QR thanh toán",
+    "scanQR": "Quét QR"
+  },
+  "addAmount": {
+    "title": "Thêm số tiền",
+    "placeholder": "Nhập số tiền",
+    "notePlaceholder": "Thêm ghi chú (tùy chọn)",
+    "quickSelect": "Chọn nhanh",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "amountAdded": "Đã thêm số tiền vào QR code",
+    "errors": {
+      "enterAmount": "Vui lòng nhập số tiền",
+      "minimumAmount": "Số tiền tối thiểu là 1,000 VNĐ",
+      "maximumAmount": "Số tiền tối đa là 500,000,000 VNĐ"
+    }
+  },
+  "receiveMoney": {
+    "title": "Nhận tiền",
+    "paymentMethods": "Phương thức thanh toán được hỗ trợ",
+    "loading": "Đang tạo mã QR...",
+    "noQR": "Chưa có mã QR",
+    "addAmount": "Thêm số tiền",
+    "download": "Tải xuống",
+    "customize": "Tùy chỉnh",
+    "share": "Chia sẻ",
+    "createQRByDemand": "Tạo QR theo yêu cầu",
+    "createdQRs": "QR đã tạo",
+    "splitMoney": "Chia tiền",
+    "forGroups": "Cho thanh toán nhóm",
+    "specialOccasion": "Dịp đặc biệt",
+    "travelDonation": "Du lịch & quyên góp",
+    "prosperityWallet": "Ví thịnh vượng",
+    "prosperityDescription": "Nhận thưởng và ưu đãi",
+    "openWallet": "Mở ví"
+  },
+  "editOptions": {
+    "edit": "Thay đổi",
+    "clear": "Xóa",
+    "editAmount": "Chỉnh sửa số tiền",
+    "editDescription": "Chỉnh sửa ghi chú",
+    "editAmountAndDescription": "Chỉnh sửa số tiền và ghi chú",
+    "clearAmount": "Xóa số tiền",
+    "clearDescription": "Xóa ghi chú",
+    "clearAmountAndDescription": "Xóa số tiền và ghi chú",
+    "clearSuccess": "Đã xóa số tiền và ghi chú khỏi QR code"
+  },
+  "paymentSource": {
+    "title": "Chọn nguồn thanh toán",
+    "payFrom": "Nguồn chuyển tiền",
+    "selectSource": "Chọn nguồn thanh toán",
+    "selectedSource": "Nguồn thanh toán đã chọn",
+    "mainAccount": "Tài khoản chính",
+    "espayLater": "Ví trả sau",
+    "available": "khả dụng",
+    "default": "Mặc định",
+    "searchPlaceholder": "Tìm kiếm nguồn thanh toán...",
+    "loading": "Đang tải nguồn thanh toán...",
+    "loadError": "Không thể tải nguồn thanh toán",
+    "retry": "Thử lại",
+    "noSearchResults": "Không tìm thấy nguồn thanh toán",
+    "noSources": "Không có nguồn thanh toán khả dụng",
+    "espayLaterUnavailable": "ESPay Later không khả dụng (số dư: 0đ)"
+  },
+  "savedRecipients": {
+    "title": "Người nhận đã lưu",
+    "loading": "Đang tải danh sách người nhận...",
+    "noRecipients": "Chưa có người nhận đã lưu",
+    "noRecipientsMessage": "Thêm người nhận để chuyển tiền nhanh chóng",
+    "searchPlaceholder": "Tìm kiếm người nhận...",
+    "addFirstRecipient": "Thêm người nhận",
+    "errorLoading": "Lỗi",
+    "errorLoadingMessage": "Không thể tải danh sách người nhận đã lưu",
+    "deleteConfirmTitle": "Xóa người nhận",
+    "deleteConfirmMessage": "Bạn có chắc chắn muốn xóa người nhận này?",
+    "deleteSuccess": "Thành công",
+    "deleteSuccessMessage": "Đã xóa người nhận thành công",
+    "errorDeleting": "Lỗi",
+    "addSuccess": "Thành công",
+    "addSuccessMessage": "Đã thêm người nhận thành công",
+    "errorAdding": "Lỗi",
+    "errorAddingMessage": "Không thể thêm người nhận",
+    "verifyFirst": "Vui lòng xác minh tài khoản trước",
+    "addRecipient": "Thêm người nhận",
+    "addRecipientMessage": "Chuyển đến màn hình thêm người nhận"
+  },
+  "download": {
+    "success": "Thành công",
+    "savedToLibrary": "QR code đã được lưu vào thư viện ảnh"
+  },
+  "share": {
+    "title": "Chia sẻ mã QR",
+    "message": "Gửi tiền qua ENSOGO ESPay"
+  },
+  "customize": {
+    "title": "Tùy chỉnh QR",
+    "showUserName": "Hiển thị tên người dùng",
+    "showPhoneNumber": "Hiển thị số điện thoại",
+    "maskPhoneNumber": "Chỉ hiển thị 3 số cuối của số điện thoại"
+  }
+}

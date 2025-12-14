@@ -1,0 +1,258 @@
+{
+  "transfer": {
+    "title": "Transfer Money",
+    "amount": "Amount",
+    "note": "Note",
+    "continue": "Transfer",
+    "ok": "OK",
+    "maximumAmount": "Amount Exceeds Limit",
+    "maximumAmountDescription": "Maximum amount per transaction is {{maxAmount}} VNĐ",
+    "minimumAmount": "Below Minimum Amount",
+    "minimumAmountDescription": "Minimum amount per transaction is 5,000 VNĐ",
+    "accountNumber": "Account Number",
+    "accountNumberLabel": "Acc No: ",
+    "bank": "Bank",
+    "methods": {
+      "bank": "Bank\nTransfer",
+      "ezyWallet": "ESPay\nWallet"
+    },
+    "quickNotes": {
+      "rent": "Rent",
+      "payment": "Payment",
+      "food": "Food",
+      "shopping": "Shopping",
+      "monthly": "Monthly",
+      "tuition": "Tuition",
+      "bill": "Bill",
+      "travel": "Travel",
+      "deposit": "Deposit",
+      "salary": "Salary",
+      "debt": "Debt"
+    },
+    "notePrefix": {
+      "placeholder": "Enter transfer description"
+    },
+    "errors": {
+      "title": "Error",
+      "invalidAmount": "Invalid amount",
+      "insufficientBalance": "Insufficient Balance",
+      "insufficientBalanceHelper": "Insufficient balance to complete transaction",
+      "balanceExceeded": "Transfer amount exceeds available balance."
+    },
+    "confirmTitle": "Confirm Transfer",
+    "transferAmount": "Transfer Amount",
+    "transferDetails": "Transfer Details",
+    "recipient": "Recipient",
+    "bankName": "Bank",
+    "paymentSource": "Payment Source",
+    "availableBalance": "Available Balance",
+    "totalAmount": "Total Amount",
+    "confirming": "Processing...",
+    "confirmTransfer": "Confirm Transfer",
+    "missingData": "Missing transfer data",
+    "initiateFailed": "Failed to initiate transfer",
+    "networkError": "Network error occurred",
+    "otpVerification": "OTP Verification",
+    "otpSentTo": "Enter the 6-digit code sent to",
+    "toConfirm": "to confirm this transfer.",
+    "didNotReceive": "Didn't receive the code?",
+    "resendCode": "Resend code",
+    "resendIn": "Resend in {{seconds}}s",
+    "resending": "Resending...",
+    "otpInvalid": "Invalid OTP. Please try again.",
+    "resendFailed": "Failed to resend OTP. Please try again.",
+    "processing": "Processing Transfer",
+    "processingSubtitle": "Please wait while we process your transfer...",
+    "transferSuccessful": "Transfer Successful!",
+    "transferCompleted": "Your transfer has been completed successfully",
+    "transactionId": "Transaction ID",
+    "transactionCode": "Transaction Code",
+    "description": "Description",
+    "transferTime": "Transfer Time",
+    "status": "Status",
+    "completed": "Completed",
+    "viewDetails": "View Details",
+    "backToHome": "Back to Home",
+    "viewHistory": "View History",
+    "verifyTransfer": "Verify Transfer"
+  },
+  "transferMethod": {
+    "title": "Select Transfer Method",
+    "accountNumber": "Account Number",
+    "bankTransfer": "Bank Transfer",
+    "ezyWallet": "ESPay Wallet",
+    "searchBank": "Search bank",
+    "searchWallet": "Search wallet...",
+    "searchUser": "Search by name or account number",
+    "savedAccounts": "Saved Accounts",
+    "manage": "Manage",
+    "recentRecipients": "Saved Recipients",
+    "noRecentRecipients": "No saved recipients",
+    "addRecipient": "Add Recipient",
+    "selectBank": "Select Bank",
+    "userList": "User List",
+    "loadingBanks": "Loading banks...",
+    "loadingWallets": "Loading wallets...",
+    "noBanksFound": "No banks found",
+    "noWalletsFound": "No wallets found",
+    "errorLoadingBanks": "Error loading banks",
+    "serviceInfo": "Service Information",
+    "retry": "Retry",
+    "walletNumber": "ESPay Account Number",
+    "enterWalletNumber": "Enter ESPay account number",
+    "continue": "Continue",
+    "check": "Check",
+    "accountName": "Account Name",
+    "enterAccountNumber": "Enter account number",
+    "errors": {
+      "accountRequired": "Please enter account number",
+      "bankRequired": "Please select a bank",
+      "accountNotFound": "Account not found",
+      "verifyFirst": "Please verify account first"
+    },
+    "verify": "Verify Account"
+  },
+  "bankAccount": {
+    "accountNumber": "Account Number"
+  },
+  "verification": {
+    "required": "Account Verification Required",
+    "transferMoneyMessage": "You need to verify your account to use the transfer money feature",
+    "verifyNow": "Verify Now"
+  },
+  "common": {
+    "checkingVerification": "Checking verification..."
+  },
+  "screen": {
+    "title": "QR Payment"
+  },
+  "qrCode": {
+    "instruction": "Hold your QR code over the scanner to pay",
+    "autoUpdate": "Auto update after {{seconds}}s.",
+    "update": "Update",
+    "promotion": "Use promotion or enter code",
+    "copyTitle": "Copy QR Code",
+    "copyMessage": "Do you want to copy the QR code data?",
+    "paymentFor": "Payment for",
+    "paymentMethods": "Supported payment methods"
+  },
+  "business": {
+    "cafeBistro": "Cafe Bistro",
+    "address": "M-31, Bhopal, Madhya Pradesh"
+  },
+  "accountSelector": {
+    "title": "Account/Card",
+    "viewAll": "View all",
+    "addAccount": "Add Account",
+    "promotionTitle": "Prioritize Paylater Wallet for all",
+    "promotionSubtitle": "transactions from now on",
+    "select": "Select"
+  },
+  "receiveAction": {
+    "title": "QR Receive",
+    "description": "Give this code to someone else to receive money"
+  },
+  "bottomActions": {
+    "qrPayment": "QR payment",
+    "scanQR": "Scan QR"
+  },
+  "addAmount": {
+    "title": "Add Amount",
+    "placeholder": "Enter amount",
+    "notePlaceholder": "Add note (optional)",
+    "quickSelect": "Quick Select",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "error": "Error",
+    "success": "Success",
+    "amountAdded": "Amount added to QR code",
+    "errors": {
+      "enterAmount": "Please enter amount",
+      "minimumAmount": "Minimum amount is 1,000 VND",
+      "maximumAmount": "Maximum amount is 500,000,000 VND"
+    }
+  },
+  "receiveMoney": {
+    "title": "Receive Money",
+    "paymentMethods": "Supported payment methods",
+    "loading": "Generating QR code...",
+    "noQR": "No QR code available",
+    "addAmount": "Add Amount",
+    "download": "Download",
+    "customize": "Customize",
+    "share": "Share",
+    "createQRByDemand": "Create QR by Request",
+    "createdQRs": "Created QRs",
+    "splitMoney": "Split Money",
+    "forGroups": "For group payments",
+    "specialOccasion": "Special Occasion",
+    "travelDonation": "Travel & Donation",
+    "prosperityWallet": "Prosperity Wallet",
+    "prosperityDescription": "Receive rewards and benefits",
+    "openWallet": "Open Wallet"
+  },
+  "editOptions": {
+    "edit": "Change",
+    "clear": "Clear",
+    "editAmount": "Edit amount",
+    "editDescription": "Edit description",
+    "editAmountAndDescription": "Edit amount and description",
+    "clearAmount": "Clear amount",
+    "clearDescription": "Clear description",
+    "clearAmountAndDescription": "Clear amount and description",
+    "clearSuccess": "Amount and description cleared from QR code"
+  },
+  "paymentSource": {
+    "title": "Select Payment Source",
+    "payFrom": "Pay from",
+    "selectSource": "Select payment source",
+    "selectedSource": "Selected payment source",
+    "mainAccount": "Main Account",
+    "espayLater": "ESPay Later",
+    "available": "available",
+    "default": "Default",
+    "searchPlaceholder": "Search payment sources...",
+    "loading": "Loading payment sources...",
+    "loadError": "Failed to load payment sources",
+    "retry": "Retry",
+    "noSearchResults": "No payment sources found",
+    "noSources": "No payment sources available",
+    "espayLaterUnavailable": "ESPay Later unavailable (balance: 0đ)"
+  },
+  "savedRecipients": {
+    "title": "Saved Recipients",
+    "loading": "Loading recipients...",
+    "noRecipients": "No saved recipients",
+    "noRecipientsMessage": "Add recipients to quickly transfer money",
+    "searchPlaceholder": "Search recipients...",
+    "addFirstRecipient": "Add Recipient",
+    "errorLoading": "Error",
+    "errorLoadingMessage": "Failed to load saved recipients",
+    "deleteConfirmTitle": "Delete Recipient",
+    "deleteConfirmMessage": "Are you sure you want to delete this recipient?",
+    "deleteSuccess": "Success",
+    "deleteSuccessMessage": "Recipient deleted successfully",
+    "errorDeleting": "Error",
+    "addSuccess": "Success",
+    "addSuccessMessage": "Recipient added successfully",
+    "errorAdding": "Error",
+    "errorAddingMessage": "Failed to add recipient",
+    "verifyFirst": "Please verify the account first",
+    "addRecipient": "Add Recipient",
+    "addRecipientMessage": "Navigate to add recipient screen"
+  },
+  "download": {
+    "success": "Success",
+    "savedToLibrary": "QR code has been saved to photo library"
+  },
+  "share": {
+    "title": "Share QR Code",
+    "message": "Send money via ENSOGO ESPay"
+  },
+  "customize": {
+    "title": "Customize QR",
+    "showUserName": "Show user name",
+    "showPhoneNumber": "Show phone number",
+    "maskPhoneNumber": "Show only last 3 digits of phone number"
+  }
+}

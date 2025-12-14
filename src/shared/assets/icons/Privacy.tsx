@@ -1,0 +1,14 @@
+import React from 'react';
+import { SvgXml } from 'react-native-svg';
+
+export type IconProps = { width?: number; height?: number; color?: string };
+
+const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M14.4375 7.5625L9.67656 13.0625L7.5625 10.9914" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M19.8988 4.8284C16.0565 4.13918 14.468 3.62871 11 2.0625C7.53195 3.62871 5.9434 4.13918 2.10113 4.8284C1.40504 15.8611 10.3374 19.6707 11 19.9375C11.6625 19.6707 20.5949 15.8611 19.8988 4.8284Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>`;
+
+export default function Privacy({ width = 22, height = 22, color = '#9CA3AF' }: IconProps) {
+  return <SvgXml xml={xml} width={width} height={height} color={color} />;
+}

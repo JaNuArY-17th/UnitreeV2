@@ -1,0 +1,372 @@
+{
+  "editPhone": {
+    "title": "Change Phone Number",
+    "label": "Enter your new phone number",
+    "description": "We'll send an OTP to your new phone number for verification."
+  },
+  "editEmail": {
+    "title": "Change Email",
+    "label": "Enter your new email address",
+    "description": "We'll send an OTP to your new email for verification."
+  },
+  "otp": {
+    "title": "Enter OTP",
+    "enter": "Enter the 6-digit OTP sent to your contact",
+    "phoneDescription": "An OTP has been sent to your phone: {{value}}",
+    "emailDescription": "An OTP has been sent to your email: {{value}}",
+    "resend": "Resend OTP",
+    "resendSuccess": "OTP resent successfully!"
+  },
+  "continue": "Continue",
+  "verify": "Verify",
+  "success": {
+    "title": "Success",
+    "phone": "Your phone number has been updated successfully!",
+    "email": "Your email has been updated successfully!"
+  },
+  "ok": "Confirm",
+  "error": {
+    "unknown": "An unknown error occurred. Please try again."
+  },
+  "header": {
+    "title": "Account"
+  },
+  "user": {
+    "verified": "Verified",
+    "unverified": "Unverified",
+    "loading": "Loading...",
+    "error": "Error",
+    "unableToLoad": "Unable to load",
+    "name": "Name",
+    "phone": "Phone Number",
+    "email": "E-Mail Address",
+    "gender": "Gender",
+    "dateOfBirth": "Date of Birth",
+    "nationality": "Nationality",
+    "address": "Address",
+    "permanentAddress": "Permanent Address",
+    "contactAddress": "Contact Address",
+    "profile": "Profile",
+    "contactInfo": "Contact Information",
+    "verificationInfo": "Verification Information",
+    "accountStatus": "Account Status",
+    "accountProtected": "Account is maximally protected",
+    "checkInfo": "Check Information",
+    "male": "Male",
+    "female": "Female"
+  },
+  "account": {
+    "title": "Account",
+    "profileDetails": {
+      "title": "Profile Details",
+      "subtitle": "Name, E-Mail, phone number & address"
+    },
+    "shopDetails": {
+      "title": "Shop Details",
+      "subtitle": "Shop Address, Shop Categories, etc.,"
+    },
+    "myWallet": {
+      "title": "My Wallet",
+      "subtitle": "Name, E-Mail, phone number & address"
+    },
+    "speakerNotification": {
+      "title": "Speaker Notification Settings",
+      "subtitle": "Setup transfer notification speaker"
+    }
+  },
+  "refer": {
+    "title": "Refer & Earn",
+    "subtitle": "Earn money through referrals"
+  },
+  "support": {
+    "rateUs": {
+      "title": "Rate us",
+      "subtitle": "How did you like using the app"
+    },
+    "aboutGastos": {
+      "title": "About Gastos",
+      "subtitle": "About us, Privacy Policy, etc.,"
+    },
+    "helpSupport": {
+      "title": "Help & Support",
+      "subtitle": "Make greivance regarding an issue."
+    }
+  },
+  "profileDetail": {
+    "title": "Profile Details",
+    "subtitle": "Here you can view and edit your details.",
+    "ownerName": "Owner Name",
+    "phoneNumber": "Phone Number",
+    "emailAddress": "E-Mail Address",
+    "guidedBy": "Guided By",
+    "validate": "Validate",
+    "logoutSession": "Log out of session",
+    "logOut": "Log Out",
+    "deleteAccount": "Delete Account",
+    "deleteAccountDescription": "Delete your account permanently",
+    "deleteAccountConfirm": "Are you sure you want to delete your account? This action cannot be undone."
+  },
+  "features": {
+    "qrManagement": {
+      "title": "QR Code Management",
+      "subtitle": "Manage your QR codes"
+    },
+    "zalopayPriority": {
+      "title": "Zalopay Priority",
+      "subtitle": "Premium Member"
+    }
+  },
+  "promotions": {
+    "title": "Promotions",
+    "myGifts": {
+      "title": "My Gifts",
+      "count": "{{count}} gifts"
+    },
+    "trends": {
+      "title": "Trends",
+      "count": "{{count}} trends"
+    }
+  },
+  "financial": {
+    "title": "Financial Management",
+    "viewMore": "View More",
+    "linkedAccounts": {
+      "title": "Linked Accounts/Cards"
+    },
+    "autoPayment": {
+      "title": "Auto Payment Settings",
+      "subtitle": "Set up automatic payments and services"
+    },
+    "zalopayCredit": {
+      "title": "Zalopay Credit Information"
+    }
+  },
+  "utilities": {
+    "title": "Utilities",
+    "billManagement": {
+      "title": "Bill Management"
+    },
+    "contractManagement": {
+      "title": "Contract Management"
+    },
+    "ticketManagement": {
+      "title": "Ticket Management"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "Manage notification preferences",
+      "enable": "Enable Notifications",
+      "sound": "Sound",
+      "vibration": "Vibration"
+    },
+    "security": {
+      "password": "Password",
+      "title": "Security",
+      "subtitle": "Password and authentication settings",
+      "changePassword": "Change Password",
+      "changePasswordDesc": "Update your account password",
+      "resetPassword": "Reset Password",
+      "resetPasswordDesc": "Reset your password via email",
+      "biometric": "Biometric Authentication",
+      "enableBiometric": "Enable Biometric",
+      "enableBiometricDesc": "Use fingerprint or face recognition to unlock the app",
+      "disableBiometric": "Disable Biometric",
+      "disableBiometricDesc": "Remove biometric authentication from your account",
+      "enterPasswordToEnable": "Enter your password to enable biometric authentication",
+      "enterPasswordToDisable": "Enter your password to disable biometric authentication",
+      "enterPassword": "Enter password"
+    },
+    "language": {
+      "title": "Language",
+      "subtitle": "Select application language"
+    }
+  },
+  "helpCenter": {
+    "title": "Help Center",
+    "appInformation": {
+      "title": "App Information",
+      "subtitle": "Version details, app features & updates"
+    },
+    "supportCenter": {
+      "title": "Support Center",
+      "subtitle": "Get help and contact customer support"
+    },
+    "policySecurityRisk": {
+      "title": "Policy, Security & Risk",
+      "subtitle": "Privacy policy, terms & security guidelines"
+    }
+  },
+  "appInformation": {
+    "title": "App Information",
+    "description": "ENSOGO ESPay electronic payment application"
+  },
+  "supportCenter": {
+    "title": "Support Center",
+    "contactInfo": {
+      "title": "Contact Information",
+      "subtitle": "Detailed information about the company and support contact",
+      "labels": {
+        "taxCode": "Tax Code",
+        "taxAddress": "Tax Address",
+        "address": "Address",
+        "legalRepresentative": "Legal Representative",
+        "phone": "Phone",
+        "establishedDate": "Established Date",
+        "managedBy": "Managed by"
+      }
+    }
+  },
+  "actions": {
+    "logout": "Logout",
+    "logoutDescription": "Are you sure you want to logout?",
+    "loggingOut": "Logging Out...",
+    "cancel": "Cancel"
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "profileInstruction": "We will send an OTP to your registered phone number to reset your password.",
+    "phoneNumber": "Phone Number",
+    "phoneNote": "This phone number cannot be changed during password reset",
+    "button": {
+      "continue": "Continue",
+      "resetPassword": "Reset Password"
+    },
+    "otp": {
+      "subtitle": "Enter the verification code sent to {{phone}}",
+      "resendText": "Didn't receive the code?",
+      "resendButton": "Send again",
+      "resendDisabled": "Send again in",
+      "loading": {
+        "title": "Verifying OTP",
+        "subtitle": "Please wait while we verify your code"
+      }
+    },
+    "newPassword": {
+      "title": "Set New Password",
+      "instruction": "Enter your new password. Make sure it's at least 8 characters long.",
+      "label": "New Password",
+      "placeholder": "Enter new password"
+    },
+    "confirmPassword": {
+      "label": "Confirm Password",
+      "placeholder": "Confirm new password"
+    },
+    "validation": {
+      "minLength": "Password must be at least 8 characters",
+      "noMatch": "Passwords do not match"
+    },
+    "success": {
+      "title": "Password Reset Successful",
+      "profileMessage": "Your password has been successfully reset. The new password is now active for your account.",
+      "profileButton": "Done"
+    },
+    "error": {
+      "title": "Reset Failed",
+      "message": "Failed to reset password. Please try again."
+    }
+  },
+  "changePassword": {
+    "title": "Change Password",
+    "instruction": "Enter your current password and choose a new password. Your new password must be at least 8 characters long.",
+    "currentPassword": {
+      "label": "Current Password",
+      "placeholder": "Enter current password"
+    },
+    "newPassword": {
+      "label": "New Password",
+      "placeholder": "Enter new password"
+    },
+    "confirmPassword": {
+      "label": "Confirm New Password",
+      "placeholder": "Confirm new password"
+    },
+    "validation": {
+      "currentRequired": "Current password is required",
+      "minLength": "Password must be at least 8 characters",
+      "noMatch": "Passwords do not match",
+      "mustBeDifferent": "New password must be different from current password"
+    },
+    "button": {
+      "changePassword": "Change Password"
+    },
+    "success": {
+      "title": "Password Changed Successfully",
+      "message": "Your password has been successfully changed. Please use your new password for future logins.",
+      "button": "Done"
+    },
+    "error": {
+      "title": "Change Password Failed",
+      "message": "Failed to change password. Please check your current password and try again."
+    }
+  },
+  "storeDetail": {
+    "title": "Store Details",
+    "description": "Detailed information about the store and owner",
+    "storeInfo": "Store Information",
+    "ownerInfo": "Owner Information",
+    "loading": "Loading data...",
+    "error": "Unable to load store data",
+    "noData": "Store data not found",
+    "retry": "Try Again",
+    "activateStore": "Activate Store",
+    "deactivateStore": "Deactivate Store",
+    "fields": {
+      "storeName": "Store Name",
+      "address": "Address",
+      "activeStatus": "Active Status",
+      "approvalStatus": "Approval Status",
+      "commissionPercent": "Commission Percentage",
+      "createdAt": "Created Date",
+      "ownerName": "Full Name",
+      "ownerEmail": "Email",
+      "ownerPhone": "Phone Number",
+      "citizenNumber": "ID Number",
+      "ownerCreatedAt": "Account Created Date",
+      "uploadBusinessLicense": "Upload Business License"
+    },
+    "status": {
+      "active": "Active",
+      "inactive": "Inactive",
+      "approved": "Approved",
+      "pending": "Pending",
+      "rejected": "Rejected"
+    }
+  },
+  "policy": {
+    "title": "Policy, Security & Risk"
+  },
+  "avatar": {
+    "changeAvatar": "Change Avatar",
+    "choosePhoto": "Choose from Gallery",
+    "removeAvatar": "Remove Avatar",
+    "updated": "Avatar updated successfully",
+    "removed": "Avatar removed successfully",
+    "uploadError": "Failed to upload avatar",
+    "removeError": "Failed to remove avatar",
+    "noPhotos": "No photos found",
+    "accessError": "Unable to access photo library",
+    "selectError": "Failed to select image",
+    "fromGallery": "Choose from Gallery",
+    "selectExisting": "Select an existing photo",
+    "takePhoto": "Take Photo",
+    "useCamera": "Use camera to take a new photo",
+    "previewDescription": "This is how your avatar will look",
+    "upload": "Upload",
+    "uploading": "Uploading...",
+    "complete": "complete",
+    "uploadingDescription": "Please wait while we upload your avatar...",
+    "successTitle": "Success!",
+    "successDescription": "Your avatar has been updated successfully.",
+    "unknownError": "An unknown error occurred",
+    "retry": "Retry",
+    "chooseOption": "Choose an option"
+  },
+	"confirm": "Confirm",
+	"cancel": "Cancel",
+	"failed": "Failed",
+	"loading": "Loading...",
+  "disable": "Disable"
+}

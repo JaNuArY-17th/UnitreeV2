@@ -1,0 +1,61 @@
+{
+  "title": "Thông báo",
+  "tabs": {
+    "all": "Tất cả",
+    "unread": "Chưa đọc",
+    "read": "Đã đọc"
+  },
+  "emptyState": {
+    "title": "Không có thông báo",
+    "subtitle": "Bạn không có thông báo nào đã đọc"
+  },
+  "speaker": {
+    "title": "Cài đặt loa thông báo",
+    "settings": "Cài đặt",
+    "enableSpeaker": "Bật loa thông báo",
+    "enableSpeakerDescription": "Bật để nhận thông báo âm thanh khi có giao dịch chuyển khoản",
+    "backgroundNotification": "Cho phép thông báo dưới nền",
+    "backgroundNotificationDescription": "Tiếp tục phát âm thanh khi ứng dụng đang chạy ở chế độ nền",
+    "messageTemplate": "Nội dung thông báo",
+    "messageTemplatePlaceholder": "Nhập nội dung thông báo...",
+    "defaultTemplate": "Đã nhận {{amount}} đồng từ {{sender}} vào lúc {{time}}",
+    "templateGuide": "Hướng dẫn cấu hình",
+    "templateGuideText": "Sử dụng các mã sau để tùy chỉnh nội dung thông báo:",
+    "amount": "Số tiền",
+    "sender": "Người gửi",
+    "time": "Thời gian",
+    "bankName": "Tên ngân hàng",
+    "testSpeaker": "Kiểm tra",
+    "testing": "Đang kiểm tra...",
+    "save": "Lưu lại",
+    "saving": "Đang lưu...",
+    "success": "Thành công",
+    "error": "Lỗi",
+    "settingsSaved": "Cài đặt đã được lưu thành công",
+    "saveError": "Không thể lưu cài đặt. Vui lòng thử lại",
+    "testError": "Không thể kiểm tra loa. Vui lòng kiểm tra cài đặt âm thanh",
+    "emptyMessageError": "Vui lòng nhập nội dung thông báo",
+    "permissionRequired": "Yêu cầu quyền",
+    "permissionMessage": "Ứng dụng cần quyền thông báo để sử dụng tính năng loa báo có",
+    "languageInfo": "Lưu ý về ngôn ngữ",
+    "languageInfoDetail": "Nếu loa đọc không đúng tiếng Việt, vui lòng vào Cài đặt > Ngôn ngữ và bàn phím > Gói ngôn ngữ để tải về gói Tiếng Việt",
+    "serviceTitle": "Dịch vụ Loa TingTing",
+    "buyMore": "Mua thêm loa",
+    "linkSpeaker": "Liên kết loa",
+    "wifiSettings": "Cài đặt wifi",
+    "contractManagement": "Quản lý hợp đồng",
+    "staffManagement": "Quản lý nhân viên",
+    "packageManagement": "Quản lý gói Loa",
+    "voiceOfYou": "Loa của bạn",
+    "guide": "Hướng dẫn",
+    "guideDescription": "Lật ngược thiết bị để quét hoặc nhập serial.\nHãy đảm bảo thiết bị của bạn đang bật và đã kết nối với máy chủ thành công để quá trình liên kết không bị gian đoạn.",
+    "serialNumber": "Serial thiết bị",
+    "enterSerialNumber": "Nhập serial thiết bị",
+    "scan": "Quét",
+    "continue": "Tiếp tục"
+  },
+  "systemNotification": {
+    "title": "Thông báo hệ thống",
+    "additionalInfo": "Thông tin bổ sung"
+  }
+}

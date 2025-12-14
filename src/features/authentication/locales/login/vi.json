@@ -1,0 +1,47 @@
+{
+  "header": {
+    "help": "Trợ giúp"
+  },
+  "title": "Đăng nhập",
+  "welcomeBack": "Chào mừng trở lại",
+  "phoneNumber": "Số điện thoại",
+  "userType": {
+    "store": "Cửa hàng",
+    "user": "Người dùng"
+  },
+  "phoneInput": {
+    "placeholder": "Nhập số điện thoại"
+  },
+  "passwordInput": {
+    "placeholder": "Nhập mật khẩu"
+  },
+  "autoLogin": {
+    "text": "Ghi nhớ đăng nhập",
+    "tooltip": "TingTing sẽ ghi nhớ và tự động đăng nhập cho lần tiếp theo bạn vào ứng dụng. Nếu bạn không vào ứng dụng trong 7 ngày liên tiếp, ghi nhớ đăng nhập sẽ bị xóa."
+  },
+  "button": {
+    "continue": "Tiếp tục",
+    "useDifferentAccount": "Đăng nhập với tài khoản khác"
+  },
+  "signUp": {
+    "title": "Chưa có tài khoản?",
+    "button": "Tạo tài khoản mới"
+  },
+  "forgotPassword": "Quên mật khẩu",
+  "errors": {
+    "loginFailed": "Đăng nhập không thành công",
+    "biometricLoginFailed": "Đăng nhập sinh trắc học thất bại",
+    "unexpectedError": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
+    "invalidCredentials": "Số điện thoại hoặc mật khẩu không đúng. Vui lòng kiểm tra thông tin và thử lại.",
+    "pleaseEnterAllFields": "Vui lòng nhập đầy đủ thông tin.",
+    "serverError": "Lỗi máy chủ. Vui lòng thử lại sau.",
+    "otpVerificationFailed": "Xác thực OTP không thành công",
+    "phoneRequired": "Vui lòng nhập số điện thoại",
+    "passwordRequired": "Vui lòng nhập mật khẩu"
+  },
+  "otpVerification": {
+    "title": "Xác thực OTP",
+    "subtitle": "Vui lòng nhập mã xác thực đã được gửi đến {{phone}}"
+  },
+  "otpResentSuccess": "Mã OTP đã được gửi lại thành công"
+}

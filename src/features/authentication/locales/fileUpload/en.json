@@ -1,0 +1,16 @@
+{
+  "addPhoto": "Add Photo",
+  "uploadMaxFiles": "Upload up to {{maxFiles}} photos",
+  "selectPhoto": "Select Photo",
+  "takePhoto": "Take Photo",
+  "cancel": "Cancel",
+  "photoLibrary": "Photo Library",
+  "camera": "Camera",
+  "uploadError": "Upload Error",
+  "fileTooLarge": "File too large. Maximum size: {{maxSize}}MB",
+  "invalidFileType": "Invalid file type. Accepted types: {{acceptedTypes}}",
+  "uploadSuccess": "Upload successful",
+  "uploading": "Uploading...",
+  "removeFile": "Remove file",
+  "uploaded": "Uploaded:"
+}

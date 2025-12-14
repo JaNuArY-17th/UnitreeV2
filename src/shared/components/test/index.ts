@@ -1,0 +1,1 @@
+export { ComponentImportTest } from './ComponentImportTest';

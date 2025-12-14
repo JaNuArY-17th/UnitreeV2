@@ -1,0 +1,11 @@
+{
+  "name": "ENSOGO_ESPay_App",
+  "displayName": "ENSOGO_ESPay_App",
+  "react-native": {
+    "project": {
+      "android": {
+        "packageName": "com.ensogo_espay_app"
+      }
+    }
+  }
+}

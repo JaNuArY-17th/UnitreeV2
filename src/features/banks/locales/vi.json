@@ -1,0 +1,24 @@
+{
+  "screen": {
+    "title": "Tài khoản ngân hàng",
+    "empty": "Chưa có thông tin tài khoản ngân hàng",
+    "reload": "Tải lại",
+    "error": "Đã xảy ra lỗi khi tải dữ liệu",
+    "retry": "Thử lại",
+    "accountInfo": "Thông tin tài khoản",
+    "accountNumber": "Số tài khoản",
+    "accountHolder": "Chủ tài khoản",
+    "balance": "Số dư",
+    "accountType": "Loại tài khoản",
+    "status": "Trạng thái",
+    "currency": "Đơn vị tiền tệ",
+    "active": "Đang hoạt động",
+    "inactive": "Không hoạt động",
+    "unknown": "Không xác định",
+    "econtractSectionTitle": "Dịch vụ hợp đồng điện tử",
+    "econtractSectionDesc": "Ký hợp đồng điện tử một cách nhanh chóng và bảo mật",
+    "econtractButton": "Ký hợp đồng điện tử",
+    "store": "Cửa hàng",
+    "user": "Người dùng"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "header": {
+    "help": "Help"
+  },
+  "title": "Login with account",
+  "welcomeBack": "Welcome back",
+  "phoneNumber": "Phone Number",
+  "userType": {
+    "store": "Store",
+    "user": "User"
+  },
+  "phoneInput": {
+    "placeholder": "Enter phone number"
+  },
+  "passwordInput": {
+    "placeholder": "Enter password"
+  },
+  "autoLogin": {
+    "text": "Remember me",
+    "tooltip": "TingTing will remember you and automatically log you in for the next time you access the app. If you don't access the app for 7 consecutive days, the login will be deleted."
+  },
+  "button": {
+    "continue": "Continue",
+    "useDifferentAccount": "Login with a different account"
+  },
+  "signUp": {
+    "title": "Don't have an account?",
+    "button": "Sign up"
+  },
+  "forgotPassword": "Forgot password?",
+  "errors": {
+    "loginFailed": "Login Failed",
+    "biometricLoginFailed": "Biometric login failed",
+    "unexpectedError": "An unexpected error occurred. Please try again.",
+    "invalidCredentials": "Invalid phone number or password. Please check your credentials and try again.",
+    "pleaseEnterAllFields": "Please enter all required fields.",
+    "serverError": "Server error occurred. Please try again later.",
+    "otpVerificationFailed": "OTP Verification Failed",
+    "phoneRequired": "Please enter phone number",
+    "passwordRequired": "Please enter password"
+  },
+  "otpVerification": {
+    "title": "OTP Verification",
+    "subtitle": "Please enter the verification code sent to {{phone}}"
+  },
+  "otpResentSuccess": "OTP code has been resent successfully"
+}

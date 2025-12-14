@@ -1,0 +1,96 @@
+{
+  "title": {
+    "register": "Verify Registration",
+    "loginNewDevice": "Verify New Device",
+    "forgotPassword": "Verify Identity",
+    "withdraw": "Verify Withdrawal",
+    "trading": "Verify Transaction",
+    "termDepositPurchase": "Verify Purchase",
+    "econtractSigning": "Verify E-Contract",
+    "loanApplication": "Verify Loan Application",
+    "loanPayment": "Verify Payment",
+    "bankTransfer": "Verify Transfer",
+    "general": "Verify OTP"
+  },
+  "subtitle": {
+    "register": "Enter the 6-digit code sent to {{phone}}",
+    "loginNewDevice": "Enter the 6-digit code sent to {{phone}} to verify this new device",
+    "forgotPassword": "Enter the 6-digit code sent to {{phone}} to reset your password",
+    "withdraw": "Enter the 6-digit code to confirm your withdrawal",
+    "trading": "Enter the 6-digit code to confirm your trade order",
+    "termDepositPurchase": "Enter the 6-digit code to confirm your investment",
+    "econtractSigning": "Enter the 6-digit code to sign the contract",
+    "loanApplication": "Enter the 6-digit code to confirm your loan application",
+    "loanPayment": "Enter the 6-digit code to confirm your payment",
+    "bankTransfer": "Enter the 6-digit code to confirm your transfer",
+    "general": "Enter the 6-digit code sent to {{phone}}"
+  },
+  "verify": "Verify",
+  "verifying": "Verifying...",
+  "noCode": "Didn't receive code?",
+  "resend": "Resend",
+  "resending": "Resending...",
+  "resendIn": "Resend in {{seconds}}s",
+  "error": {
+    "phoneRequired": "Phone number is required",
+    "otpRequired": "OTP code is required",
+    "otpInvalid": "Invalid OTP code",
+    "verificationFailed": "Verification failed. Please try again.",
+    "resendFailed": "Failed to resend code. Please try again."
+  },
+  "success": {
+    "register": {
+      "title": "Registration Complete",
+      "message": "Your account has been verified successfully. Please login to continue."
+    },
+    "loginNewDevice": {
+      "title": "Device Verified",
+      "message": "Your new device has been verified successfully. Please login to continue."
+    },
+    "forgotPassword": {
+      "title": "Identity Verified",
+      "message": "Your identity has been verified. You can now reset your password."
+    },
+    "withdraw": {
+      "title": "Withdrawal Verified",
+      "message": "Your withdrawal has been verified successfully."
+    },
+    "trading": {
+      "title": "Transaction Verified",
+      "message": "Your trade order has been verified successfully."
+    },
+    "termDepositPurchase": {
+      "title": "Purchase Verified",
+      "message": "Your investment has been verified successfully."
+    },
+    "econtractSigning": {
+      "title": "Contract Signed",
+      "message": "Your e-contract has been signed successfully."
+    },
+    "loanApplication": {
+      "title": "Application Verified",
+      "message": "Your loan application has been verified successfully."
+    },
+    "loanPayment": {
+      "title": "Payment Verified",
+      "message": "Your loan payment has been verified successfully."
+    },
+    "bankTransfer": {
+      "title": "Transfer Verified",
+      "message": "Your bank transfer has been verified successfully."
+    },
+    "general": {
+      "title": "Verification Complete",
+      "message": "OTP verification successful."
+    }
+  },
+  "errors": {
+    "unexpected": {
+      "title": "Something went wrong",
+      "missingResetToken": "Missing reset token. Please request a new code."
+    }
+  },
+  "common": {
+    "ok": "OK"
+  }
+}

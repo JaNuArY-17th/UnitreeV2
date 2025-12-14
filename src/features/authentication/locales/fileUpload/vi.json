@@ -1,0 +1,16 @@
+{
+  "addPhoto": "Thêm ảnh",
+  "uploadMaxFiles": "Tải lên tối đa {{maxFiles}} ảnh",
+  "selectPhoto": "Chọn ảnh",
+  "takePhoto": "Chụp ảnh",
+  "cancel": "Hủy",
+  "photoLibrary": "Thư viện ảnh",
+  "camera": "Máy ảnh",
+  "uploadError": "Lỗi tải lên",
+  "fileTooLarge": "File quá lớn. Kích thước tối đa: {{maxSize}}MB",
+  "invalidFileType": "Loại file không hợp lệ. Chỉ chấp nhận: {{acceptedTypes}}",
+  "uploadSuccess": "Tải lên thành công",
+  "uploading": "Đang tải lên...",
+  "removeFile": "Xóa file",
+  "uploaded": "Đã tải lên:"
+}

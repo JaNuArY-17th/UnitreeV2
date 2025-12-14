@@ -1,0 +1,142 @@
+{
+  "title": "Reports",
+  "header": {
+    "title": "Reports",
+    "notification": "Notifications"
+  },
+  "dateRange": {
+    "selectDateRange": "Select Date Range",
+    "today": "Today",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "customRange": "Custom Range",
+    "reset": "Reset"
+  },
+  "balance": {
+    "greeting": "Hi, {{name}}",
+    "totalBalance": "Total Balance",
+    "availableBalance": "Available balance",
+    "successfulTransactions": "Successful transactions",
+    "failedTransactions": "Failed transactions",
+    "actions": {
+      "send": "Send",
+      "request": "Request"
+    }
+  },
+  "cards": {
+    "activeCard": "Active Card",
+    "newCard": "New Card",
+    "syariahCard": "Syariah Card",
+    "regularCard": "Regular Card",
+    "visa": "Visa",
+    "mastercard": "Mastercard"
+  },
+  "spending": {
+    "title": "Spending Overview",
+    "more": "More",
+    "subscription": "Subscription",
+    "friendsFamily": "Friend & Family"
+  },
+  "statistics": {
+    "title": "Statistics",
+    "subtitle": "Track revenue and transactions",
+    "overview": "Overview",
+    "income": "Income",
+    "expense": "Expense",
+    "spending": "Spending",
+    "highestIncome": "Highest Income",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "thisYear": "This Year"
+  },
+  "chart": {
+    "overview": "Overview",
+    "period": "Month",
+    "transactions": "Transactions",
+    "revenue": "Revenue",
+    "days": {
+      "s": "S",
+      "m": "M",
+      "t": "T",
+      "w": "W",
+      "th": "T",
+      "f": "F",
+      "sa": "S"
+    },
+    "months": {
+      "jan": "Jan",
+      "feb": "Feb",
+      "mar": "Mar",
+      "apr": "Apr",
+      "may": "May",
+      "jun": "Jun",
+      "jul": "Jul",
+      "aug": "Aug",
+      "sep": "Sep",
+      "oct": "Oct",
+      "nov": "Nov",
+      "dec": "Dec"
+    }
+  },
+  "transactions": {
+    "title": "Last Transaction",
+    "sort": "Sort",
+    "receive": "Receive",
+    "noTransactions": "No transactions available"
+  },
+  "navigation": {
+    "home": "Home",
+    "statistics": "Statistics",
+    "cards": "Cards",
+    "account": "Account"
+  },
+  "screen": {
+    "revenueReport": {
+      "title": "Revenue Report",
+      "description": "View detailed revenue reports by day, week, month to understand your business situation clearly.",
+      "revenueAndOrders": "Revenue and Orders Statistics",
+      "revenueAndOrdersDescription": "Chart of revenue and order quantity over time",
+      "cards": {
+        "transactions": "Transactions",
+        "averageOrderValue": "Average Value",
+        "commissionPercentage": "Commission Percentage"
+      },
+      "transactionHistory": "Transaction History",
+      "incomeTransaction": "Income Transaction",
+      "noIncomeTransactions": "No income transactions available",
+      "viewMoreTransactions": "View {{count}} more transactions",
+      "chart": {
+        "transactions": "Transactions",
+        "revenue": "Revenue"
+      }
+    },
+    "totalRevenue": {
+      "label": "Total Revenue",
+      "label2": "Receive Revenue"
+    },
+    "expenseStatistics": {
+      "title": "Transactions Statistics",
+      "description": "Track monthly expenses to manage finances more effectively.",
+      "totalExpenses": "Total Expenses",
+      "monthlyBudget": "Monthly Budget",
+      "budgetUsed": "Used",
+      "remainingBudget": "Remaining Budget",
+      "expenseByCategory": "Expense by Category",
+      "expenseByCategoryDescription": "Analyze expenses by each type",
+      "incomeAndOutcomeByCategory": "Income and Outcome by Category",
+      "incomeAndOutcomeByCategoryDescription": "Analyze income and outcome by each type",
+      "expenseTrend": "Expense Trend",
+      "expenseTrendDescription": "Track expense fluctuations over time",
+      "budgetOverview": "Budget Overview",
+      "budgetOverviewDescription": "Monitor transactions status",
+      "categories": {
+        "income": "Income",
+        "outcome": "Outcome"
+      }
+    },
+    "commissionHistory": {
+      "title": "Commission History",
+      "description": "Track your commission earnings and payment status over time."
+    }
+  }
+}

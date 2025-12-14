@@ -1,0 +1,26 @@
+{
+  "title": "Quản lý Voucher",
+  "summary": {
+    "title": "Tổng quan Voucher",
+    "total": "Tổng số",
+    "active": "Còn hạn"
+  },
+  "enterPromo": "Nhập Mã",
+  "enterPromoSubtitle": "Ưu đãi, khuyến mãi",
+  "selectVoucher": "Chọn Voucher",
+  "selectedVoucher": "Voucher đã chọn",
+  "selected": "Đã chọn",
+  "usageRemaining": "Còn {{remaining}}/{{max}} lượt",
+  "calculating": "Đang tính...",
+  "youSave": "Bạn tiết kiệm",
+  "finalAmount": "Tổng tiền",
+  "select": "Chọn",
+  "apply": "Áp dụng",
+  "discount": "Giảm giá",
+  "loadingVouchers": "Đang tải voucher...",
+  "errorLoadingVouchers": "Không thể tải voucher",
+  "retry": "Thử lại",
+  "noVouchersAvailable": "Không có voucher khả dụng cho đơn hàng này",
+  "availableVouchers": "Voucher khả dụng",
+  "unavailableVouchers": "Voucher không khả dụng"
+}

@@ -1,0 +1,40 @@
+{
+  "biometric": {
+    "status": {
+      "checking": "Checking biometric...",
+      "available": "Biometric available",
+      "notAvailable": "Biometric not supported on this device",
+      "enrolled": "Biometric enrolled",
+      "notEnrolled": "Biometric not enrolled"
+    },
+    "enroll": {
+      "success": "Biometric enrollment successful",
+      "failed": "Biometric enrollment failed",
+      "processing": "Enrolling biometric...",
+      "prompt": "Authenticate to enable biometric login"
+    },
+    "remove": {
+      "success": "Biometric removal successful",
+      "failed": "Biometric removal failed",
+      "processing": "Removing biometric..."
+    },
+    "login": {
+      "success": "Biometric login successful",
+      "failed": "Biometric login failed",
+      "processing": "Authenticating biometric...",
+      "prompt": "Touch sensor to login"
+    },
+    "errors": {
+      "biometricNotAvailable": "Biometric not available on this device",
+      "biometricNotEnrolled": "Biometric not enrolled",
+      "authenticationFailed": "Biometric authentication failed",
+      "keyGenerationFailed": "Biometric key generation failed",
+      "serverError": "Server error",
+      "passwordRequired": "Password is required to proceed"
+    },
+    "success": {
+      "enrolled": "Biometric authentication enabled successfully",
+      "removed": "Biometric authentication disabled successfully"
+    }
+  }
+}

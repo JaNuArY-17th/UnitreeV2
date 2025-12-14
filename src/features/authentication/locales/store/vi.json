@@ -1,0 +1,94 @@
+{
+  "createStore": {
+    "title": "Tạo cửa hàng của bạn",
+    "subtitle": "Bắt đầu kinh doanh với nền tảng ESPay. Tạo cửa hàng để quản lý sản phẩm, đơn hàng và thanh toán dễ dàng.",
+    "button": "Tạo cửa hàng",
+    "formTitle": "Thông tin cửa hàng",
+    "fields": {
+      "name": "Tên cửa hàng",
+      "province": "Tỉnh/Thành phố",
+      "ward": "Quận/Huyện",
+      "detailAddress": "Địa chỉ chi tiết",
+      "businessLine": "Lĩnh vực kinh doanh",
+      "businessLicense": "Giấy phép kinh doanh / Giấy chứng nhận đăng ký hộ kinh doanh"
+    },
+    "placeholders": {
+      "name": "Nhập tên cửa hàng",
+      "province": "Chọn tỉnh/thành phố",
+      "ward": "Chọn quận/huyện",
+      "selectProvinceFirst": "Vui lòng chọn tỉnh/thành phố trước",
+      "detailAddress": "Nhập địa chỉ chi tiết",
+      "businessLine": "Chọn lĩnh vực kinh doanh",
+      "searchProvince": "Tìm kiếm tỉnh/thành phố",
+      "searchWard": "Tìm kiếm quận/huyện",
+      "searchBusinessLine": "Tìm kiếm lĩnh vực kinh doanh"
+    },
+    "businessLineOptions": {
+      "wholesaleRetail": {
+        "title": "Bán buôn, bán lẻ",
+        "options": {
+          "FASHION": "Thời trang",
+          "GROCERY_AND_SUPERMARKET": "Tạp hóa & Siêu thị",
+          "ELECTRONICS_AND_APPLIANCES": "Điện thoại & Điện máy",
+          "COSMETICS": "Mỹ phẩm",
+          "BUILDING_MATERIALS": "Vật liệu xây dựng",
+          "AGRICULTURAL_PRODUCTS_AND_FOOD": "Nông sản & Thực phẩm",
+          "PHARMACY": "Nhà thuốc",
+          "VEHICLES_AND_MACHINERY": "Xe, Máy móc",
+          "MOTHER_AND_BABY": "Mẹ & Bé",
+          "FURNITURE_AND_HOME_APPLIANCES": "Nội thất & Gia dụng",
+          "BOOKS_AND_STATIONERY": "Sách & Văn phòng phẩm",
+          "FLOWERS_AND_GIFTS": "Hoa & Quà tặng",
+          "MANUFACTURING": "Sản xuất"
+        }
+      },
+      "diningEntertainment": {
+        "title": "Ăn uống, giải trí",
+        "options": {
+          "RESTAURANT": "Nhà hàng",
+          "EATERY": "Quán ăn",
+          "CAFE_AND_BUBBLE_TEA": "Cafe, Trà sữa",
+          "KARAOKE_AND_BILLIARDS": "Karaoke, Bida",
+          "BAR_PUB_AND_CLUB": "Bar, Pub & Club",
+          "CANTEEN_AND_REST_STOP": "Căng tin & Trạm dừng nghỉ"
+        }
+      },
+      "accommodationBeauty": {
+        "title": "Lưu trú, làm đẹp",
+        "options": {
+          "BEAUTY_SPA_AND_MASSAGE": "Beauty Spa & Massage",
+          "HAIR_SALON_AND_NAILS": "Hair Salon & Nails",
+          "HOTEL_AND_MOTEL": "Khách sạn & nhà nghỉ",
+          "HOMESTAY_VILLA_AND_RESORT": "Homestay & Villa, Resort",
+          "FITNESS_AND_YOGA": "Fitness & Yoga",
+          "CLINIC": "Phòng khám"
+        }
+      },
+      "other": {
+        "title": "Khác",
+        "options": {
+          "OTHER": "Khác"
+        }
+      }
+    },
+    "submit": "Tạo cửa hàng"
+  },
+  "processing": "Đang tạo...",
+  "creating": "Đang tạo...",
+  "taxCode": {
+    "label": "Mã số thuế",
+    "placeholder": "Nhập mã số thuế (10 hoặc 13 chữ số)"
+  },
+  "error": {
+    "title": "Lỗi",
+    "message": "Đã xảy ra lỗi khi tạo cửa hàng. Vui lòng thử lại.",
+    "taxCodeRequired": "Vui lòng nhập mã số thuế",
+    "invalidTaxCode": "Mã số thuế không hợp lệ. Vui lòng nhập 10 hoặc 13 chữ số",
+    "missingFields": "Vui lòng điền đầy đủ thông tin bắt buộc và tải lên giấy phép kinh doanh"
+  },
+  "common": {
+    "retry": "Thử lại",
+    "cancel": "Hủy",
+    "ok": "OK"
+  }
+}

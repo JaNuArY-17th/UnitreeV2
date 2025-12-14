@@ -1,0 +1,11 @@
+{
+	"placeholder": "Tiếng Việt",
+	"verification": {
+		"bank_account_required": "Cần tạo tài khoản ví ESPay",
+		"bank_account_required_description": "Vui lòng tạo tài khoản ví ESPay để sử dụng đầy đủ các tính năng của ứng dụng.",
+		"setup_bank_account": "Tạo tài khoản ví ESPay",
+		"ekyc_required": "Cần xác thực eKYC",
+		"ekyc_required_description": "Vui lòng hoàn thành xác thực eKYC để tiếp tục sử dụng dịch vụ.",
+		"complete_ekyc": "Hoàn thành eKYC"
+	}
+}
