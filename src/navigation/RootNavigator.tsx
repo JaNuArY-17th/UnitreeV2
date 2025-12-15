@@ -10,24 +10,9 @@ import RegisterOtpScreen from '@/features/authentication/screens/RegisterOtpScre
 import ForgotPasswordScreen from '@/features/authentication/screens/ForgotPasswordScreen';
 import ForgotPasswordOtpScreen from '@/features/authentication/screens/ForgotPasswordOtpScreen';
 import ResetPasswordScreen from '@/features/authentication/screens/ResetPasswordScreen';
-import {
-  UserDetailScreen,
-  ProfileResetPasswordScreen,
-  ProfileResetPasswordOtpScreen,
-  ProfileResetPasswordNewPasswordScreen,
-  ChangePasswordScreen,
-  AppInformationScreen,
-  SupportCenterScreen
-} from '@/features/profile/screens';
-import { NotificationScreen, SpeakerServiceScreen, LinkSpeakerScreen } from '@/features/notifications/screens';
-import NotificationSettingsScreen from '@/features/profile/screens/NotificationSettingsScreen';
-import SecuritySettingsScreen from '@/features/profile/screens/SecuritySettingsScreen';
-import { EditContactScreen, EditContactOtpScreen } from '@/features/profile/screens';
-import { PolicySecurityRiskScreen as PolicyScreen } from '@/features/profile/screens/PolicyScreen';
 import BottomTabNavigator from './BottomTabNavigator';
 import { useAuth } from '@/shared/components/AuthProvider';
 import type { RootStackParamList } from './types';
-import { useNotificationNavigation } from '@/features/notifications/hooks/useNotificationNavigation';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -66,9 +51,6 @@ const NavigationContent = () => {
       setIsCheckingAuth(false);
     }
   }, [isAuthenticated]);
-
-  // Use notification navigation hook - this must be inside NavigationContainer
-  const notificationToast = useNotificationNavigation('top');
 
   // Show loading while checking auth route
   if (!isAuthenticated && isCheckingAuth) {
@@ -156,90 +138,9 @@ const NavigationContent = () => {
                 animation: 'fade',
               }}
             />
-            <Stack.Screen
-              name="UserDetail"
-              component={UserDetailScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="Notification"
-              component={NotificationScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="NotificationSettings"
-              component={NotificationSettingsScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="SpeakerNotificationSettings"
-              component={SpeakerServiceScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="LinkSpeaker"
-              component={LinkSpeakerScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="SecuritySettings"
-              component={SecuritySettingsScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="ChangePassword"
-              component={ChangePasswordScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="ProfileResetPassword"
-              component={ProfileResetPasswordScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="ProfileResetPasswordOtp"
-              component={ProfileResetPasswordOtpScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="ProfileResetPasswordNewPassword"
-              component={ProfileResetPasswordNewPasswordScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="EditContact"
-              component={EditContactScreen}
-            />
-            <Stack.Screen
-              name="EditContactOtp"
-              component={EditContactOtpScreen}
-            />
-            <Stack.Screen name="AppInformation" component={AppInformationScreen} />
-            <Stack.Screen name="SupportCenter" component={SupportCenterScreen} />
           </Stack.Group>
         )}
       </Stack.Navigator>
-      {notificationToast}
     </>
   );
 };

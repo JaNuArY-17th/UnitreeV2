@@ -1,4 +1,12 @@
 // Navigation types for the app
+
+// Tab navigator parameter list
+export type TabParamList = {
+  Home: undefined;
+  Profile: undefined;
+};
+
+// Root stack parameter list
 export type RootStackParamList = {
   // Authentication screens
   AuthLoading: undefined;
@@ -15,26 +23,4 @@ export type RootStackParamList = {
   // Main app
   MainTabs: { screen?: keyof TabParamList } | undefined;
   Main: { screen?: keyof TabParamList } | undefined;
-
-  // Profile screens
-  UserDetail: undefined;
-  Notification: undefined;
-  NotificationSettings: undefined;
-  SpeakerNotificationSettings: undefined;
-  LinkSpeaker: undefined;
-  SecuritySettings: undefined;
-  ChangePassword: undefined;
-  ProfileResetPassword: undefined;
-  ProfileResetPasswordOtp: { phone: string };
-  ProfileResetPasswordNewPassword: undefined;
-  StoreDetail: undefined;
-  EditContact: undefined;
-  EditContactOtp: undefined;
-  AppInformation: undefined;
-  SupportCenter: undefined;
-};
-
-export type TabParamList = {
-  Home: undefined;
-  Profile: undefined;
 };

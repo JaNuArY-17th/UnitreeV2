@@ -36,10 +36,9 @@ const LoginOtpScreen: React.FC = () => {
       // Save user type to remember the login tab for next time
       await AutoLoginUtils.handleLoginSuccess(userType);
 
-      // Update app colors based on user type
-      const accountType = userType === 'store' ? 'STORE' : 'USER';
-      updateColorsForAccountType(accountType);
-      console.log(`🎨 [LoginOtpScreen] Updated app colors for ${accountType}`);
+      // Update app colors for user
+      updateColorsForAccountType('USER');
+      console.log(`🎨 [LoginOtpScreen] Updated app colors for USER`);
 
       // Success! Navigation will be handled automatically by the authentication state change
       // No need to show success modal - user will be redirected to the main app

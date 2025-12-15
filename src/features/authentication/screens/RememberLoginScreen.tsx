@@ -14,7 +14,6 @@ import LanguageSwitcher from '@/shared/components/LanguageSwitcher';
 import { KeyboardDismissWrapper } from '@/shared/components/base';
 import { useTabLogin } from '../hooks/useTabLogin';
 import { formatPhoneNumber } from '../utils/authUtils';
-import { useNotification } from '../../notifications/hooks';
 import { useStatusBarEffect } from '@/shared/utils/StatusBarManager';
 import { getColors, updateColorsForAccountType } from '@/shared/themes/colors';
 import { AutoLoginUtils } from '@/features/authentication/utils/autoLoginUtils';
@@ -42,12 +41,9 @@ const RememberLoginScreen: React.FC<RememberLoginScreenProps> = () => {
   const [passwordError, setPasswordError] = useState('');
   const [cachedPhone, setCachedPhone] = useState<string>('');
   const [cachedName, setCachedName] = useState<string>('');
-  const [cachedUserType, setCachedUserType] = useState<'store' | 'user'>('store');
   const [keyboardOffset] = useState(new Animated.Value(0));
 
-  const { registerDevice } = useNotification();
-
-  const currentColor = getUserTypeColor(cachedUserType);
+  const currentColor = getUserTypeColor('user');
 
   // Load cached data ONCE when component mounts (not on every focus)
   useEffect(() => {
@@ -78,16 +74,9 @@ const RememberLoginScreen: React.FC<RememberLoginScreenProps> = () => {
           setCachedName(name);
         }
 
-        // Load last user type
-        const lastUserType = await AutoLoginUtils.getLastUserType();
-        if (isMounted) {
-          if (lastUserType) {
-            console.log('✅ [RememberLoginScreen] Set cached userType:', lastUserType);
-            setCachedUserType(lastUserType);
-          } else {
-            console.log('⚠️ [RememberLoginScreen] No cached user type, using default: store');
-          }
-        }
+        // Load last user type - not needed since we only have 'user' type now
+        // const lastUserType = await AutoLoginUtils.getLastUserType();
+        // Using just 'user' type
       } catch (error) {
         console.error('❌ [RememberLoginScreen] Error loading cached data:', error);
         if (isMounted) {
@@ -158,13 +147,13 @@ const RememberLoginScreen: React.FC<RememberLoginScreenProps> = () => {
       };
 
       // Attempt login with the cached user type
-      const result = await login(loginRequest, cachedUserType);
+      const result = await login(loginRequest, 'user');
 
       // Defensive: log the full result for debugging
       console.log('🔍 Remember login result:', {
         hasAccessToken: !!result.accessToken,
         isNewDevice: result.isNewDevice,
-        userType: cachedUserType,
+        userType: 'user',
         isVerified: result.isVerified,
         rawResult: result,
       });
@@ -181,33 +170,19 @@ const RememberLoginScreen: React.FC<RememberLoginScreenProps> = () => {
       // Check for successful login with access token
       if (result.accessToken) {
         // Successful login with access token - user is fully authenticated
-        console.log(`✅ ${cachedUserType} remember login successful with access token`);
+        console.log(`✅ ${'user'} remember login successful with access token`);
 
         // Handle login success (always save user type for tab memory)
         try {
           console.log('📝 [RememberLoginScreen] Saving user type for tab memory...');
-          await AutoLoginUtils.handleLoginSuccess(cachedUserType);
+          await AutoLoginUtils.handleLoginSuccess('user');
           console.log('✅ [RememberLoginScreen] User type saved successfully');
 
-          // Update app colors based on user type
-          const accountType = cachedUserType === 'store' ? 'STORE' : 'USER';
-          updateColorsForAccountType(accountType);
-          console.log(`🎨 [RememberLoginScreen] Updated app colors for ${accountType}`);
+          // Update app colors for user
+          updateColorsForAccountType('USER');
+          console.log(`🎨 [RememberLoginScreen] Updated app colors for USER`);
         } catch (userTypeError) {
           console.error('❌ [RememberLoginScreen] Error saving user type:', userTypeError);
-        }
-
-        try {
-          console.log('Remember login successful, registering device for notifications...');
-          const registrationSuccess = await registerDevice();
-          if (registrationSuccess) {
-            console.log('Device registration successful');
-          } else {
-            console.warn('Device registration failed, but continuing with login');
-          }
-        } catch (registrationError) {
-          // Don't block login if notification registration fails
-          console.error('Device registration error:', registrationError);
         }
         return; // Exit early, no need to show any modal
       }
@@ -217,13 +192,13 @@ const RememberLoginScreen: React.FC<RememberLoginScreenProps> = () => {
         console.log('📱 New device detected, navigating to OTP');
         navigation.navigate('LoginOtp', {
           phone: cachedPhone,
-          userType: cachedUserType,
+          userType: 'user',
         });
         return; // Exit early, no need to show any modal
       }
 
       // If we reach here, only then treat as error
-      console.log('❌ Unexpected remember login response for', cachedUserType, result);
+      console.log('❌ Unexpected remember login response for', 'user', result);
       throw new Error(t('login:errors.unexpectedError'));
     } catch (error: any) {
       // Show error alert to user
@@ -346,7 +321,7 @@ const RememberLoginScreen: React.FC<RememberLoginScreenProps> = () => {
 
                 <BiometricLoginButton
                   phone={cachedPhone}
-                  userType={cachedUserType}
+                  userType={'user'}
                   currentColor={currentColor}
                   onBiometricLogin={handleBiometricLoginSuccess}
                 />

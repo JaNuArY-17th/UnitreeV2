@@ -3,7 +3,6 @@ import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import counterReducer from './slices/counterSlice';
 import authReducer, { authPersistConfig } from '@/features/authentication/store/authSlice';
-import biometricReducer from '@/features/biometric/store/biometricSlice';
 import { middleware } from './middleware';
 
 // Create persisted reducers for slices that need persistence
@@ -14,7 +13,6 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     auth: persistedAuthReducer, // Use persisted auth reducer
-    biometric: biometricReducer,
   },
   // Enhanced middleware configuration
   middleware: (getDefaultMiddleware) =>

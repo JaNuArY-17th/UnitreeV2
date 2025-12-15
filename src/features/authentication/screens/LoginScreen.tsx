@@ -15,7 +15,6 @@ import { BackgroundPattern, KeyboardDismissWrapper } from '@/shared/components/b
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import { useTabLogin } from '../hooks/useTabLogin';
 import { formatPhoneNumber } from '../utils/authUtils';
-import { useNotification } from '../../notifications/hooks';
 import { useStatusBarEffect } from '@/shared/utils/StatusBarManager';
 import { getColors, updateColorsForAccountType } from '@/shared/themes/colors';
 import { AutoLoginUtils } from '@/features/authentication/utils/autoLoginUtils';
@@ -37,15 +36,13 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
   const { t } = useTranslation();
   const { login, isLoading } = useTabLogin();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [userType, setUserType] = useState<'store' | 'user'>('store');
   const [rememberedPhone, setRememberedPhone] = useState<string>('');
   const [keyboardOffset] = useState(new Animated.Value(0));
 
-  const { registerDevice } = useNotification();
+  const currentColor = getUserTypeColor('user');
 
-  const currentColor = getUserTypeColor(userType);
-
-  const handleLogin = async (phone: string, password: string, userType: 'store' | 'user', autoLogin: boolean) => {
+  const handleLogin = async (phone: string, password: string, autoLogin: boolean) => {
+    const userType: 'user' = 'user';
     try {
       // Format phone number and create login request
       const loginRequest = {
@@ -95,28 +92,14 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
         // Handle login success (always save user type for tab memory)
         try {
           console.log('📝 [LoginScreen] Saving user type for tab memory...');
-          await AutoLoginUtils.handleLoginSuccess(userType);
+          await AutoLoginUtils.handleLoginSuccess('user');
           console.log('✅ [LoginScreen] User type saved successfully');
 
           // Update app colors based on user type
-          const accountType = userType === 'store' ? 'STORE' : 'USER';
-          updateColorsForAccountType(accountType);
-          console.log(`🎨 [LoginScreen] Updated app colors for ${accountType}`);
+          updateColorsForAccountType('USER');
+          console.log(`🎨 [LoginScreen] Updated app colors for USER`);
         } catch (userTypeError) {
           console.error('❌ [LoginScreen] Error saving user type:', userTypeError);
-        }
-
-        try {
-          console.log('Login successful, registering device for notifications...');
-          const registrationSuccess = await registerDevice();
-          if (registrationSuccess) {
-            console.log('Device registration successful');
-          } else {
-            console.warn('Device registration failed, but continuing with login');
-          }
-        } catch (registrationError) {
-          // Don't block login if notification registration fails
-          console.error('Device registration error:', registrationError);
         }
         return; // Exit early, no need to show any modal
       }
@@ -126,7 +109,7 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
         console.log('📱 New device detected, navigating to OTP');
         navigation.navigate('LoginOtp', {
           phone: phone,
-          userType: userType,
+          userType: 'user',
         });
         return; // Exit early, no need to show any modal
       }
@@ -144,15 +127,16 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
     }
   };
 
-  const handleBiometricLogin = async (phone: string, userType: 'store' | 'user') => {
+  const handleBiometricLogin = async (phone: string) => {
+    const userType: 'user' = 'user';
     try {
-      console.log('🔐 Starting biometric login for', userType, 'with phone:', phone);
+      console.log('🔐 Starting biometric login for:', phone);
 
       // The biometric login is handled by the biometric service
       // which stores tokens and triggers auth updates
       // Navigation will be handled by AuthProvider
 
-      console.log(`✅ ${userType} biometric login successful`);
+      console.log(`✅ User biometric login successful`);
 
       // Save user type for tab memory (biometric login counts as successful login)
       try {
@@ -168,18 +152,6 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
         console.error('❌ [LoginScreen] Error saving user type:', userTypeError);
       }
 
-      try {
-        console.log('Biometric login successful, registering device for notifications...');
-        const registrationSuccess = await registerDevice();
-        if (registrationSuccess) {
-          console.log('Device registration successful');
-        } else {
-          console.warn('Device registration failed, but continuing with login');
-        }
-      } catch (registrationError) {
-        // Don't block login if notification registration fails
-        console.error('Device registration error:', registrationError);
-      }
     } catch (error: any) {
       // Show error alert to user
       Alert.alert(
@@ -248,9 +220,7 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
                 onLogin={handleLogin}
                 onBiometricLogin={handleBiometricLogin}
                 isLoading={isLoading}
-                onUserTypeChange={setUserType}
                 initialPhone={rememberedPhone}
-                initialUserType={userType}
               />
             </View>
           </ScrollView>
@@ -261,7 +231,7 @@ const LoginScreen: React.FC<LoginScreenProps> = () => {
       <View style={[styles.signUpSection, { paddingBottom: insets.bottom || spacing.lg }]}>
         <Button
           label={t('login:signUp.button')}
-          onPress={() => navigation.navigate('Register', { userType })}
+          onPress={() => navigation.navigate('Register')}
           variant="outline"
           size="lg"
           fullWidth

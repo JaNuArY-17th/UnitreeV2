@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { authService } from '../services/authService';
 import { userService } from '../services/userService';
 import { userProfileQueryKeys } from './useUserProfile';
-import { updateColorsForAccountType } from '@/shared/themes/colors';
 import type { LoginRequest, LoginResponse, AuthApiResponse } from '../types/auth';
 
 export type UserType = 'user';
@@ -71,64 +70,6 @@ export const useTabLogin = (): UseTabLoginReturn => {
         console.log('✅ [TabLogin] Caching user data in React Query for future use');
         queryClient.setQueryData(userProfileQueryKeys.myData(), myDataResponse.data);
         console.log('📊 [TabLogin] User data cached successfully - subsequent calls will use cache');
-
-        // Fetch and cache store data if user actually has a store (based on API response)
-        const shouldFetchStoreData = myDataResponse.data.is_shop || myDataResponse.data.account_type === 'STORE';
-        if (shouldFetchStoreData) {
-          try {
-            console.log('🔄 [TabLogin] User has store (is_shop=true or account_type=STORE), fetching store data to cache...');
-
-            const storeResponse = await storeService.getStoreData();
-            console.log('📦 [TabLogin] Store API response:', {
-              success: storeResponse.success,
-              message: storeResponse.message,
-              hasData: !!storeResponse.data,
-              code: storeResponse.code
-            });
-
-            if (storeResponse.success) {
-              // Cache the store data response in React Query
-              queryClient.setQueryData(STORE_QUERY_KEYS.storeData(), storeResponse);
-              // Persist hasStore = true to AsyncStorage
-              await setPersistedHasStore(true);
-              // Invalidate the hasStoreFromStorage query to pick up the new value
-              queryClient.invalidateQueries({ queryKey: ['store', 'hasStoreFromStorage'] });
-              console.log('✅ [TabLogin] Store data cached successfully - hasStore = true');
-            } else {
-              // Cache the unsuccessful response so hasStore will be false
-              queryClient.setQueryData(STORE_QUERY_KEYS.storeData(), storeResponse);
-              // Persist hasStore = false to AsyncStorage
-              await setPersistedHasStore(false);
-              // Invalidate the hasStoreFromStorage query to pick up the new value
-              queryClient.invalidateQueries({ queryKey: ['store', 'hasStoreFromStorage'] });
-              console.log('ℹ️ [TabLogin] Store API returned success: false - hasStore = false');
-            }
-          } catch (storeError) {
-            console.warn('❌ [TabLogin] Failed to fetch store data:', storeError);
-            // Cache a failed response so hasStore will be false
-            try {
-              const failedResponse: StoreMyDataResponse = {
-                success: false,
-                message: 'Failed to fetch store data',
-                data: {} as any,
-                code: 0
-              };
-              queryClient.setQueryData(STORE_QUERY_KEYS.storeData(), failedResponse);
-              // Persist hasStore = false to AsyncStorage
-              await setPersistedHasStore(false);
-              // Invalidate the hasStoreFromStorage query to pick up the new value
-              queryClient.invalidateQueries({ queryKey: ['store', 'hasStoreFromStorage'] });
-            } catch (cacheError) {
-              console.warn('❌ [TabLogin] Could not cache failed store response:', cacheError);
-            }
-          }
-        } else {
-          console.log('ℹ️ [TabLogin] User does not have store (is_shop=false and account_type!=STORE), skipping store data fetch');
-          // Ensure hasStore is set to false for non-store users
-          await setPersistedHasStore(false);
-          // Invalidate the hasStoreFromStorage query to pick up the new value
-          queryClient.invalidateQueries({ queryKey: ['store', 'hasStoreFromStorage'] });
-        }
       } else {
         console.warn('⚠️ [TabLogin] User data API returned unsuccessful response');
       }
@@ -138,27 +79,14 @@ export const useTabLogin = (): UseTabLoginReturn => {
     }
   };
 
-  // Helper to update colors based on account type
-  const updateColorsForAccountType = (_type: string) => {
-    // This would update theme colors or UI styling based on account type
-    // For now, this is a placeholder
-  };
-
   // Mutation for handling login requests
   const loginMutation = useMutation({
     mutationFn: async ({ credentials, userType }: { credentials: LoginRequest; userType: UserType }): Promise<TabLoginResult> => {
-      console.log(`🔐 [TabLogin] Starting ${userType} login for:`, credentials.phone_number);
+      console.log(`🔐 [TabLogin] Starting login for:`, credentials.phone_number);
 
-      let response: AuthApiResponse<LoginResponse>;
-
-      // Choose the appropriate login method based on user type
-      if (userType === 'store') {
-        console.log('🏪 [TabLogin] Using loginStore method');
-        response = await authService.loginStore(credentials);
-      } else {
-        console.log('👤 [TabLogin] Using login method');
-        response = await authService.login(credentials);
-      }
+      // Use the user login method
+      console.log('👤 [TabLogin] Using login method');
+      const response = await authService.login(credentials);
 
       if (!response.success) {
         throw new Error(response.message || 'Login failed');
@@ -198,7 +126,7 @@ export const useTabLogin = (): UseTabLoginReturn => {
       setError(error);
     },
     onSuccess: async (result, variables) => {
-      console.log(`✅ [TabLogin] ${variables.userType} login successful`);
+      console.log(`✅ [TabLogin] Login successful`);
       setError(null); // Clear any previous errors
 
       // Fetch and cache user data after successful login

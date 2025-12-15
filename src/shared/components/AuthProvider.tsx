@@ -174,3 +174,6 @@ export function AuthGuard({
 
 // Export types
 export type { AuthContextValue, AuthProviderProps };
+
+// Export component as default
+export default AuthProvider;
