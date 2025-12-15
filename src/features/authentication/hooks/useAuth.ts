@@ -23,9 +23,6 @@ import { userProfileQueryKeys } from './useUserProfile';
 import { isOTPRequired } from '../utils/authUtils';
 import type { LoginRequest, RegisterRequest } from '../types/auth';
 import { tokenManager } from '@/shared/utils/tokenManager';
-import { storeService } from '../services/storeService';
-import { STORE_QUERY_KEYS, setPersistedHasStore } from './useStoreData';
-import type { StoreMyDataResponse } from '../types/store';
 
 // Query keys
 export const authQueryKeys = {
@@ -99,78 +96,6 @@ export const useAuth = () => {
             console.log('✅ [PostLogin] Caching user data in React Query for future use');
             queryClient.setQueryData(userProfileQueryKeys.myData(), myDataResponse.data);
             console.log('📊 [PostLogin] User data cached successfully - subsequent calls will use cache');
-
-            // Fetch and cache my-postpaid data
-            // NOTE: Account feature has been removed, skipping postpaid data fetch
-            console.log('ℹ️ [PostLogin] Account feature unavailable, skipping postpaid data fetch');
-
-            // Check if we should fetch store data
-            const userAccountType = myDataResponse.data?.account_type || (myDataResponse.data?.is_shop ? 'STORE' : 'USER');
-            const shouldFetchStoreData = myDataResponse.data?.is_shop || myDataResponse.data?.account_type === 'STORE';
-            console.log('🔍 [PostLogin] Checking for store data fetch:', {
-              accountType: myDataResponse.data?.account_type,
-              isShop: myDataResponse.data?.is_shop,
-              derivedAccountType: userAccountType,
-              shouldFetchStore: shouldFetchStoreData
-            });
-
-            // Ensure persisted hasStore flag reflects actual user role
-            if (!shouldFetchStoreData) {
-              try {
-                await setPersistedHasStore(false);
-                // Cache a failed/empty store response so consumers don't trigger store dashboard
-                const failedResponse = { success: false, message: 'No store for this user', data: null, code: 404 };
-                queryClient.setQueryData(STORE_QUERY_KEYS.storeData(), failedResponse);
-              } catch (e) {
-                console.warn('Failed to clear persisted hasStore flag:', e);
-              }
-            }
-
-            // Fetch and cache store data if user actually has a store (based on API response)
-            if (shouldFetchStoreData) {
-              console.log('🔄 [PostLogin] User has store (is_shop=true or account_type=STORE), fetching store data to cache...', {
-                accountType: myDataResponse.data?.account_type,
-                userId: myDataResponse.data?.id
-              });
-              try {
-                const storeResponse = await storeService.getStoreData();
-                console.log('📦 [PostLogin] Store API response:', {
-                  success: storeResponse.success,
-                  message: storeResponse.message,
-                  hasData: !!storeResponse.data,
-                  code: storeResponse.code
-                });
-
-                if (storeResponse.success) {
-                  // Cache the store data response in React Query
-                  queryClient.setQueryData(STORE_QUERY_KEYS.storeData(), storeResponse);
-                  console.log('✅ [PostLogin] Store data cached successfully - hasStore = true');
-                } else {
-                  // Cache the unsuccessful response so hasStore will be false
-                  queryClient.setQueryData(STORE_QUERY_KEYS.storeData(), storeResponse);
-                  console.log('ℹ️ [PostLogin] Store API returned success: false - hasStore = false');
-                }
-              } catch (storeError) {
-                console.warn('❌ [PostLogin] Failed to fetch store data:', storeError);
-                // Cache a failed response so hasStore will be false
-                const failedResponse: StoreMyDataResponse = {
-                  success: false,
-                  message: 'Failed to fetch store data',
-                  data: {} as any, // Empty data for failed response
-                  code: 0
-                };
-                queryClient.setQueryData(STORE_QUERY_KEYS.storeData(), failedResponse);
-                // Don't throw error - store fetch is optional
-              }
-            } else {
-              console.log('ℹ️ [PostLogin] User type is not STORE, skipping store data fetch', {
-                accountType: myDataResponse.data?.account_type
-              });
-            }
-
-            // Note: Bank flow is now handled by useTabLogin hook to avoid duplicate calls
-            // The useTabLogin hook provides intelligent bank type selection based on login tab and user data
-            console.log('📝 [PostLogin] Bank flow is handled by useTabLogin - skipping duplicate bank operations');
           } else {
             console.warn('⚠️ [PostLogin] User data API returned unsuccessful response');
           }

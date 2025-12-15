@@ -2,14 +2,11 @@ import { useState, useCallback } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { authService } from '../services/authService';
 import { userService } from '../services/userService';
-import { storeService } from '../services/storeService';
 import { userProfileQueryKeys } from './useUserProfile';
-import { STORE_QUERY_KEYS, setPersistedHasStore } from './useStoreData';
 import { updateColorsForAccountType } from '@/shared/themes/colors';
 import type { LoginRequest, LoginResponse, AuthApiResponse } from '../types/auth';
-import type { StoreMyDataResponse } from '../types/store';
 
-export type UserType = 'store' | 'user';
+export type UserType = 'user';
 
 interface TabLoginResult {
   data?: LoginResponse;

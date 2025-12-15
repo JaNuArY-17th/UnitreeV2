@@ -10,16 +10,12 @@ import RegisterOtpScreen from '@/features/authentication/screens/RegisterOtpScre
 import ForgotPasswordScreen from '@/features/authentication/screens/ForgotPasswordScreen';
 import ForgotPasswordOtpScreen from '@/features/authentication/screens/ForgotPasswordOtpScreen';
 import ResetPasswordScreen from '@/features/authentication/screens/ResetPasswordScreen';
-import CreateStoreStartScreen from '@/features/authentication/screens/CreateStoreStartScreen';
-import CreateStoreScreen from '@/features/authentication/screens/CreateStoreScreen';
-import UploadBusinessLicenseScreen from '@/features/authentication/screens/UploadBusinessLicenseScreen';
 import {
   UserDetailScreen,
   ProfileResetPasswordScreen,
   ProfileResetPasswordOtpScreen,
   ProfileResetPasswordNewPasswordScreen,
   ChangePasswordScreen,
-  StoreDetailScreen,
   AppInformationScreen,
   SupportCenterScreen
 } from '@/features/profile/screens';
@@ -226,28 +222,6 @@ const NavigationContent = () => {
             <Stack.Screen
               name="ProfileResetPasswordNewPassword"
               component={ProfileResetPasswordNewPasswordScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="StoreDetail"
-              component={StoreDetailScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="CreateStoreStart"
-              component={CreateStoreStartScreen}
-            />
-            <Stack.Screen
-              name="CreateStore"
-              component={CreateStoreScreen}
-            />
-            <Stack.Screen
-              name="UploadBusinessLicense"
-              component={UploadBusinessLicenseScreen}
               options={{
                 animation: 'slide_from_right',
               }}

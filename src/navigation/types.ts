@@ -1,20 +1,15 @@
-import type { StoreMyDataResponse } from '@/features/authentication/types/store';
-
 // Navigation types for the app
 export type RootStackParamList = {
   // Authentication screens
   AuthLoading: undefined;
   Login: undefined;
   RememberLogin: undefined;
-  Register: { userType?: 'store' | 'user' } | undefined;
+  Register: { userType?: 'user' } | undefined;
   RegisterOtp: { phone: string };
-  LoginOtp: { phone: string; userType: 'store' | 'user' };
+  LoginOtp: { phone: string; userType: 'user' };
   ForgotPassword: undefined;
   ForgotPasswordOtp: { phone: string };
   ResetPassword: { token: string; phone: string };
-  CreateStoreStart: undefined;
-  CreateStore: { taxCode: string; storeType?: 'business' | 'personal' } | undefined;
-  UploadBusinessLicense: { storeId: string };
   Policy: undefined;
 
   // Main app
