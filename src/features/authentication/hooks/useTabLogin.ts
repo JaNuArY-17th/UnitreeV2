@@ -5,9 +5,6 @@ import { userService } from '../services/userService';
 import { storeService } from '../services/storeService';
 import { userProfileQueryKeys } from './useUserProfile';
 import { STORE_QUERY_KEYS, setPersistedHasStore } from './useStoreData';
-import { bankService } from '@/features/deposit/services/bankService';
-import { bankTypeManager } from '@/features/deposit/utils/bankTypeManager';
-import { BANK_TYPE_QUERY_KEY } from '@/features/deposit/hooks/useBankTypeManager';
 import { updateColorsForAccountType } from '@/shared/themes/colors';
 import type { LoginRequest, LoginResponse, AuthApiResponse } from '../types/auth';
 import type { StoreMyDataResponse } from '../types/store';
@@ -78,89 +75,8 @@ export const useTabLogin = (): UseTabLoginReturn => {
         queryClient.setQueryData(userProfileQueryKeys.myData(), myDataResponse.data);
         console.log('📊 [TabLogin] User data cached successfully - subsequent calls will use cache');
 
-        // Intelligent bank type determination using login tab + is_shop field
-        const userIsShop = myDataResponse.data.is_shop;
-        const accountType = myDataResponse.data.account_type;
-
-        // Priority logic:
-        // 1. Use login tab preference if it matches user capabilities
-        // 2. Fallback to is_shop field if tab preference conflicts
-        // 3. Final fallback to account_type
-        let finalBankType: 'STORE' | 'USER' | undefined;
-
-        if (userType === 'store' && userIsShop) {
-          // User selected store tab and is eligible (is_shop = true)
-          finalBankType = 'STORE';
-          console.log('🏪 [TabLogin] Bank type: STORE (tab preference + is_shop = true)');
-        } else if (userType === 'store' && !userIsShop) {
-          // User selected store tab but not eligible (is_shop = false) - fallback to USER
-          finalBankType = 'USER';
-          console.log('👤 [TabLogin] Bank type: USER (store tab selected but is_shop = false, fallback)');
-        } else if (userType === 'user') {
-          // User selected user tab - respect their choice
-          finalBankType = 'USER';
-          console.log('👤 [TabLogin] Bank type: USER (user tab selected)');
-        } else {
-          // Fallback to is_shop field or account_type
-          if (userIsShop) {
-            finalBankType = 'STORE';
-            console.log('🏪 [TabLogin] Bank type: STORE (fallback to is_shop = true)');
-          } else if (accountType === 'STORE') {
-            finalBankType = 'STORE';
-            console.log('🏪 [TabLogin] Bank type: STORE (fallback to account_type)');
-          } else if (accountType === 'USER') {
-            finalBankType = 'USER';
-            console.log('👤 [TabLogin] Bank type: USER (fallback to account_type)');
-          } else {
-            console.log('⚠️ [TabLogin] Bank type could not be determined from API data');
-          }
-        }
-
-        if (finalBankType) {
-          bankTypeManager.setBankType(finalBankType as any);
-          queryClient.setQueryData(BANK_TYPE_QUERY_KEY, finalBankType);
-          console.log(`🏦 [TabLogin] Final bank type set: ${finalBankType}`, {
-            loginTab: userType,
-            isShop: userIsShop,
-            accountType: accountType
-          });
-
-          // Invalidate any cached bank data with wrong bank type to prevent inconsistencies
-          try {
-            const wrongBankType = finalBankType === 'STORE' ? 'USER' : 'STORE';
-            queryClient.removeQueries({ queryKey: ['bank', 'account', wrongBankType] });
-            console.log(`🗑️ [TabLogin] Removed cached data for incorrect bank type: ${wrongBankType}`);
-          } catch (invalidateError) {
-            console.warn('⚠️ [TabLogin] Could not invalidate wrong bank type cache:', invalidateError);
-          }
-
-          // Try to cache bank account data based on determined bank type
-          try {
-            console.log(`🏦 [TabLogin] Attempting to fetch and cache bank account data for ${finalBankType} type...`);
-            const bankAccountResponse = await bankService.getMyBankAccount({ bankType: finalBankType });
-
-            if (bankAccountResponse.success && bankAccountResponse.data) {
-              console.log('✅ [TabLogin] Bank account data fetched and will be cached by React Query');
-
-              // Also try to fetch linked banks using the same bank type
-              try {
-                await bankService.getLinkedBanks({ bankType: finalBankType });
-                console.log('✅ [TabLogin] Linked banks data fetched successfully');
-              } catch (linkedError) {
-                console.warn('❌ [TabLogin] Unable to fetch linked banks:', linkedError);
-              }
-            } else {
-              console.warn('⚠️ [TabLogin] Bank account API returned unsuccessful response');
-            }
-          } catch (bankError) {
-            console.warn('❌ [TabLogin] Unable to fetch bank account data:', bankError);
-          }
-        } else {
-          console.warn('⚠️ [TabLogin] Bank type could not be determined, skipping bank data fetch');
-        }
-
         // Fetch and cache store data if user actually has a store (based on API response)
-        const shouldFetchStoreData = userIsShop || accountType === 'STORE';
+        const shouldFetchStoreData = myDataResponse.data.is_shop || myDataResponse.data.account_type === 'STORE';
         if (shouldFetchStoreData) {
           try {
             console.log('🔄 [TabLogin] User has store (is_shop=true or account_type=STORE), fetching store data to cache...');
@@ -225,6 +141,12 @@ export const useTabLogin = (): UseTabLoginReturn => {
     }
   };
 
+  // Helper to update colors based on account type
+  const updateColorsForAccountType = (_type: string) => {
+    // This would update theme colors or UI styling based on account type
+    // For now, this is a placeholder
+  };
+
   // Mutation for handling login requests
   const loginMutation = useMutation({
     mutationFn: async ({ credentials, userType }: { credentials: LoginRequest; userType: UserType }): Promise<TabLoginResult> => {
@@ -281,18 +203,6 @@ export const useTabLogin = (): UseTabLoginReturn => {
     onSuccess: async (result, variables) => {
       console.log(`✅ [TabLogin] ${variables.userType} login successful`);
       setError(null); // Clear any previous errors
-
-      // CRITICAL: Set preliminary bank type immediately based on login tab selection
-      // This prevents race conditions with UI components that use bank data
-      // NOTE: This is a temporary value that will be corrected by API data in handlePostLoginDataFetch
-      const preliminaryBankType = variables.userType === 'store' ? 'STORE' : 'USER';
-      bankTypeManager.setBankType(preliminaryBankType as any);
-      queryClient.setQueryData(BANK_TYPE_QUERY_KEY, preliminaryBankType);
-      console.log(`🏦 [TabLogin] Preliminary bank type set to ${preliminaryBankType} based on login selection (will be corrected by API data)`);
-
-      // Update colors immediately based on selected user type
-      updateColorsForAccountType(preliminaryBankType);
-      console.log(`🎨 [TabLogin] Colors updated to ${preliminaryBankType} based on login selection`);
 
       // Fetch and cache user data after successful login
       await handlePostLoginDataFetch(result, variables.userType);

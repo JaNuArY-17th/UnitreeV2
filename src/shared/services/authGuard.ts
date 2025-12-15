@@ -372,13 +372,6 @@ export class AuthGuard {
     } finally {
       // Always clear local tokens
       await tokenManager.clearTokens();
-      // Clear bankType cache (persisted)
-      try {
-        const { bankTypeManager } = await import('@/features/deposit/utils/bankTypeManager');
-        await bankTypeManager.clearBankType();
-      } catch (e) {
-        // ignore if not available
-      }
       this.emit('login-required');
     }
   }

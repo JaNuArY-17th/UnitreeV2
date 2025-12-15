@@ -35,7 +35,6 @@ import { useState, useCallback } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import { userProfileQueryKeys } from '@/features/authentication/hooks/useUserProfile';
 import { STORE_QUERY_KEYS } from '@/features/authentication/hooks/useStoreData';
-import { BANK_QUERY_KEYS } from '@/features/deposit/hooks/useBankAccount';
 
 const HomeScreen = () => {
   const { t } = useTranslation('home');
@@ -50,7 +49,6 @@ const HomeScreen = () => {
     isFetchingBankAccount,
     isPostpaidLoading,
     verificationStatus,
-    currentBankType,
   } = homeData;
 
   const {
@@ -135,11 +133,6 @@ const HomeScreen = () => {
           queryKey: STORE_QUERY_KEYS.all,
           refetchType: 'active'
         }),
-        // Bank account data
-        currentBankType && queryClient.invalidateQueries({
-          queryKey: BANK_QUERY_KEYS.account(currentBankType),
-          refetchType: 'active'
-        }),
       ]);
 
       console.log('✅ [HomeScreen] All queries invalidated successfully');
@@ -148,7 +141,7 @@ const HomeScreen = () => {
     } finally {
       setRefreshing(false);
     }
-  }, [queryClient, currentBankType]);
+  }, [queryClient]);
 
   return (
     <View style={styles.container}>

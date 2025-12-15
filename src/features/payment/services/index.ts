@@ -1,1 +1,0 @@
-export { QRService } from './QRServive';

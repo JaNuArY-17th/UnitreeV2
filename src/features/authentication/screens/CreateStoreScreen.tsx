@@ -17,8 +17,12 @@ import type { CreateStoreRequest } from '../types/store';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { STORE_QUERY_KEYS, setPersistedHasStore } from '../hooks/useStoreData';
 import { useBankId } from '../hooks/useBankData';
-import type { TaxCodeInfo } from '@/features/invoice';
 import type { StoreType } from '../types/store';
+
+// Tax code info type (was previously imported from @/features/invoice)
+interface TaxCodeInfo {
+  [key: string]: any;
+}
 
 type CreateStoreNav = NativeStackNavigationProp<RootStackParamList>;
 type CreateStoreRoute = RouteProp<RootStackParamList, 'CreateStore'>;

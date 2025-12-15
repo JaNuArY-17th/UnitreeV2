@@ -7,7 +7,6 @@ import { HugeiconsIcon } from '@hugeicons/react-native';
 import { ViewIcon, ViewOffSlashIcon, ArrowRight01Icon, Copy01Icon } from '@hugeicons/core-free-icons';
 import { BackgroundPatternSolid, ModernBackgroundPattern } from '../../../shared/components';
 import LinearGradient from 'react-native-linear-gradient';
-import { useStoreBankAccountData, useBankAccount, useBankTypeManager } from '@/features/deposit/hooks';
 import { useVerificationStatus } from '@/features/authentication/hooks/useVerificationStatus';
 import BalanceCardSkeleton from './BalanceCardSkeleton';
 
@@ -53,70 +52,11 @@ export const BalanceCard: React.FC<BalanceCardProps> = ({
   const [internalIsBalanceVisible, setInternalIsBalanceVisible] = useState(false);
   const chevronAnimValue = useRef(new Animated.Value(0)).current;
 
-  // Get dynamic bank type from the app's context (USER or STORE)
-  const { currentBankType } = useBankTypeManager();
-
-  // Only fetch from API for main_account, NOT for espay_later
-  const shouldFetchFromApi = accountType === 'main_account';
-
-  // PRIMARY METHOD: Fetch fresh data from API using useBankAccount (only for main_account)
-  const {
-    data: apiBankData,
-    isLoading: isApiFetching,
-    error: apiError
-  } = useBankAccount(shouldFetchFromApi ? currentBankType : undefined);
-
-  // FALLBACK 1: Get cached bank data from persistent storage
-  const {
-    bankBalance: cachedBalance,
-    bankNumber: cachedAccountNumber,
-    bankCurrency: cachedCurrency,
-    isLoading: cachedIsLoading,
-    hasAccount: hasCachedAccount,
-  } = useStoreBankAccountData();
-
-  // Data priority logic for MAIN_ACCOUNT: API → Cached → Props
-  // For ESPAY_LATER: Props only (no API fetch)
-
-  // Extract API data (only available for main_account)
-  const apiBalance = apiBankData?.data?.bankBalance;
-  const apiAccountNumber = apiBankData?.data?.bankNumber;
-  const apiCurrency = apiBankData?.data?.bankCurrency;
-  const hasApiData = shouldFetchFromApi && !!apiBankData?.data;
-
-  // Determine which data source to use
-  const balance = usePropBalance && propBalance !== undefined
-    ? propBalance
-    : shouldFetchFromApi
-      ? (hasApiData && apiBalance !== undefined
-        ? apiBalance
-        : (hasCachedAccount && cachedBalance !== undefined)
-          ? cachedBalance
-          : (propBalance || 0))
-      : (propBalance || 0); // ESPay Later uses props only
-
-  const accountNumber = usePropBalance && propAccountNumber !== undefined
-    ? propAccountNumber
-    : shouldFetchFromApi
-      ? (hasApiData && apiAccountNumber
-        ? apiAccountNumber
-        : (hasCachedAccount && cachedAccountNumber)
-          ? cachedAccountNumber
-          : propAccountNumber)
-      : propAccountNumber; // ESPay Later uses props only
-
-  const effectiveCurrency = shouldFetchFromApi
-    ? (hasApiData && apiCurrency
-      ? apiCurrency
-      : (hasCachedAccount && cachedCurrency)
-        ? cachedCurrency
-        : currency)
-    : currency; // ESPay Later uses props only
-
-  // Combine loading states - only for main_account
-  const isLoading = shouldFetchFromApi
-    ? (isApiFetching || (!hasApiData && cachedIsLoading) || (!hasApiData && !hasCachedAccount && propIsLoading))
-    : propIsLoading; // ESPay Later uses prop loading state
+  // Use only props passed in (bank data is no longer fetched in home feature)
+  const isLoading = propIsLoading;
+  const balance = propBalance || 0;
+  const accountNumber = propAccountNumber;
+  const effectiveCurrency = currency;
 
   // Use external state if provided, otherwise use internal state
   const isBalanceVisible = externalIsBalanceVisible !== undefined ? externalIsBalanceVisible : internalIsBalanceVisible;

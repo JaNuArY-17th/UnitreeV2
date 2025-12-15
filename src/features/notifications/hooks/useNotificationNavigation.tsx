@@ -7,10 +7,50 @@ import {
   onNotificationOpenedApp,
   type FirebaseMessagingTypes
 } from '@react-native-firebase/messaging';
+import { getApp, getApps } from '@react-native-firebase/app';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '@navigation/types';
 import NotificationToast from '@/features/notifications/components/NotificationToast';
 import { useStoreStatusUpdate } from './useStoreStatusUpdate';
+
+/**
+ * Helper function to safely get Firebase messaging with retry logic
+ * Returns null if Firebase is not available instead of throwing
+ */
+const getFirebaseMessaging = async () => {
+  const maxRetries = 5;
+  const baseRetryDelay = 500;
+
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      const apps = getApps();
+      if (apps.length === 0) {
+        const waitTime = baseRetryDelay * attempt;
+        console.log(`⏳ No Firebase apps found, waiting ${waitTime}ms before retry...`);
+        await new Promise(resolve => setTimeout(resolve, waitTime));
+        continue;
+      }
+
+      const app = getApp();
+      const messaging = getMessaging(app);
+      console.log('✅ Firebase messaging retrieved successfully');
+      return messaging;
+    } catch (error) {
+      console.error(`❌ Firebase messaging retrieval failed (attempt ${attempt}/${maxRetries}):`, error);
+
+      if (attempt === maxRetries) {
+        console.warn('⚠️ Firebase messaging not available after retries - notifications may not work');
+        return null;
+      }
+
+      const waitTime = baseRetryDelay * attempt;
+      await new Promise(resolve => setTimeout(resolve, waitTime));
+    }
+  }
+
+  console.warn('⚠️ Firebase messaging initialization failed - notifications disabled');
+  return null;
+};
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -236,76 +276,103 @@ export function useNotificationNavigation(position: 'top' | 'bottom' | 'center' 
   }, [navigation]);
 
   useEffect(() => {
-    // Get messaging instance
-    const messaging = getMessaging();
+    // Flag to prevent running after unmount
+    let isMounted = true;
 
-    // Handle notification that opened the app
-    const handleInitialNotification = async () => {
+    const setupMessaging = async () => {
       try {
-        const initialNotification = await getInitialNotification(messaging);
+        // Get messaging instance safely (returns null if Firebase is not available)
+        const messaging = await getFirebaseMessaging();
 
-        if (initialNotification) {
-          console.log('App opened from notification:', initialNotification);
-
-          // Add delay for app initialization to complete
-          handleNotificationNavigation(initialNotification.data, 1000);
+        if (!messaging) {
+          console.warn('⚠️ Firebase messaging is not available, skipping notification setup');
+          return;
         }
+
+        // Handle notification that opened the app
+        const handleInitialNotification = async () => {
+          try {
+            const initialNotification = await getInitialNotification(messaging);
+
+            if (initialNotification && isMounted) {
+              console.log('App opened from notification:', initialNotification);
+
+              // Add delay for app initialization to complete
+              handleNotificationNavigation(initialNotification.data, 1000);
+            }
+          } catch (error) {
+            console.error('Error handling initial notification:', error);
+          }
+        };
+
+        await handleInitialNotification();
+
+        if (!isMounted) return;
+
+        // Handle notifications when app is in foreground
+        const unsubscribe = onMessage(messaging, async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
+          if (!isMounted) return;
+
+          console.log('Notification received in foreground:', remoteMessage);
+
+          const { notification, data } = remoteMessage;
+
+          // Store remote message for store status update processing
+          setLastRemoteMessage(remoteMessage);
+
+          // Show custom toast for notifications
+          if (notification?.title || notification?.body) {
+            setToastTitle(notification?.title || '');
+            setToastMessage(notification?.body || '');
+            setToastVisible(true);
+          }
+
+          // Handle navigation data for toast
+          if (data) {
+            console.log('Foreground notification data:', JSON.stringify(data, null, 2));
+            // Store deeplink for when toast is pressed
+            const url = data.url as string;
+            if (url) {
+              console.log('Setting current deeplink from URL:', url);
+              setCurrentDeepLink(url);
+            } else if (data.route) {
+              const deepLinkUrl = buildDeepLinkFromNotificationData(data);
+              if (deepLinkUrl) {
+                setCurrentDeepLink(deepLinkUrl);
+              }
+            } else {
+              console.log('No URL or route found in data. Available keys:', Object.keys(data));
+            }
+          }
+        });
+
+        // Handle notification opened when app is in background
+        const unsubscribeOpened = onNotificationOpenedApp(messaging, (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
+          if (!isMounted) return;
+
+          console.log('Notification opened from background:', remoteMessage);
+
+          // Store remote message for store status update processing
+          setLastRemoteMessage(remoteMessage);
+
+          // Add small delay for navigation stack to be ready
+          handleNotificationNavigation(remoteMessage.data, 500);
+        });
+
+        return () => {
+          unsubscribe();
+          unsubscribeOpened();
+        };
       } catch (error) {
-        console.error('Error handling initial notification:', error);
+        console.error('Error setting up Firebase messaging:', error);
       }
     };
 
-    handleInitialNotification();
-
-    // Handle notifications when app is in foreground
-    const unsubscribe = onMessage(messaging, async (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
-      console.log('Notification received in foreground:', remoteMessage);
-
-      const { notification, data } = remoteMessage;
-
-      // Store remote message for store status update processing
-      setLastRemoteMessage(remoteMessage);
-
-      // Show custom toast for notifications
-      if (notification?.title || notification?.body) {
-        setToastTitle(notification?.title || '');
-        setToastMessage(notification?.body || '');
-        setToastVisible(true);
-      }
-
-      // Handle navigation data for toast
-      if (data) {
-        console.log('Foreground notification data:', JSON.stringify(data, null, 2));
-        // Store deeplink for when toast is pressed
-        const url = data.url as string;
-        if (url) {
-          console.log('Setting current deeplink from URL:', url);
-          setCurrentDeepLink(url);
-        } else if (data.route) {
-          const deepLinkUrl = buildDeepLinkFromNotificationData(data);
-          if (deepLinkUrl) {
-            setCurrentDeepLink(deepLinkUrl);
-          }
-        } else {
-          console.log('No URL or route found in data. Available keys:', Object.keys(data));
-        }
-      }
-    });
-
-    // Handle notification opened when app is in background
-    const unsubscribeOpened = onNotificationOpenedApp(messaging, (remoteMessage: FirebaseMessagingTypes.RemoteMessage) => {
-      console.log('Notification opened from background:', remoteMessage);
-
-      // Store remote message for store status update processing
-      setLastRemoteMessage(remoteMessage);
-
-      // Add small delay for navigation stack to be ready
-      handleNotificationNavigation(remoteMessage.data, 500);
-    });
+    const cleanup = setupMessaging();
 
     return () => {
-      unsubscribe();
-      unsubscribeOpened();
+      isMounted = false;
+      cleanup?.then(cleanupFn => cleanupFn?.());
     };
   }, [navigation, handleNotificationNavigation]);
 

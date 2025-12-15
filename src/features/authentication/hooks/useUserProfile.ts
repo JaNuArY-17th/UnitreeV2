@@ -4,9 +4,6 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useAppSelector } from '@/shared/hooks/useRedux';
 import { selectIsAuthenticated } from '../store/authSelectors';
 import { userService } from '../services/userService';
-import { bankService } from '@/features/deposit/services/bankService';
-import { bankTypeManager } from '@/features/deposit/utils/bankTypeManager';
-import { BANK_TYPE_QUERY_KEY } from '@/features/deposit/hooks/useBankTypeManager';
 import type { UserFromAPI } from '../types/user';
 
 // Query keys for user profile
@@ -55,41 +52,9 @@ export const useUserProfile = () => {
     refetchOnMount: false, // Don't refetch - data is cached after login by useTabLogin
   });
 
-  // After user data fetched, ensure bank account auto-provision and sync account type
+  // After user data fetched, invalidate any stale queries
   useEffect(() => {
-    (async () => {
-      if (bankProvisionedRef.current) return; // already attempted
-      if (!isAuthenticated || !userData || !userData.is_verified) return;
-
-      // Update bank type manager with user's account type
-      if (userData.account_type) {
-        console.log('🔄 [UserProfile] Updating bank type to:', userData.account_type);
-        bankTypeManager.setBankType(userData.account_type);
-        queryClient.setQueryData(BANK_TYPE_QUERY_KEY, userData.account_type);
-      }
-
-      const currentBankType = await bankTypeManager.getBankType();
-      console.log('🏦 [UserProfile] Using bank type:', currentBankType);
-
-      if (!currentBankType) {
-        console.warn('⚠️ [UserProfile] Bank type not available, skipping bank operations');
-        return;
-      }
-
-      try {
-        const checkRes = await bankService.checkBank({ bankType: currentBankType });
-        if (!checkRes.data.hasAccount) {
-          await bankService.chooseBank({ bankType: currentBankType });
-          bankProvisionedRef.current = true;
-          // Invalidate bank queries so UI refreshes with new account
-          queryClient.invalidateQueries({ queryKey: ['bank'] });
-        } else {
-          bankProvisionedRef.current = true;
-        }
-      } catch (e) {
-        console.warn(`Auto-provision ${currentBankType} bank (profile effect) failed:`, e);
-      }
-    })();
+    // User profile data has been fetched and cached, no additional actions needed
   }, [isAuthenticated, userData, queryClient]);
 
   // Helper functions

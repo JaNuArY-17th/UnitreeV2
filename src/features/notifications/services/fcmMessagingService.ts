@@ -5,16 +5,53 @@ import {
   AuthorizationStatus,
   getMessaging,
 } from '@react-native-firebase/messaging';
+import { getApp, getApps } from '@react-native-firebase/app';
 
 class FCMMessagingService {
   private unsubscribe: (() => void) | null = null;
+
+  /**
+   * Helper function to safely get Firebase app with retry logic
+   */
+  private async getFirebaseApp() {
+    const maxRetries = 5;
+    const baseRetryDelay = 500;
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const apps = getApps();
+        if (apps.length === 0) {
+          const waitTime = baseRetryDelay * attempt;
+          console.log(`⏳ No Firebase apps found, waiting ${waitTime}ms before retry...`);
+          await new Promise<void>(resolve => setTimeout(() => resolve(), waitTime));
+          continue;
+        }
+
+        const app = getApp();
+        console.log('✅ Firebase app retrieved successfully');
+        return app;
+      } catch (error) {
+        console.error(`❌ Firebase app retrieval failed (attempt ${attempt}/${maxRetries}):`, error);
+
+        if (attempt === maxRetries) {
+          throw new Error(`Firebase app not available after ${maxRetries} attempts`);
+        }
+
+        const waitTime = baseRetryDelay * attempt;
+        await new Promise<void>(resolve => setTimeout(() => resolve(), waitTime));
+      }
+    }
+
+    throw new Error('Firebase app initialization failed');
+  }
 
   async initialize() {
     try {
       console.log('🔄 Initializing FCM messaging service...');
 
-      // Get messaging instance
-      const messagingInstance = getMessaging();
+      // Get Firebase app safely
+      const app = await this.getFirebaseApp();
+      const messagingInstance = getMessaging(app);
 
       // Request permission for iOS
       const authStatus = await requestPermission(messagingInstance);

@@ -10,7 +10,6 @@ import type { RootStackParamList } from '@navigation/types';
 import { useTranslation } from 'react-i18next';
 import { Close, Shop } from '@/shared/assets/icons';
 import { CreateStorePhoto } from '../../../shared/assets';
-import { useGetTaxCode } from '@/features/invoice';
 import { useUserData } from '@/features/profile/hooks/useUserData';
 
 type CreateStoreNav = NativeStackNavigationProp<RootStackParamList>;
@@ -26,12 +25,6 @@ const CreateStoreStartScreen: React.FC = () => {
   const [shouldLookup, setShouldLookup] = useState(false);
   const insets = useSafeAreaInsets();
   const { data: userData } = useUserData();
-
-  // Tax code lookup hook - only runs when shouldLookup is true
-  const { data: taxCodeData, isLoading: isTaxCodeLoading, error: taxCodeError } = useGetTaxCode(
-    taxCode.trim(),
-    { enabled: shouldLookup && taxCode.trim().length >= 10 }
-  );
 
   const onContinue = async () => {
     if (isProcessing) return;

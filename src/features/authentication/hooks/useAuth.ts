@@ -22,12 +22,7 @@ import {
 import { userProfileQueryKeys } from './useUserProfile';
 import { isOTPRequired } from '../utils/authUtils';
 import type { LoginRequest, RegisterRequest } from '../types/auth';
-import { bankService } from '@/features/deposit/services/bankService';
-import { accountService } from '@/features/account/services/accountService';
-import { BANK_QUERY_KEYS } from '@/features/deposit/hooks/useBankAccount';
-import { ACCOUNT_QUERY_KEYS } from '@/features/account/hooks/usePostpaid';
 import { tokenManager } from '@/shared/utils/tokenManager';
-import { bankTypeManager } from '@/features/deposit/utils/bankTypeManager';
 import { storeService } from '../services/storeService';
 import { STORE_QUERY_KEYS, setPersistedHasStore } from './useStoreData';
 import type { StoreMyDataResponse } from '../types/store';
@@ -49,69 +44,6 @@ export const useAuth = () => {
 
   // Get Redux state at hook level (not inside mutation functions)
   const refreshToken = useAppSelector(selectRefreshToken);
-
-  // Centralized post-auth bank provisioning & linked banks caching
-  const handlePostAuthBankFlow = async (qc: ReturnType<typeof useQueryClient>, userData?: any) => {
-    // Update bank type manager with user account type if available
-    if (userData?.account_type) {
-      console.log('🔄 [PostAuth] Updating bank type to:', userData.account_type);
-      bankTypeManager.setBankType(userData.account_type);
-    }
-
-    const currentBankType = await bankTypeManager.getBankType();
-    console.log('🏦 [PostAuth] Using bank type:', currentBankType);
-
-    if (!currentBankType) {
-      console.warn('⚠️ [PostAuth] Bank type not available, skipping bank operations');
-      return;
-    }
-
-    // 1. Check bank status
-    const checkRes = await bankService.checkBank({ bankType: currentBankType });
-
-    // 2. If no account but user is verified (my-data already cached), provision one
-    if (!checkRes.data.hasAccount) {
-      // We don't have direct access to verification flag here; rely on server allowing chooseBank only when valid
-      try {
-        await bankService.chooseBank({ bankType: currentBankType });
-        qc.invalidateQueries({ queryKey: ['bank'] });
-      } catch (e) {
-        console.warn('chooseBank failed (may be due to not verified yet):', e);
-      }
-    }
-
-    // 3. Automatically fetch and cache bank account data for current bank type
-    try {
-      console.log(`🏦 [PostAuth] Fetching bank account data for ${currentBankType} type...`);
-      const bankAccountResponse = await bankService.getMyBankAccount({ bankType: currentBankType });
-
-      if (bankAccountResponse.success && bankAccountResponse.data) {
-        console.log('✅ [PostAuth] Bank account data fetched successfully:', {
-          bankNumber: bankAccountResponse.data.bankNumber,
-          bankHolder: bankAccountResponse.data.bankHolder,
-          bankType: bankAccountResponse.data.bankType,
-          bankStatus: bankAccountResponse.data.bankStatus,
-        });
-
-        // Cache the bank account data in React Query
-        qc.setQueryData(BANK_QUERY_KEYS.account(currentBankType), bankAccountResponse);
-        console.log(`📊 [PostAuth] Bank account data cached successfully for ${currentBankType} type`);
-      } else {
-        console.warn('⚠️ [PostAuth] Bank account API returned unsuccessful response:', bankAccountResponse.message);
-      }
-    } catch (bankAccountError) {
-      console.warn('❌ [PostAuth] Unable to fetch bank account data:', bankAccountError);
-    }
-
-    // 4. Fetch linked banks and cache
-    try {
-      const linked = await bankService.getLinkedBanks();
-      qc.setQueryData(BANK_QUERY_KEYS.linkedBanks(), linked);
-      console.log('✅ [PostAuth] Linked banks data cached successfully');
-    } catch (e) {
-      console.warn('❌ [PostAuth] Unable to fetch linked banks:', e);
-    }
-  };
 
   // Redux selectors
   const user = useAppSelector(selectUser);
@@ -169,20 +101,8 @@ export const useAuth = () => {
             console.log('📊 [PostLogin] User data cached successfully - subsequent calls will use cache');
 
             // Fetch and cache my-postpaid data
-            try {
-              console.log('🔄 [PostLogin] Fetching my-postpaid data to cache...');
-              const postpaidResponse = await accountService.getMyPostpaid();
-
-              if (postpaidResponse.success && postpaidResponse.data) {
-                queryClient.setQueryData(ACCOUNT_QUERY_KEYS.POSTPAID, postpaidResponse);
-                console.log('✅ [PostLogin] My-postpaid data cached successfully');
-              } else {
-                console.warn('⚠️ [PostLogin] My-postpaid API returned unsuccessful response');
-              }
-            } catch (postpaidError) {
-              console.warn('❌ [PostLogin] Failed to fetch my-postpaid data:', postpaidError);
-              // Don't throw error - postpaid fetch is optional
-            }
+            // NOTE: Account feature has been removed, skipping postpaid data fetch
+            console.log('ℹ️ [PostLogin] Account feature unavailable, skipping postpaid data fetch');
 
             // Check if we should fetch store data
             const userAccountType = myDataResponse.data?.account_type || (myDataResponse.data?.is_shop ? 'STORE' : 'USER');
@@ -304,20 +224,8 @@ export const useAuth = () => {
             console.log('📊 [PostRegister] User data cached successfully - subsequent calls will use cache');
 
             // Fetch and cache my-postpaid data
-            try {
-              console.log('🔄 [PostRegister] Fetching my-postpaid data to cache...');
-              const postpaidResponse = await accountService.getMyPostpaid();
-
-              if (postpaidResponse.success && postpaidResponse.data) {
-                queryClient.setQueryData(ACCOUNT_QUERY_KEYS.POSTPAID, postpaidResponse);
-                console.log('✅ [PostRegister] My-postpaid data cached successfully');
-              } else {
-                console.warn('⚠️ [PostRegister] My-postpaid API returned unsuccessful response');
-              }
-            } catch (postpaidError) {
-              console.warn('❌ [PostRegister] Failed to fetch my-postpaid data:', postpaidError);
-              // Don't throw error - postpaid fetch is optional
-            }
+            // NOTE: Account feature has been removed, skipping postpaid data fetch
+            console.log('ℹ️ [PostRegister] Account feature unavailable, skipping postpaid data fetch');
 
             // Note: Bank flow is now handled by useTabLogin hook to avoid duplicate calls
             // The useTabLogin hook provides intelligent bank type selection based on login tab and user data

@@ -7,9 +7,6 @@ import type { RootStackParamList } from './types';
 // Screens
 import { ProfileScreen } from '@/features/profile/screens';
 import { HomeScreen } from '@/features/home/screens';
-import HistoryScreen from '@/features/transactions/screens/HistoryScreen';
-import { ReportScreen } from '@/features/report';
-import VoucherManagementScreen from '@/features/voucher/screens/VoucherManagementScreen';
 
 // Hooks
 import { useTranslation } from '@/shared/hooks/useTranslation';
@@ -99,11 +96,6 @@ export function BottomTabNavigator() {
     switch (activeTab) {
       case 'Home':
         return <HomeScreen />;
-      case 'History':
-        return <HistoryScreen />;
-      case 'Report':
-        // For USER accounts, show VoucherManagementScreen instead of ReportScreen
-        return accountType === 'USER' ? <VoucherManagementScreen /> : <ReportScreen />;
       case 'Profile':
         return <ProfileScreen />;
       default:

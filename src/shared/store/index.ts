@@ -3,10 +3,6 @@ import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
 import { persistStore, persistReducer } from 'redux-persist';
 import counterReducer from './slices/counterSlice';
 import authReducer, { authPersistConfig } from '@/features/authentication/store/authSlice';
-import accountReducer from '@/features/account/store/accountSlice';
-import econtractReducer from '@/features/econtract/store/econtractSlice';
-import ekycReducer from '@/features/ekyc/store/ekycSlice';
-import bankReducer from '@/features/banks/store/bankSlice';
 import biometricReducer from '@/features/biometric/store/biometricSlice';
 import { middleware } from './middleware';
 
@@ -18,10 +14,6 @@ export const store = configureStore({
   reducer: {
     counter: counterReducer,
     auth: persistedAuthReducer, // Use persisted auth reducer
-    account: accountReducer,
-    econtract: econtractReducer,
-    ekyc: ekycReducer,
-    bank: bankReducer,
     biometric: biometricReducer,
   },
   // Enhanced middleware configuration

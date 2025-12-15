@@ -26,77 +26,12 @@ import {
 import { NotificationScreen, SpeakerServiceScreen, LinkSpeakerScreen } from '@/features/notifications/screens';
 import NotificationSettingsScreen from '@/features/profile/screens/NotificationSettingsScreen';
 import SecuritySettingsScreen from '@/features/profile/screens/SecuritySettingsScreen';
-import {
-  AccountManagementScreen,
-  PostpaidPaymentConfirmScreen,
-  PostpaidPaymentOtpScreen,
-  PostpaidPaymentSuccessScreen,
-  CreateStoreSuccessScreen,
-  PostpaidWalletScreen,
-  PostpaidInstallmentScreen,
-  PostpaidSettingsScreen,
-  PostpaidTransactionHistoryScreen,
-  PostpaidBillingScreen,
-  PostpaidPaymentOptionsScreen,
-} from '@/features/account/screens';
-import { VoucherManagementScreen, CreateVoucherScreen } from '@/features/voucher/screens';
-import BottomTabNavigator from './BottomTabNavigator';
-import { ReportScreen } from '../features/report';
-import QRMainScreen from '../features/payment/screens/QRMainScreen';
-import QRReceiveMoneyScreen from '../features/payment/screens/QRReceiveMoneyScreen';
-import { SavedRecipientsScreen, ScanQRScreen } from '../features/payment/screens';
-import {
-  TransferMoneyScreen,
-  TransferConfirmScreen,
-  TransferOtpScreen,
-  TransferSuccessScreen
-} from '../features/payment';
-import {
-  DepositWithdrawScreen,
-  QRCodeDepositScreen,
-  WithdrawConfirmationScreen,
-  WithdrawOtpScreen,
-  WithdrawSuccessScreen,
-  LinkBankScreen
-} from '@/features/deposit/screens';
-import {
-  TransactionHistoryScreen,
-  TransactionDetailScreen
-} from '@/features/transactions/screens';
-import { useAuth } from '@/shared/components/AuthProvider';
-import type { RootStackParamList } from './types';
-import { EkycStartScreen, UserInfoScreen } from '../features/ekyc';
-import { BankAccountScreen } from '@/features/banks/screen';
-import EcontractSigningScreen from '@/features/econtract/screen/EcontractSigning';
-import EcontractOtpScreen from '@/features/econtract/screen/EcontractOtpScreen';
 import { EditContactScreen, EditContactOtpScreen } from '@/features/profile/screens';
 import { PolicySecurityRiskScreen as PolicyScreen } from '@/features/profile/screens/PolicyScreen';
-import { OTPVerificationScreen } from '@/features/otp/screens';
-import HistoryScreen from '../features/transactions/screens/HistoryScreen';
-import { CommissionHistoryScreen, CommissionPaymentScreen, CommissionOtpScreen, CommissionPaymentSuccessScreen } from '@/features/commission';
+import BottomTabNavigator from './BottomTabNavigator';
+import { useAuth } from '@/shared/components/AuthProvider';
+import type { RootStackParamList } from './types';
 import { useNotificationNavigation } from '@/features/notifications/hooks/useNotificationNavigation';
-import { CartScreen, DraftOrdersScreen } from '@/features/cart';
-import CartPaymentConfirmScreen from '@/features/cart/screens/CartPaymentConfirmScreen';
-import {
-  ProductMenuScreen,
-  ProductManagementScreen,
-  SupplierManagementScreen,
-  LocationManagementScreen,
-  CategoryManagementScreen
-} from '@/features/product';
-import EditProductScreen from '@/features/product/screens/EditProductScreen';
-import ProductDetailScreen from '@/features/product/screens/ProductDetailScreen';
-import EditVariationScreen from '@/features/product/screens/EditVariationScreen';
-import { OrderManagementScreen, OrderDetailScreen } from '@/features/order';
-import {
-  InventoryManagementScreen,
-  InventoryHistoryScreen,
-  StockCheckScreen,
-  StockCheckDetailScreen,
-  CreateImportScreen,
-  CreateExportScreen,
-  CreateStockCheckScreen,
-} from '@/features/inventory/screens';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -137,7 +72,7 @@ const NavigationContent = () => {
   }, [isAuthenticated]);
 
   // Use notification navigation hook - this must be inside NavigationContainer
-  const notificationToast = useNotificationNavigation('top'); // You can change this to 'bottom' or 'center'
+  const notificationToast = useNotificationNavigation('top');
 
   // Show loading while checking auth route
   if (!isAuthenticated && isCheckingAuth) {
@@ -226,49 +161,6 @@ const NavigationContent = () => {
               }}
             />
             <Stack.Screen
-              name="QRPayment"
-              component={QRMainScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="TransferMoney"
-              component={TransferMoneyScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="TransferConfirm"
-              component={TransferConfirmScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="TransferOtp"
-              component={TransferOtpScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="TransferSuccess"
-              component={TransferSuccessScreen}
-              options={{
-                animation: 'slide_from_right',
-                gestureEnabled: false,
-              }}
-            />
-            <Stack.Screen
-              name="QRReceiveMoney"
-              component={QRReceiveMoneyScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
               name="UserDetail"
               component={UserDetailScreen}
               options={{
@@ -339,162 +231,6 @@ const NavigationContent = () => {
               }}
             />
             <Stack.Screen
-              name="AccountManagement"
-              component={AccountManagementScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="PostpaidWallet"
-              component={PostpaidWalletScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="PostpaidInstallment"
-              component={PostpaidInstallmentScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="PostpaidSettings"
-              component={PostpaidSettingsScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="PostpaidTransactionHistory"
-              component={PostpaidTransactionHistoryScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="PostpaidBilling"
-              component={PostpaidBillingScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="PostpaidPaymentOptions"
-              component={PostpaidPaymentOptionsScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="VoucherManagement"
-              component={VoucherManagementScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="CreateVoucher"
-              component={CreateVoucherScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="PostpaidPaymentConfirm"
-              component={PostpaidPaymentConfirmScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="PostpaidPaymentOtp"
-              component={PostpaidPaymentOtpScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="PostpaidPaymentSuccess"
-              component={PostpaidPaymentSuccessScreen}
-              options={{
-                animation: 'slide_from_right',
-                gestureEnabled: false,
-              }}
-            />
-            <Stack.Screen
-              name="TransactionDetail"
-              component={TransactionDetailScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="DepositWithdraw"
-              component={DepositWithdrawScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="QRCodeDeposit"
-              component={QRCodeDepositScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="ScanQRScreen"
-              component={ScanQRScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="WithdrawConfirmation"
-              component={WithdrawConfirmationScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="LinkBank"
-              component={LinkBankScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="WithdrawOtp"
-              component={WithdrawOtpScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="WithdrawSuccess"
-              component={WithdrawSuccessScreen}
-              options={{
-                animation: 'slide_from_right',
-                gestureEnabled: false,
-              }}
-            />
-            <Stack.Screen
-              name="WithdrawHistory"
-              component={TransactionHistoryScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="WithdrawTransactionDetail"
-              component={TransactionDetailScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
               name="StoreDetail"
               component={StoreDetailScreen}
               options={{
@@ -517,186 +253,15 @@ const NavigationContent = () => {
               }}
             />
             <Stack.Screen
-              name="CreateStoreSuccess"
-              component={CreateStoreSuccessScreen}
-              options={{
-                gestureEnabled: false,
-              }}
+              name="EditContact"
+              component={EditContactScreen}
             />
             <Stack.Screen
-              name="Contact"
-              component={SavedRecipientsScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
+              name="EditContactOtp"
+              component={EditContactOtpScreen}
             />
-            <Stack.Screen
-              name="Cart"
-              component={CartScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="DraftOrders"
-              component={DraftOrdersScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="ProductMenu"
-              component={ProductMenuScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="ProductManagement"
-              component={ProductManagementScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="ProductDetail"
-              component={ProductDetailScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="EditProduct"
-              component={EditProductScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="EditVariation"
-              component={EditVariationScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="SupplierManagement"
-              component={SupplierManagementScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="LocationManagement"
-              component={LocationManagementScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="CategoryManagement"
-              component={CategoryManagementScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="OrderManagement"
-              component={OrderManagementScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="OrderDetail"
-              component={OrderDetailScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="CartPaymentConfirm"
-              component={CartPaymentConfirmScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            {/* Inventory Management */}
-            <Stack.Screen
-              name="InventoryManagement"
-              component={InventoryManagementScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="InventoryHistory"
-              component={InventoryHistoryScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="StockCheck"
-              component={StockCheckScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="StockCheckDetail"
-              component={StockCheckDetailScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="CreateImport"
-              component={CreateImportScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="CreateExport"
-              component={CreateExportScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            <Stack.Screen
-              name="CreateStockCheck"
-              component={CreateStockCheckScreen}
-              options={{
-                animation: 'slide_from_right',
-              }}
-            />
-            {/* eKYC Flow */}
-            <Stack.Screen name="Ekyc" component={EkycStartScreen} />
-            <Stack.Screen name="UserInfo" component={UserInfoScreen} />
-            <Stack.Screen name="BankAccount" component={BankAccountScreen} />
-            <Stack.Screen name="EcontractSigning" component={EcontractSigningScreen} options={{
-              animation: 'slide_from_right',
-            }} />
-            <Stack.Screen name="EcontractOtp" component={EcontractOtpScreen} options={{
-              animation: 'slide_from_right',
-            }} />
-            <Stack.Screen name="OTPVerification" component={OTPVerificationScreen} />
-            <Stack.Screen name="EditContact" component={EditContactScreen} />
-            <Stack.Screen name="EditContactOtp" component={EditContactOtpScreen} />
             <Stack.Screen name="AppInformation" component={AppInformationScreen} />
             <Stack.Screen name="SupportCenter" component={SupportCenterScreen} />
-            <Stack.Screen name="Policy" component={PolicyScreen} />
-            <Stack.Screen name="CommissionHistory" component={CommissionHistoryScreen} />
-            <Stack.Screen name="CommissionPayment" component={CommissionPaymentScreen} />
-            <Stack.Screen name="CommissionOtp" component={CommissionOtpScreen} />
-            <Stack.Screen
-              name="CommissionPaymentSuccess"
-              component={CommissionPaymentSuccessScreen}
-              options={{
-                gestureEnabled: false,
-              }}
-            />
           </Stack.Group>
         )}
       </Stack.Navigator>

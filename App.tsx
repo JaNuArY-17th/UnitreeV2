@@ -20,7 +20,6 @@ import { initI18n } from '@/shared/config/i18n';
 import { initializeFonts } from '@/shared/config/fonts';
 import { AlertProvider } from '@/shared/providers';
 import { AuthProvider } from '@/shared/components/AuthProvider';
-import { BankTypeProvider } from '@/features/deposit/components/BankTypeProvider';
 import { initializeColorsFromStorage } from '@/shared/themes/colors';
 import SplashScreen from 'react-native-splash-screen';
 import { fcmMessagingService } from '@/features/notifications/services/fcmMessagingService';
@@ -50,7 +49,7 @@ const AppContent = () => {
         await initI18n();
         initializeFonts();
 
-        await fcmMessagingService.initialize();
+        // await fcmMessagingService.initialize();
 
         setReady(true);
       } catch (error) {
@@ -62,11 +61,11 @@ const AppContent = () => {
     SplashScreen.hide();
   }, []);
 
-  useEffect(() => {
-    return () => {
-      fcmMessagingService.cleanup();
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     fcmMessagingService.cleanup();
+  //   };
+  // }, []);
 
   // Auth event handler - navigates to login when token refresh fails
   const handleLoginRequired = async () => {
@@ -97,20 +96,18 @@ const AppContent = () => {
     <SafeAreaProvider>
       <AlertProvider>
         <AuthProvider onLoginRequired={handleLoginRequired}>
-          <BankTypeProvider>
-            <View style={styles.container}>
-              <StatusBar
-                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-              />
-              {ready ? (
-                <RootNavigator ref={navigationRef} />
-              ) : (
-                <View style={styles.loader}>
-                  <ActivityIndicator size="large" />
-                </View>
-              )}
-            </View>
-          </BankTypeProvider>
+          <View style={styles.container}>
+            <StatusBar
+              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            />
+            {ready ? (
+              <RootNavigator ref={navigationRef} />
+            ) : (
+              <View style={styles.loader}>
+                <ActivityIndicator size="large" />
+              </View>
+            )}
+          </View>
         </AuthProvider>
       </AlertProvider>
     </SafeAreaProvider>
