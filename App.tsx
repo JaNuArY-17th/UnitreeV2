@@ -10,7 +10,6 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { createPersistentQueryClient } from '@/shared/config/queryClient';
-import { initCacheDebugger } from '@/shared/utils/cacheDebugger';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { NavigationContainerRef } from '@react-navigation/native';
@@ -28,12 +27,6 @@ import type { RootStackParamList } from '@/navigation/types';
 
 // Create a persistent client
 const queryClient = createPersistentQueryClient();
-
-// Initialize cache debugger for development
-if (__DEV__) {
-  initCacheDebugger(queryClient);
-}
-
 // 👇 AppContent component that uses Redux hooks (must be inside Provider)
 const AppContent = () => {
   const isDarkMode = useColorScheme() === 'dark';

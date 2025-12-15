@@ -3,142 +3,75 @@
     "loading": "Đang tải...",
     "error": "Lỗi",
     "success": "Thành công",
-    "ok": "Đồng ý",
     "cancel": "Hủy",
     "confirm": "Xác nhận",
-    "back": "Quay lại",
-    "next": "Tiếp theo",
-    "done": "Hoàn thành",
-    "scan": "Quét",
-    "enable": "Bật",
-    "continue": "Tiếp tục",
-    "retry": "Thử lại",
+    "save": "Lưu",
     "delete": "Xóa",
-    "optional": "Tùy chọn",
-    "viewAll": "Xem tất cả"
+    "edit": "Chỉnh sửa",
+    "close": "Đóng",
+    "next": "Tiếp theo",
+    "back": "Quay lại",
+    "retry": "Thử lại",
+    "no_data": "Không có dữ liệu"
   },
-  "timeAgo": {
-    "justNow": "Vừa xong",
-    "minutesAgo_one": "{{count}} phút trước",
-    "minutesAgo_other": "{{count}} phút trước",
-    "hoursAgo_one": "{{count}} giờ trước",
-    "hoursAgo_other": "{{count}} giờ trước",
-    "daysAgo_one": "{{count}} ngày trước",
-    "daysAgo_other": "{{count}} ngày trước",
-    "weeksAgo_one": "{{count}} tuần trước",
-    "weeksAgo_other": "{{count}} tuần trước",
-    "monthsAgo_one": "{{count}} tháng trước",
-    "monthsAgo_other": "{{count}} tháng trước",
-    "yearsAgo_one": "{{count}} năm trước",
-    "yearsAgo_other": "{{count}} năm trước"
+  "validation": {
+    "required_field": "Trường này bắt buộc",
+    "invalid_email": "Email không hợp lệ",
+    "invalid_phone": "Số điện thoại không hợp lệ",
+    "password_too_short": "Mật khẩu phải có ít nhất 6 ký tự",
+    "password_mismatch": "Mật khẩu không trùng khớp",
+    "invalid_input": "Dữ liệu nhập vào không hợp lệ"
   },
   "navigation": {
     "home": "Trang chủ",
-    "history": "Lịch sử",
-    "report": "Báo cáo",
-    "promo": "Ưu đãi",
     "profile": "Hồ sơ",
-    "qrScan": "Quét QR",
-    "tabs": {
-      "home": "Trang chủ",
-      "history": "Lịch sử",
-      "report": "Báo cáo",
-      "profile": "Hồ sơ",
-      "scan": "Quét"
-    }
+    "settings": "Cài đặt",
+    "notifications": "Thông báo",
+    "account": "Tài khoản"
   },
-  "verification": {
-    "notVerified": {
-      "title": "Xác minh danh tính và ký hợp đồng để sử dụng dịch vụ.",
-      "description": "Hoàn tất eKYC để bắt đầu giao dịch.",
-      "action": "Xác minh ngay"
-    },
-    "cardVerified": {
-      "title": "Ký hợp đồng sử dụng dịch vụ của ENSOGO để bắt đầu giao dịch ngay.",
-      "description": "Ký để bật nạp/rút và giao dịch.",
-      "action": "Ký ngay"
-    }
+  "auth": {
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "forgot_password": "Quên mật khẩu?",
+    "reset_password": "Đặt lại mật khẩu",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "confirm_password": "Xác nhận mật khẩu",
+    "login_success": "Đăng nhập thành công",
+    "logout_success": "Đăng xuất thành công",
+    "verify_email": "Xác nhận email",
+    "verification_code": "Mã xác nhận"
   },
-  "otp": {
-    "title": "Xác thực OTP",
-    "subtitle": "Vui lòng nhập mã OTP để tiếp tục.",
-    "loadingTitle": "Đang tải...",
-    "loadingSubtitle": "Vui lòng đợi trong khi chúng tôi xử lý yêu cầu của bạn...",
-    "resendText": "Không nhận được mã?",
-    "resendButtonText": "Gửi lại mã",
-    "resendButtonDisabledText": "Gửi lại sau",
-    "continueButtonText": "Tiếp tục"
+  "timeAgo": {
+    "justNow": "Vừa xong",
+    "minutesAgo": "vài phút trước",
+    "hoursAgo": "vài giờ trước",
+    "daysAgo": "vài ngày trước",
+    "weeksAgo": "vài tuần trước",
+    "monthsAgo": "vài tháng trước"
   },
-  "profile": {
-    "account": {
-      "title": "Tài khoản",
-      "profileDetails": "Chi tiết hồ sơ",
-      "shopDetails": "Chi tiết cửa hàng",
-      "myWallet": "Ví của tôi"
-    },
-    "support": {
-      "title": "Hỗ trợ",
-      "rateUs": "Đánh giá ứng dụng",
-      "aboutGastos": "Về Gastos",
-      "helpSupport": "Trợ giúp & Hỗ trợ"
-    },
-    "refer": {
-      "title": "Giới thiệu & Kiếm tiền",
-      "subtitle": "Giới thiệu & Kiếm tới $55 cho mỗi bạn bè!"
-    },
-    "profileDetail": {
-      "title": "Chi tiết hồ sơ",
-      "subtitle": "Thông tin chi tiết hồ sơ của bạn được cung cấp bên dưới.",
-      "ownerName": "Tên chủ sở hữu",
-      "phoneNumber": "Số điện thoại",
-      "emailAddress": "Địa chỉ email",
-      "guidedBy": "Được hướng dẫn bởi:",
-      "validate": "Xác thực",
-      "logOut": "Đăng xuất",
-      "logoutSession": "Đăng xuất khỏi phiên này",
-      "deleteAccount": "Xóa tài khoản",
-      "deleteAccountDescription": "Xóa tài khoản của bạn vĩnh viễn",
-      "deleteAccountConfirm": "Bạn có chắc muốn xóa tài khoản không? Hành động này không thể hoàn tác."
-    }
-  },
-  "inventory": {
-    "title": "Quản lý kho",
-    "menu": {
-      "inventoryHistory": "Lịch sử giao dịch kho",
-      "inventoryHistoryDesc": "Xem lịch sử nhập, xuất và điều chỉnh kho",
-      "stockCheck": "Kiểm kho",
-      "stockCheckDesc": "Tạo và quản lý phiếu kiểm kho"
-    },
-    "history": {
-      "title": "Lịch sử giao dịch kho",
-      "filter": "Lọc",
-      "filterBy": "Lọc theo loại giao dịch",
-      "clearFilter": "Xóa bộ lọc",
-      "emptyMessage": "Chưa có giao dịch nào",
-      "types": {
-        "all": "Tất cả giao dịch",
-        "import": "Nhập kho",
-        "export": "Xuất kho",
-        "adjustment": "Điều chỉnh",
-        "sale": "Bán hàng",
-        "return": "Trả hàng",
-        "reconcile": "Kiểm kho"
-      }
-    },
-    "stockCheck": {
-      "title": "Kiểm kho",
-      "create": "Tạo phiếu kiểm kho",
-      "emptyMessage": "Chưa có phiếu kiểm kho nào",
-      "status": {
-        "pending": "Đang tiến hành",
-        "complete": "Hoàn thành",
-        "cancel": "Đã hủy"
-      },
-      "actions": {
-        "view": "Chi tiết",
-        "confirm": "Xác nhận",
-        "cancel": "Hủy"
-      }
-    }
+  "date": {
+    "today": "Hôm nay",
+    "yesterday": "Hôm qua",
+    "tomorrow": "Ngày mai",
+    "monday": "Thứ Hai",
+    "tuesday": "Thứ Ba",
+    "wednesday": "Thứ Tư",
+    "thursday": "Thứ Năm",
+    "friday": "Thứ Sáu",
+    "saturday": "Thứ Bảy",
+    "sunday": "Chủ Nhật",
+    "january": "Tháng 1",
+    "february": "Tháng 2",
+    "march": "Tháng 3",
+    "april": "Tháng 4",
+    "may": "Tháng 5",
+    "june": "Tháng 6",
+    "july": "Tháng 7",
+    "august": "Tháng 8",
+    "september": "Tháng 9",
+    "october": "Tháng 10",
+    "november": "Tháng 11",
+    "december": "Tháng 12"
   }
 }
