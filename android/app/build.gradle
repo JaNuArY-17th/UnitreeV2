@@ -1,12 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
-apply plugin: 'com.google.gms.google-services'
-
-project.ext.react = [
-        nodeExecutableAndArgs: [project.hasProperty("NODE_BINARY") ? project.getProperty("NODE_BINARY") : "/opt/homebrew/bin/node"]
-]
-
 
 /**
  * This is the configuration block to customize your React Native Android app.
@@ -83,24 +77,13 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.ensogo_espay_app"
-
-    aaptOptions {
-        noCompress "bic"
-    }
-    
+    namespace "com.unitree"
     defaultConfig {
-        applicationId "com.ensogo_espay_app"
+        applicationId "com.unitree"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 10
+        versionCode 1
         versionName "1.0"
-    }
-
-    packagingOptions {
-        dex {
-            useLegacyPackaging = true
-        }
     }
     signingConfigs {
         debug {
@@ -109,9 +92,6 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
-    }
-    buildFeatures {
-        viewBinding true
     }
     buildTypes {
         debug {
@@ -127,51 +107,13 @@ android {
     }
 }
 
-// Resolve dependency conflicts between AndroidX and Support Library
-configurations.all {
-    resolutionStrategy {
-        force 'androidx.core:core:1.16.0'
-        force 'androidx.appcompat:appcompat:1.7.0'
-        force 'androidx.fragment:fragment:1.8.5'
-    }
-    exclude group: 'com.android.support', module: 'support-compat'
-    exclude group: 'com.android.support', module: 'support-core-utils'
-    exclude group: 'com.android.support', module: 'support-core-ui'
-    exclude group: 'com.android.support', module: 'support-fragment'
-}
-
 dependencies {
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
-
-    // eKYC SDK dependencies - conflicts will be resolved by configurations.all block above
-    implementation files('../libs/ekyc_sdk-release-v3.6.6.aar')
-    implementation files('../libs/scanqr_ic_sdk-release-v1.0.6.aar')
-
-    // Add gson for JSON handling
-    implementation 'com.google.code.gson:gson:2.10.1'
-
-    // Add ViewBinding for eKYC SDK
-    implementation 'androidx.databinding:viewbinding:8.7.3'
 
     if (hermesEnabled.toBoolean()) {
         implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
-    }
-
-         // Import the BoM for the Firebase platform
-    implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
-
-    // Add the dependencies for Firebase libraries
-    // When using the BoM, you don't specify versions in Firebase library dependencies
-    implementation("com.google.firebase:firebase-messaging") {
-        exclude group: 'com.android.support', module: '*'
-    }
-    implementation("com.google.firebase:firebase-inappmessaging-display") {
-        exclude group: 'com.android.support', module: '*'
-    }
-    implementation("com.google.firebase:firebase-analytics") {
-        exclude group: 'com.android.support', module: '*'
     }
 }

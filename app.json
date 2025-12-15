@@ -1,10 +1,10 @@
 {
-  "name": "ENSOGO_ESPay_App",
-  "displayName": "ENSOGO_ESPay_App",
+  "name": "Unitree",
+  "displayName": "Unitree",
   "react-native": {
     "project": {
       "android": {
-        "packageName": "com.ensogo_espay_app"
+        "packageName": "com.unitree"
       }
     }
   }
