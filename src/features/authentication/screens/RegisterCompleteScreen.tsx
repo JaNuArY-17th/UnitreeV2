@@ -21,7 +21,6 @@ const RegisterCompleteScreen: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -51,18 +50,15 @@ const RegisterCompleteScreen: React.FC = () => {
       // TODO: Implement API call to complete registration
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Show success modal after loading
-      setIsLoading(false);
-      setShowSuccessModal(true);
+      // Navigate to LoginScreen after 3 seconds
+      setTimeout(() => {
+        setIsLoading(false);
+        navigation.replace('Login');
+      }, 3000);
     } catch (err: any) {
       setIsLoading(false);
       Alert.alert(t('register:error_title'), err.message || t('register:errors.failed_to_complete'));
     }
-  };
-
-  const handleModalComplete = () => {
-    setShowSuccessModal(false);
-    navigation.replace('Login');
   };
 
   useStatusBarEffect('transparent', 'dark-content', true);
@@ -72,13 +68,10 @@ const RegisterCompleteScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingModal 
-        visible={showSuccessModal}
-        title={t('register:welcome_message')}
-        message={`${nickname}! ${t('register:account_created_message')}`}
+        visible={!isLoading}
         animationSource={plantAnimation.source}
         animationStyle={plantAnimation.style}
-        isLoading={false}
-        onComplete={handleModalComplete}
+        animationSpeed={2.5}
       />
       <ScreenHeader title={t('register:register_step_3')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 

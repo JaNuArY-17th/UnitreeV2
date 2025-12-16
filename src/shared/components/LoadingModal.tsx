@@ -12,9 +12,6 @@ interface LoadingModalProps {
   animationStyle?: any;
   animationSpeed?: number; // 0.5 = half speed, 1 = normal, 2 = double speed
   duration?: number; // Duration in ms before auto-closing (optional)
-  isLoading?: boolean; // Whether animation is loading (true) or showing message (false)
-  message?: string; // Optional message to show after loading completes
-  onComplete?: () => void; // Callback when loading completes or modal is tapped
 }
 
 /**
@@ -40,9 +37,6 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
   animationStyle,
   animationSpeed = 1,
   duration,
-  isLoading = true,
-  message,
-  onComplete,
 }) => {
   const animationRef = useRef<LottieView>(null);
 
@@ -54,21 +48,6 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
       return () => clearTimeout(timer);
     }
   }, [visible, duration]);
-
-  useEffect(() => {
-    if (visible && !isLoading && onComplete) {
-      const timer = setTimeout(() => {
-        onComplete();
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [visible, isLoading, onComplete]);
-
-  const handleModalPress = () => {
-    if (!isLoading && onComplete) {
-      onComplete();
-    }
-  };
   return (
     <Modal
       visible={visible}
@@ -77,40 +56,30 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
       statusBarTranslucent={true}
     >
       <View style={styles.container}>
-        <View style={[styles.overlay, !isLoading && styles.overlayTappable]} onTouchEnd={handleModalPress} />
-        <View style={[styles.modalContent, isLoading && styles.modalContentCircle]} onTouchEnd={handleModalPress}>
-          {isLoading ? (
-            <>
-              <View style={styles.animationContainer}>
-                <LottieView
-                  ref={animationRef}
-                  source={animationSource || require('@/shared/assets/lottie/plane-loading.json')}
-                  autoPlay
-                  loop
-                  speed={animationSpeed}
-                  style={animationStyle || styles.animation}
-                />
-              </View>
-              {title && (
-                <Heading level={2} style={styles.title}>
-                  {title}
-                </Heading>
-              )}
-            </>
-          ) : (
-            <View style={styles.messageContainer}>
-              {title && (
-                <Heading level={2} style={styles.title}>
-                  {title}
-                </Heading>
-              )}
-              {message && (
-                <Body style={styles.message}>
-                  {message}
-                </Body>
-              )}
-            </View>
+        <View style={styles.overlay} />
+        <View style={styles.modalContent}>
+          <View style={styles.animationContainer}>
+            <LottieView
+              ref={animationRef}
+              source={animationSource || require('@/shared/assets/lottie/plane-loading.json')}
+              autoPlay
+              loop
+              speed={animationSpeed}
+              style={animationStyle || styles.animation}
+            />
+          </View>
+
+          {title && (
+            <Heading level={2} style={styles.title}>
+              {title}
+            </Heading>
           )}
+
+          {/* {subtitle && (
+            <Body style={styles.subtitle}>
+              {subtitle}
+            </Body>
+          )} */}
         </View>
       </View>
     </Modal>
@@ -131,28 +100,17 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
-  overlayTappable: {
-    backgroundColor: 'rgba(0, 0, 0, 0.3)',
-  },
   modalContent: {
     backgroundColor: colors.background,
-    borderRadius: dimensions.radius.round,
-    paddingHorizontal: spacing.xl,
-    paddingVertical: spacing.xxl,
-    marginHorizontal: spacing.lg,
+    borderRadius: 9999,
+    width: 280,
+    height: 280,
+    padding: spacing.xl,
     alignItems: 'center',
-    width: '70%',
-  },
-  modalContentCircle: {
-    borderRadius: 300,
-    width: 250,
-    height: 250,
     justifyContent: 'center',
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md,
   },
   animationContainer: {
-    marginBottom: spacing.lg,
+    marginBottom: spacing.md,
   },
   animation: {
     width: 150,
@@ -166,15 +124,6 @@ const styles = StyleSheet.create({
   subtitle: {
     textAlign: 'center',
     color: colors.text.secondary,
-    lineHeight: 22,
-  },
-  messageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  message: {
-    textAlign: 'center',
-    color: colors.text.primary,
     lineHeight: 22,
   },
 });
