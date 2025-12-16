@@ -32,13 +32,14 @@
   "account_created_success": "tài khoản của bạn đã được tạo thành công.",
   "back_to_login": "Quay lại đăng nhập",
   "profile_completed": "Hồ sơ đã hoàn thành",
-  "registration_complete": "Đăng ký hoàn thành",
+  "error_title": "Lỗi",
   "validation": {
+    "required": "Trường này là bắt buộc",
+    "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
     "emailRequired": "Email là bắt buộc",
     "passwordRequired": "Mật khẩu là bắt buộc",
     "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu của bạn",
-    "nicknameRequired": "Biệt danh là bắt buộc",
-    "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
+    "nicknameRequired": "Nickname là bắt buộc",
     "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
     "passwordMismatch": "Mật khẩu không trùng khớp",
     "termsRequired": "Bạn phải đồng ý với các điều khoản và điều kiện"
@@ -50,7 +51,15 @@
     "invalid_code": "Mã xác minh không hợp lệ",
     "code_expired": "Mã xác minh đã hết hạn",
     "email_already_registered": "Email này đã được đăng ký",
-    "registration_failed": "Đăng ký thất bại. Vui lòng thử lại."
+    "registration_failed": "Đăng ký thất bại. Vui lòng thử lại.",
+    "nickname_required": "Biệt danh là bắt buộc",
+    "password_required": "Mật khẩu là bắt buộc",
+    "passwords_dont_match": "Mật khẩu không trùng khớp",
+    "password_min_chars": "Mật khẩu phải có ít nhất 6 ký tự",
+    "failed_to_send": "Gửi mã xác minh thất bại",
+    "failed_to_resend": "Gửi lại mã thất bại",
+    "invalid_6digit_code": "Vui lòng nhập mã 6 chữ số hợp lệ",
+    "failed_to_complete": "Hoàn thành đăng ký thất bại"
   },
   "success": {
     "email_sent": "Mã xác minh đã được gửi đến email của bạn",

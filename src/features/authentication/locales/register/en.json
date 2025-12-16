@@ -32,13 +32,14 @@
   "account_created_success": "your account has been successfully created.",
   "back_to_login": "Back to Login",
   "profile_completed": "Profile Completed",
-  "registration_complete": "Registration Complete",
+  "error_title": "Error",
   "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
     "emailRequired": "Email is required",
     "passwordRequired": "Password is required",
     "confirmPasswordRequired": "Please confirm your password",
     "nicknameRequired": "Nickname is required",
-    "invalidEmail": "Please enter a valid email address",
     "passwordTooShort": "Password must be at least 6 characters",
     "passwordMismatch": "Passwords do not match",
     "termsRequired": "You must agree to the terms and conditions"
@@ -50,7 +51,15 @@
     "invalid_code": "Invalid verification code",
     "code_expired": "Verification code has expired",
     "email_already_registered": "This email is already registered",
-    "registration_failed": "Registration failed. Please try again."
+    "registration_failed": "Registration failed. Please try again.",
+    "nickname_required": "Nickname is required",
+    "password_required": "Password is required",
+    "passwords_dont_match": "Passwords do not match",
+    "password_min_chars": "Password must be at least 6 characters",
+    "failed_to_send": "Failed to send verification code",
+    "failed_to_resend": "Failed to resend code",
+    "invalid_6digit_code": "Please enter a valid 6-digit code",
+    "failed_to_complete": "Failed to complete registration"
   },
   "success": {
     "email_sent": "Verification code sent to your email",

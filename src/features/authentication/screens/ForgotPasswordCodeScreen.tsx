@@ -36,7 +36,7 @@ const ForgotPasswordCodeScreen: React.FC = () => {
 
   const handleVerifyCode = async () => {
     if (!verificationCode.trim() || verificationCode.length !== 6) {
-      Alert.alert('Error', 'Please enter a valid 6-digit code');
+      Alert.alert(t('forgotPassword:error_title'), t('forgotPassword:errors.invalid_6digit_code'));
       return;
     }
 
@@ -46,7 +46,7 @@ const ForgotPasswordCodeScreen: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       navigation.navigate('ForgotPasswordReset', { email });
     } catch (err: any) {
-      Alert.alert('Error', err.message || 'Invalid verification code');
+      Alert.alert(t('forgotPassword:error_title'), err.message || t('forgotPassword:errors.invalid_code'));
     } finally {
       setIsLoading(false);
     }
@@ -59,7 +59,7 @@ const ForgotPasswordCodeScreen: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       setResendCountdown(60);
     } catch (err: any) {
-      Alert.alert('Error', err.message || 'Failed to resend code');
+      Alert.alert(t('forgotPassword:error_title'), err.message || t('forgotPassword:errors.failed_to_resend'));
     } finally {
       setIsLoading(false);
     }

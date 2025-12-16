@@ -28,19 +28,19 @@ const RegisterCompleteScreen: React.FC = () => {
 
   const handleCompleteRegistration = async () => {
     if (!nickname.trim()) {
-      Alert.alert('Error', 'Nickname is required');
+      Alert.alert(t('register:error_title'), t('register:errors.nickname_required'));
       return;
     }
     if (!password.trim()) {
-      Alert.alert('Error', 'Password is required');
+      Alert.alert(t('register:error_title'), t('register:errors.password_required'));
       return;
     }
     if (password !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
+      Alert.alert(t('register:error_title'), t('register:errors.passwords_dont_match'));
       return;
     }
     if (password.length < 6) {
-      Alert.alert('Error', 'Password must be at least 6 characters');
+      Alert.alert(t('register:error_title'), t('register:errors.password_min_chars'));
       return;
     }
 
@@ -50,7 +50,7 @@ const RegisterCompleteScreen: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       navigation.navigate('RegisterSuccess', { nickname });
     } catch (err: any) {
-      Alert.alert('Error', err.message || 'Failed to complete registration');
+      Alert.alert(t('register:error_title'), err.message || t('register:errors.failed_to_complete'));
     } finally {
       setIsLoading(false);
     }

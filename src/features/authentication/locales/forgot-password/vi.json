@@ -26,14 +26,12 @@
   "instructions_code": "Nhập mã xác minh 6 chữ số được gửi đến email của bạn",
   "instructions_reset": "Nhập mật khẩu mới của bạn",
   "success_title": "Đặt lại mật khẩu",
-  "success_message": "Mật khẩu của bạn đã được đặt lại thành công. Bây giờ bạn có thể đăng nhập bằng mật khẩu mới.",
+  "error_title": "Lỗi",
   "validation": {
-    "emailRequired": "Email là bắt buộc",
-    "codeRequired": "Mã xác minh là bắt buộc",
-    "passwordRequired": "Mật khẩu là bắt buộc",
-    "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu của bạn",
+    "required": "Trường này là bắt buộc",
     "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
-    "invalidCode": "Mã xác minh không hợp lệ",
+    "emailRequired": "Email là bắt buộc",
+    "passwordRequired": "Mật khẩu là bắt buộc",
     "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
     "passwordMismatch": "Mật khẩu không trùng khớp"
   },
@@ -44,7 +42,13 @@
     "user_not_found": "Không tìm thấy người dùng",
     "invalid_code": "Mã xác minh không hợp lệ",
     "code_expired": "Mã xác minh đã hết hạn",
-    "reset_failed": "Đặt lại mật khẩu thất bại. Vui lòng thử lại."
+    "reset_failed": "Đặt lại mật khẩu thất bại. Vui lòng thử lại.",
+    "password_required": "Mật khẩu là bắt buộc",
+    "passwords_dont_match": "Mật khẩu không trùng khớp",
+    "password_min_chars": "Mật khẩu phải có ít nhất 6 ký tự",
+    "failed_to_send": "Gửi mã xác minh thất bại",
+    "failed_to_resend": "Gửi lại mã thất bại",
+    "invalid_6digit_code": "Vui lòng nhập mã 6 chữ số hợp lệ"
   },
   "success": {
     "email_sent": "Mã xác minh đã được gửi đến email của bạn",

@@ -26,15 +26,15 @@ const ForgotPasswordResetScreen: React.FC = () => {
 
   const handleResetPassword = async () => {
     if (!newPassword.trim()) {
-      Alert.alert('Error', 'Password is required');
+      Alert.alert(t('forgotPassword:error_title'), t('forgotPassword:errors.password_required'));
       return;
     }
     if (newPassword !== confirmPassword) {
-      Alert.alert('Error', 'Passwords do not match');
+      Alert.alert(t('forgotPassword:error_title'), t('forgotPassword:errors.passwords_dont_match'));
       return;
     }
     if (newPassword.length < 6) {
-      Alert.alert('Error', 'Password must be at least 6 characters');
+      Alert.alert(t('forgotPassword:error_title'), t('forgotPassword:errors.password_min_chars'));
       return;
     }
 
@@ -44,7 +44,7 @@ const ForgotPasswordResetScreen: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       navigation.navigate('ForgotPasswordSuccess', { email });
     } catch (err: any) {
-      Alert.alert('Error', err.message || 'Failed to reset password');
+      Alert.alert(t('forgotPassword:error_title'), err.message || t('forgotPassword:errors.reset_failed'));
     } finally {
       setIsLoading(false);
     }

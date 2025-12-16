@@ -36,7 +36,7 @@ const RegisterCodeScreen: React.FC = () => {
 
   const handleVerifyCode = async () => {
     if (!verificationCode.trim() || verificationCode.length !== 6) {
-      Alert.alert('Error', 'Please enter a valid 6-digit code');
+      Alert.alert(t('register:error_title'), t('register:errors.invalid_6digit_code'));
       return;
     }
 
@@ -46,7 +46,7 @@ const RegisterCodeScreen: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       navigation.navigate('RegisterComplete', { email });
     } catch (err: any) {
-      Alert.alert('Error', err.message || 'Invalid verification code');
+      Alert.alert(t('register:error_title'), err.message || t('register:errors.invalid_code'));
     } finally {
       setIsLoading(false);
     }
@@ -59,7 +59,7 @@ const RegisterCodeScreen: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       setResendCountdown(60);
     } catch (err: any) {
-      Alert.alert('Error', err.message || 'Failed to resend code');
+      Alert.alert(t('register:error_title'), err.message || t('register:errors.failed_to_resend'));
     } finally {
       setIsLoading(false);
     }

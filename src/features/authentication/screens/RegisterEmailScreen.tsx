@@ -22,7 +22,7 @@ const RegisterEmailScreen: React.FC = () => {
 
   const handleSendEmail = async () => {
     if (!email.trim()) {
-      Alert.alert('Error', t('login:validation.emailRequired') || 'Email is required');
+      Alert.alert(t('register:error_title'), t('register:validation.emailRequired'));
       return;
     }
 
@@ -32,7 +32,7 @@ const RegisterEmailScreen: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       navigation.navigate('RegisterCode', { email });
     } catch (err: any) {
-      Alert.alert('Error', err.message || 'Failed to send verification code');
+      Alert.alert(t('register:error_title'), err.message || t('register:errors.failed_to_send'));
     } finally {
       setIsLoading(false);
     }

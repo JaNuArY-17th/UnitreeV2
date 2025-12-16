@@ -22,7 +22,7 @@ const ForgotPasswordEmailScreen: React.FC = () => {
 
   const handleSendEmail = async () => {
     if (!email.trim()) {
-      Alert.alert('Error', t('login:validation.emailRequired') || 'Email is required');
+      Alert.alert(t('forgotPassword:error_title'), t('forgotPassword:validation.emailRequired'));
       return;
     }
 
@@ -32,7 +32,7 @@ const ForgotPasswordEmailScreen: React.FC = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       navigation.navigate('ForgotPasswordCode', { email });
     } catch (err: any) {
-      Alert.alert('Error', err.message || 'Failed to send verification code');
+      Alert.alert(t('forgotPassword:error_title'), err.message || t('forgotPassword:errors.failed_to_send'));
     } finally {
       setIsLoading(false);
     }

@@ -26,14 +26,12 @@
   "instructions_code": "Enter the 6-digit verification code sent to your email",
   "instructions_reset": "Enter your new password",
   "success_title": "Password Reset",
-  "success_message": "Your password has been successfully reset. You can now log in with your new password.",
+  "error_title": "Error",
   "validation": {
-    "emailRequired": "Email is required",
-    "codeRequired": "Verification code is required",
-    "passwordRequired": "Password is required",
-    "confirmPasswordRequired": "Please confirm your password",
+    "required": "This field is required",
     "invalidEmail": "Please enter a valid email address",
-    "invalidCode": "Invalid verification code",
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
     "passwordTooShort": "Password must be at least 6 characters",
     "passwordMismatch": "Passwords do not match"
   },
@@ -44,7 +42,13 @@
     "user_not_found": "User not found",
     "invalid_code": "Invalid verification code",
     "code_expired": "Verification code has expired",
-    "reset_failed": "Password reset failed. Please try again."
+    "reset_failed": "Password reset failed. Please try again.",
+    "password_required": "Password is required",
+    "passwords_dont_match": "Passwords do not match",
+    "password_min_chars": "Password must be at least 6 characters",
+    "failed_to_send": "Failed to send verification code",
+    "failed_to_resend": "Failed to resend code",
+    "invalid_6digit_code": "Please enter a valid 6-digit code"
   },
   "success": {
     "email_sent": "Verification code sent to your email",
