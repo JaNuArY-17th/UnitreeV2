@@ -165,6 +165,7 @@ const LoginScreen: React.FC = () => {
                 placeholder={t('login:phone_placeholder')}
                 keyboardType="phone-pad"
                 icon={<Mail width={20} height={20} color="#666" />}
+                autoFocus={false}
               />
 
               {/* Password Input */}
@@ -175,6 +176,7 @@ const LoginScreen: React.FC = () => {
                 placeholder={t('login:password_placeholder')}
                 secureTextEntry={true}
                 icon={<Lock width={20} height={20} color="#666" />}
+                autoFocus={false}
               />
 
               {/* Remember Me & Forgot Password */}

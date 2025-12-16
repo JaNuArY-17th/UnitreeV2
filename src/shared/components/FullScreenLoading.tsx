@@ -63,6 +63,8 @@ interface FullScreenLoadingProps {
   showProgressBar?: boolean;
   preventBackButton?: boolean;
   onBackPress?: () => boolean;
+  animationSource?: any;
+  animationStyle?: any;
 }
 
 const FullScreenLoading: React.FC<FullScreenLoadingProps> = ({
@@ -71,6 +73,8 @@ const FullScreenLoading: React.FC<FullScreenLoadingProps> = ({
   showProgressBar = true,
   preventBackButton = false,
   onBackPress,
+  animationSource,
+  animationStyle,
 }) => {
   const progressAnim = useRef(new Animated.Value(0)).current;
 
@@ -106,10 +110,10 @@ const FullScreenLoading: React.FC<FullScreenLoadingProps> = ({
         <View style={styles.loadingArea}>
           <View style={styles.spinnerContainer}>
             <LottieView
-              source={require('@/shared/assets/lottie/plane-loading.json')}
+              source={animationSource || require('@/shared/assets/lottie/plane-loading.json')}
               autoPlay
               loop
-              style={styles.lottieAnimation}
+              style={animationStyle || styles.lottieAnimation}
             />
           </View>
 

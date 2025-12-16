@@ -8,8 +8,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '@/navigation/types';
 
-import { ScreenHeader, KeyboardDismissWrapper, Text, Button } from '@/shared/components';
-import FullScreenLoading from '@/shared/screens/FullScreenLoading';
+import { ScreenHeader, KeyboardDismissWrapper, Text, Button, FullScreenLoading } from '@/shared/components';
 import AuthInput from '../components/LoginScreen/AuthInput';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import Lock from '@/shared/assets/icons/Lock';
@@ -70,7 +69,7 @@ const RegisterCompleteScreen: React.FC = () => {
 
   // Show success screen with plant animation
   if (showSuccessScreen) {
-    const plantAnimation = getLoadingAnimation('plant');
+    const plantAnimation = getLoadingAnimation('plane');
     return (
       <FullScreenLoading
         title={t('register:welcome_message')}
