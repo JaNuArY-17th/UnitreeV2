@@ -84,7 +84,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
               pressed && styles.pressed
             ]}
           >
-            <HugeiconsIcon icon={ArrowLeft01Icon} size={20} color={backIconColor} />
+            <HugeiconsIcon icon={ArrowLeft01Icon} size={24} color={backIconColor} />
           </Pressable>
         )}
       </View>

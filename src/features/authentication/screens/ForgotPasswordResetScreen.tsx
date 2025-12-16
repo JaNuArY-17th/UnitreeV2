@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import { colors, dimensions, typographyStyles } from '@/shared/themes';
+import { colors, dimensions, typography } from '@/shared/themes';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
@@ -11,10 +11,10 @@ import type { RootStackParamList } from '@/navigation/types';
 import LogoHeader from '../components/LoginScreen/LogoHeader';
 import FormContainer from '../components/LoginScreen/FormContainer';
 import AuthInput from '../components/LoginScreen/AuthInput';
-import LoginButton from '../components/LoginScreen/LoginButton';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import Lock from '@/shared/assets/icons/Lock';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
+import { Button } from '@/shared/components';
 
 const ForgotPasswordResetScreen: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
@@ -87,11 +87,11 @@ const ForgotPasswordResetScreen: React.FC = () => {
               secureTextEntry
               editable={!isLoading}
             />
-            <LoginButton
+            <Button
               onPress={handleResetPassword}
               disabled={isLoading || !newPassword.trim() || !confirmPassword.trim()}
               loading={isLoading}
-              title="Reset Password"
+              label="Reset Password"
             />
           </FormContainer>
         </ScrollView>

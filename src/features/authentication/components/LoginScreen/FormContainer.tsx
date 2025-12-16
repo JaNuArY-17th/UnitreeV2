@@ -45,14 +45,18 @@ const FormContainer: React.FC<FormContainerProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: colors.primary,
     borderTopLeftRadius: dimensions.radius.xxl,
     borderTopRightRadius: dimensions.radius.xxl,
-    paddingHorizontal: dimensions.spacing.xxl,
+    paddingHorizontal: dimensions.spacing.lg,
     paddingTop: dimensions.spacing.xxl,
     paddingBottom: dimensions.spacing.lg,
     overflow: 'visible',
+    position: 'absolute',
+    top: -30,
+    width: '100%',
+    height: '200%',
+    zIndex: 998,
   },
   title: {
     ...typography.h0,

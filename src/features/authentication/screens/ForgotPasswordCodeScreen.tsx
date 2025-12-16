@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Alert, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import { colors, dimensions, typographyStyles } from '@/shared/themes';
+import { colors, dimensions, typography } from '@/shared/themes';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
@@ -11,9 +11,9 @@ import type { RootStackParamList } from '@/navigation/types';
 import LogoHeader from '../components/LoginScreen/LogoHeader';
 import FormContainer from '../components/LoginScreen/FormContainer';
 import AuthInput from '../components/LoginScreen/AuthInput';
-import LoginButton from '../components/LoginScreen/LoginButton';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
+import { Button } from '@/shared/components';
 
 const ForgotPasswordCodeScreen: React.FC = () => {
   const [verificationCode, setVerificationCode] = useState('');
@@ -101,11 +101,11 @@ const ForgotPasswordCodeScreen: React.FC = () => {
                 Didn't receive code? Resend
               </Text>
             )}
-            <LoginButton
+            <Button
               onPress={handleVerifyCode}
               disabled={isLoading || verificationCode.length !== 6}
               loading={isLoading}
-              title="Verify"
+              label="Verify"
             />
           </FormContainer>
         </ScrollView>
@@ -131,13 +131,13 @@ const styles = StyleSheet.create({
     paddingBottom: dimensions.spacing.xl,
   },
   resendText: {
-    ...typographyStyles.caption,
+    ...typography.caption,
     color: colors.text.secondary,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
   },
   resendLink: {
-    ...typographyStyles.caption,
+    ...typography.caption,
     color: colors.primary,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,

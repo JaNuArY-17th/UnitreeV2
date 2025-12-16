@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import { colors, dimensions, typographyStyles } from '@/shared/themes';
+import { colors, dimensions, typography } from '@/shared/themes';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/navigation/types';
@@ -10,10 +10,10 @@ import type { RootStackParamList } from '@/navigation/types';
 import LogoHeader from '../components/LoginScreen/LogoHeader';
 import FormContainer from '../components/LoginScreen/FormContainer';
 import AuthInput from '../components/LoginScreen/AuthInput';
-import LoginButton from '../components/LoginScreen/LoginButton';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import Mail from '@/shared/assets/icons/Mail';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
+import { Button } from '@/shared/components';
 
 const ForgotPasswordEmailScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -65,11 +65,11 @@ const ForgotPasswordEmailScreen: React.FC = () => {
               icon={<Mail width={20} height={20} />}
               editable={!isLoading}
             />
-            <LoginButton
+            <Button
               onPress={handleSendEmail}
               disabled={isLoading || !email.trim()}
               loading={isLoading}
-              title="Send Code"
+              label="Send Code"
             />
           </FormContainer>
         </ScrollView>

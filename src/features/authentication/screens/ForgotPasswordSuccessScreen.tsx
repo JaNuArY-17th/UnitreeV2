@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Text } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { colors, dimensions, typographyStyles } from '@/shared/themes';
+import { colors, dimensions, typography } from '@/shared/themes';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/navigation/types';
 
 import LogoHeader from '../components/LoginScreen/LogoHeader';
 import FormContainer from '../components/LoginScreen/FormContainer';
-import LoginButton from '../components/LoginScreen/LoginButton';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
+import { Button } from '@/shared/components';
 
 const ForgotPasswordSuccessScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
@@ -40,10 +40,10 @@ const ForgotPasswordSuccessScreen: React.FC = () => {
               <Text style={styles.successMessage}>
                 Your password has been successfully reset. You can now log in with your new password.
               </Text>
-              <LoginButton
+              <Button
                 onPress={handleBackToLogin}
                 disabled={false}
-                title="Back to Login"
+                label="Back to Login"
               />
             </View>
           </FormContainer>
@@ -75,12 +75,12 @@ const styles = StyleSheet.create({
     paddingVertical: dimensions.spacing.xxl,
   },
   successTitle: {
-    ...typographyStyles.h0,
+    ...typography.h0,
     color: colors.text.dark,
     marginBottom: dimensions.spacing.md,
   },
   successMessage: {
-    ...typographyStyles.body,
+    ...typography.body,
     color: colors.text.secondary,
     textAlign: 'center',
     marginBottom: dimensions.spacing.xxl,

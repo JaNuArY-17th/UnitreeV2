@@ -25,10 +25,11 @@ import LogoHeader from '../components/LoginScreen/LogoHeader';
 import FormContainer from '../components/LoginScreen/FormContainer';
 import AuthInput from '../components/LoginScreen/AuthInput';
 import RememberForgotRow from '../components/LoginScreen/RememberForgotRow';
-import LoginButton from '../components/LoginScreen/LoginButton';
-import Mail from '@/shared/assets/icons/Mail';
-import Lock from '@/shared/assets/icons/Lock';
+import { Mail, Lock, Login } from '@/shared/assets/icons';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
+import { KeyboardDismissWrapper, Button } from '../../../shared/components';
+import typography from '@/shared/themes/typography';
+
 
 const LoginScreen: React.FC = () => {
   const { t } = useTranslation();
@@ -127,7 +128,7 @@ const LoginScreen: React.FC = () => {
   useStatusBarEffect('transparent', 'dark-content', true);
 
   return (
-    <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
+    <View style={[styles.safeContainer]}>
       <LoadingOverlay visible={isLoading} />
 
       <View style={styles.container}>
@@ -151,13 +152,9 @@ const LoginScreen: React.FC = () => {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={styles.keyboardAvoid}
         >
-          <ScrollView
-            contentContainerStyle={styles.scrollContent}
-            keyboardShouldPersistTaps="handled"
-            bounces={false}
-          >
+          <KeyboardDismissWrapper>
             <FormContainer
-              title="Đăng nhập"
+              title="Đăng Nhập"
               onSignUp={handleSignUp}
             >
               {/* Phone Input */}
@@ -188,12 +185,18 @@ const LoginScreen: React.FC = () => {
               />
 
               {/* Login Button */}
-              <LoginButton
+              <Button
+                label={isLoading ? 'Đang đăng nhập...' : 'Đăng nhập'}
                 onPress={handleLogin}
-                loading={isLoading}
+                disabled={isLoading}
+                style={styles.button}
+                textStyle={styles.buttonText}
+                size='lg'
+                variant='primary'
+                leftIcon={Login({ width: 24, height: 24, color: colors.text.light })}
               />
             </FormContainer>
-          </ScrollView>
+          </KeyboardDismissWrapper>
         </KeyboardAvoidingView>
       </View>
     </View>
@@ -212,7 +215,7 @@ const styles = StyleSheet.create({
   mascotContainer: {
     position: 'absolute',
     right: dimensions.spacing.lg,
-    top: 80,
+    top: 140,
     zIndex: 999,
     width: 150,
     height: 150,
@@ -233,6 +236,17 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: colors.secondary,
     borderRadius: dimensions.radius.md,
+  },
+  button: {
+    backgroundColor: colors.primaryDark,
+    borderRadius: dimensions.radius.round,
+    alignItems: 'center',
+    marginBottom: dimensions.spacing.md,
+    borderWidth: 0.5
+  },
+  buttonText: {
+    ...typography.subtitle,
+    color: colors.text.light,
   },
 });
 
