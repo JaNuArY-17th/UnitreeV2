@@ -6,6 +6,7 @@ import { colors } from '@/shared/themes/colors';
 import { typography } from '../../../../shared/themes';
 import { dimensions } from '@/shared/themes/dimensions';
 import typographyStyles from '@/shared/themes/typography';
+import { useTranslation } from 'react-i18next';
 
 const { width } = Dimensions.get('window');
 
@@ -20,6 +21,8 @@ const FormContainer: React.FC<FormContainerProps> = ({
   children,
   onSignUp,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <Animated.View
       entering={FadeInUp.delay(400)}
@@ -33,9 +36,9 @@ const FormContainer: React.FC<FormContainerProps> = ({
 
       {onSignUp && (
         <View style={styles.signUpContainer}>
-          <Text style={styles.signUpText}>Chưa có tài khoản? </Text>
+          <Text style={styles.signUpText}>{t('login:dont_have_account')} </Text>
           <TouchableOpacity onPress={onSignUp}>
-            <Text style={styles.signUpLink}>Đăng ký</Text>
+            <Text style={styles.signUpLink}>{t('login:sign_up')}</Text>
           </TouchableOpacity>
         </View>
       )}

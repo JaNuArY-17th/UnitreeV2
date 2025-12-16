@@ -61,8 +61,8 @@ const LoginScreen: React.FC = () => {
   const validateForm = (): boolean => {
     if (!phone.trim() || !password.trim()) {
       Alert.alert(
-        t('login:errors.loginFailed'),
-        'Vui lòng điền đầy đủ thông tin'
+        t('login:error_title'),
+        t('login:validation_required')
       );
       return false;
     }
@@ -111,8 +111,8 @@ const LoginScreen: React.FC = () => {
       throw new Error('Unexpected login response');
     } catch (error: any) {
       Alert.alert(
-        t('login:errors.loginFailed'),
-        error.message || 'Đăng nhập thất bại'
+        t('login:loginFailed'),
+        error.message || t('login:login_error')
       );
     }
   };
@@ -154,25 +154,25 @@ const LoginScreen: React.FC = () => {
         >
           <KeyboardDismissWrapper>
             <FormContainer
-              title="Đăng Nhập"
+              title={t('login:title')}
               onSignUp={handleSignUp}
             >
               {/* Phone Input */}
               <AuthInput
-                label="Số điện thoại"
+                label={t('login:phone_label')}
                 value={phone}
                 onChangeText={setPhone}
-                placeholder="Nhập số điện thoại"
+                placeholder={t('login:phone_placeholder')}
                 keyboardType="phone-pad"
                 icon={<Mail width={20} height={20} color="#666" />}
               />
 
               {/* Password Input */}
               <AuthInput
-                label="Mật khẩu"
+                label={t('login:password_label')}
                 value={password}
                 onChangeText={setPassword}
-                placeholder="Nhập mật khẩu"
+                placeholder={t('login:password_placeholder')}
                 secureTextEntry={true}
                 icon={<Lock width={20} height={20} color="#666" />}
               />
@@ -186,7 +186,7 @@ const LoginScreen: React.FC = () => {
 
               {/* Login Button */}
               <Button
-                label={isLoading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+                label={isLoading ? t('login:login_loading') : t('login:login_button')}
                 onPress={handleLogin}
                 disabled={isLoading}
                 style={styles.button}

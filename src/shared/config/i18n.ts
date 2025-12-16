@@ -37,15 +37,13 @@ export async function initI18n() {
   try {
     const stored = await AsyncStorage.getItem(LANGUAGE_STORAGE_KEY);
     if (stored === 'en' || stored === 'vi') lng = stored;
-    console.log('[i18n] Loaded language preference from AsyncStorage:', stored);
   } catch (error) {
     // AsyncStorage not available, use default language
-    console.log('[i18n] AsyncStorage not available, using default language');
+    console.log('Using default language, AsyncStorage not available');
   }
 
   // Initialize i18n
   if (!i18n.isInitialized) {
-    console.log('[i18n] Initializing i18n with language:', lng);
     await i18n.use(initReactI18next).init({
       compatibilityJSON: 'v4',
       resources,
@@ -55,29 +53,17 @@ export async function initI18n() {
       defaultNS: 'common',
       interpolation: { escapeValue: false },
       react: { useSuspense: false },
-      debug: true, // Enable i18next debug mode
     });
-    console.log('[i18n] Initialization complete, current language:', i18n.language);
-  } else {
-    console.log('[i18n] i18n already initialized, current language:', i18n.language);
   }
   return i18n;
 }
 
 export default i18n;
 export const setLanguage = async (lng: 'en' | 'vi') => {
-  console.log('[i18n] setLanguage called with:', lng);
   try {
     await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, lng);
-    console.log('[i18n] Language preference saved to AsyncStorage');
   } catch (error) {
-    console.warn('[i18n] Failed to save language preference:', error);
+    console.warn('Failed to save language preference:', error);
   }
-  
-  console.log('[i18n] Calling i18n.changeLanguage with:', lng);
-  const result = await i18n.changeLanguage(lng);
-  console.log('[i18n] i18n.changeLanguage result, new language:', result);
-  console.log('[i18n] i18n.language after change:', i18n.language);
-  
-  return result;
+  return i18n.changeLanguage(lng);
 };

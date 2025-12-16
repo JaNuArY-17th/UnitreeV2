@@ -4,6 +4,7 @@ import Text from '@/shared/components/base/Text';
 import { colors } from '@/shared/themes/colors';
 import { dimensions } from '@/shared/themes/dimensions';
 import typographyStyles from '@/shared/themes/typography';
+import { useTranslation } from 'react-i18next';
 
 interface RememberForgotRowProps {
   rememberMe: boolean;
@@ -16,6 +17,8 @@ const RememberForgotRow: React.FC<RememberForgotRowProps> = ({
   onRememberMeChange,
   onForgotPassword,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -26,11 +29,11 @@ const RememberForgotRow: React.FC<RememberForgotRowProps> = ({
           <View style={[styles.checkbox, rememberMe && styles.checkboxChecked]}>
             {rememberMe && <View style={[styles.checkmark, { backgroundColor: colors.light }]} />}
           </View>
-        <Text style={styles.rememberMeText}>Nhớ tài khoản</Text>
+        <Text style={styles.rememberMeText}>{t('login:remember_me')}</Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={onForgotPassword}>
-        <Text style={styles.forgotPasswordText}>Quên mật khẩu?</Text>
+        <Text style={styles.forgotPasswordText}>{t('login:forgot_password')}</Text>
       </TouchableOpacity>
     </View>
   );
