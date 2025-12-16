@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, StyleSheet, Modal } from 'react-native';
+import { View, StyleSheet, Modal, Animated } from 'react-native';
 import LottieView from 'lottie-react-native';
-import { colors, dimensions, spacing } from '@/shared/themes';
+import { colors, dimensions, spacing, typography } from '@/shared/themes';
 import { Heading, Body } from '@/shared/components/base';
 
 interface LoadingModalProps {
@@ -44,21 +44,41 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
 }) => {
   const animationRef = useRef<LottieView>(null);
   const [isComplete, setIsComplete] = useState(false);
+  const fadeAnim = useRef(new Animated.Value(1)).current;
+  const successFadeAnim = useRef(new Animated.Value(0)).current;
+
+  // Get default success animation
+  const defaultSuccessAnimation = require('@/shared/assets/lottie/Success.json');
+  const successAnimation = completionAnimationSource || defaultSuccessAnimation;
 
   useEffect(() => {
     if (visible) {
       setIsComplete(false);
+      fadeAnim.setValue(1);
+      successFadeAnim.setValue(0);
     }
-  }, [visible]);
+  }, [visible, fadeAnim, successFadeAnim]);
 
   useEffect(() => {
     if (visible && duration) {
       const timer = setTimeout(() => {
         setIsComplete(true);
+        // Fade out loading animation
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+        // Fade in success animation
+        Animated.timing(successFadeAnim, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
       }, duration);
       return () => clearTimeout(timer);
     }
-  }, [visible, duration]);
+  }, [visible, duration, fadeAnim, successFadeAnim]);
   return (
     <Modal
       visible={visible}
@@ -71,7 +91,7 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
         <View style={styles.modalContent}>
           {!isComplete ? (
             <>
-              <View style={styles.animationContainer}>
+              <Animated.View style={[styles.animationContainer, { opacity: fadeAnim }]}>
                 <LottieView
                   ref={animationRef}
                   source={animationSource || require('@/shared/assets/lottie/plane-loading.json')}
@@ -80,7 +100,7 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
                   speed={animationSpeed}
                   style={animationStyle || styles.animation}
                 />
-              </View>
+              </Animated.View>
 
               {title && (
                 <Heading level={2} style={styles.title}>
@@ -90,16 +110,14 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
             </>
           ) : (
             <>
-              {completionAnimationSource && (
-                <View style={styles.animationContainer}>
-                  <LottieView
-                    source={completionAnimationSource}
-                    autoPlay
-                    loop
-                    style={animationStyle || styles.animation}
-                  />
-                </View>
-              )}
+              <Animated.View style={[styles.animationContainer, { opacity: successFadeAnim }]}>
+                <LottieView
+                  source={successAnimation}
+                  autoPlay
+                  loop
+                  style={animationStyle || styles.animation}
+                />
+              </Animated.View>
               {completionMessage && (
                 <Body style={styles.completionMessage}>
                   {completionMessage}
@@ -141,7 +159,6 @@ const styles = StyleSheet.create({
     padding: spacing.xxxl,
     alignItems: 'center',
     justifyContent: 'center',
-    opacity: 0.8,
   },
   animationContainer: {
     marginBottom: spacing.md,
@@ -162,10 +179,10 @@ const styles = StyleSheet.create({
     lineHeight: 22,
   },
   completionMessage: {
+    ...typography.title,
     textAlign: 'center',
-    color: colors.text.primary,
-    fontSize: 16,
-    fontWeight: '500',
+    color: colors.primary,
+    fontWeight: 'bold',
   },
 });
 

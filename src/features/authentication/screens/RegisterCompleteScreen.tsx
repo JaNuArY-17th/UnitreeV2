@@ -73,8 +73,8 @@ const RegisterCompleteScreen: React.FC = () => {
         animationSource={plantAnimation.source}
         animationStyle={plantAnimation.style}
         duration={2500}
-        completionMessage={`${nickname}!\n${t('register:account_created_message')}`}
-        animationSpeed={1}
+        completionMessage={t('register:account_created_message')}
+        animationSpeed={2}
       />
       <ScreenHeader title={t('register:register_step_3')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 

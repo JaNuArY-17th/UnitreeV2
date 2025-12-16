@@ -6,7 +6,6 @@ import LoginScreen from '@/features/authentication/screens/LoginScreen';
 import RegisterEmailScreen from '@/features/authentication/screens/RegisterEmailScreen';
 import RegisterCodeScreen from '@/features/authentication/screens/RegisterCodeScreen';
 import RegisterCompleteScreen from '@/features/authentication/screens/RegisterCompleteScreen';
-import RegisterSuccessScreen from '@/features/authentication/screens/RegisterSuccessScreen';
 import ForgotPasswordEmailScreen from '@/features/authentication/screens/ForgotPasswordEmailScreen';
 import ForgotPasswordCodeScreen from '@/features/authentication/screens/ForgotPasswordCodeScreen';
 import ForgotPasswordResetScreen from '@/features/authentication/screens/ForgotPasswordResetScreen';
@@ -72,7 +71,6 @@ const NavigationContent = () => {
             <Stack.Screen name="RegisterEmail" component={RegisterEmailScreen} />
             <Stack.Screen name="RegisterCode" component={RegisterCodeScreen} />
             <Stack.Screen name="RegisterComplete" component={RegisterCompleteScreen} />
-            <Stack.Screen name="RegisterSuccess" component={RegisterSuccessScreen} />
             
             {/* Forgot Password flow */}
             <Stack.Screen name="ForgotPassword" component={ForgotPasswordEmailScreen} />

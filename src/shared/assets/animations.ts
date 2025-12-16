@@ -12,7 +12,7 @@ export const LOADING_ANIMATIONS = {
       height: 200,
     },
   },
-  
+
   // Hub loading animation
   hub: {
     source: require('@/shared/assets/lottie/Loading_Hub6.json'),
@@ -21,7 +21,7 @@ export const LOADING_ANIMATIONS = {
       height: 150,
     },
   },
-  
+
   // Small plane animation
   planeSmall: {
     source: require('@/shared/assets/lottie/plane-loading.json'),
@@ -30,7 +30,7 @@ export const LOADING_ANIMATIONS = {
       height: 120,
     },
   },
-  
+
   // Large hub animation
   hubLarge: {
     source: require('@/shared/assets/lottie/Loading_Hub6.json'),
@@ -48,6 +48,14 @@ export const LOADING_ANIMATIONS = {
       height: 150,
     },
   },
+
+  success: {
+    source: require('@/shared/assets/lottie/Success.json'),
+    style: {
+      width: 150,
+      height: 150,
+    },
+  }
 } as const;
 
 // Type for animation keys
