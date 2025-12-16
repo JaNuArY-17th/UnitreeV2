@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { colors, spacing } from '@/shared/themes';
@@ -39,12 +39,6 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
   duration,
 }) => {
   const animationRef = useRef<LottieView>(null);
-
-  useEffect(() => {
-    if (animationRef.current && animationSpeed !== 1) {
-      animationRef.current.setSpeed?.(animationSpeed);
-    }
-  }, [animationSpeed]);
 
   useEffect(() => {
     if (visible && duration) {
