@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Alert, Text } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { colors, dimensions, typography } from '@/shared/themes';
@@ -8,12 +8,10 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '@/navigation/types';
 
-import LogoHeader from '../components/LoginScreen/LogoHeader';
-import FormContainer from '../components/LoginScreen/FormContainer';
 import AuthInput from '../components/LoginScreen/AuthInput';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
-import { Button } from '@/shared/components';
+import { KeyboardDismissWrapper, ScreenHeader, Text, Button } from '../../../shared/components';
 
 const ForgotPasswordCodeScreen: React.FC = () => {
   const [verificationCode, setVerificationCode] = useState('');
@@ -117,31 +115,42 @@ const ForgotPasswordCodeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
+  },
+  titleStyle: {
+    ...typography.h2,
+    color: colors.text.light,
   },
   keyboardView: {
     flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
     paddingHorizontal: dimensions.spacing.lg,
-    paddingBottom: dimensions.spacing.xl,
+  },
+  instructionText: {
+    ...typography.subtitle,
+    color: colors.text.light,
+    marginBottom: dimensions.spacing.md,
   },
   resendText: {
     ...typography.caption,
-    color: colors.text.secondary,
+    color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
+    opacity: 0.8,
   },
   resendLink: {
     ...typography.caption,
-    color: colors.primary,
+    color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
     textDecorationLine: 'underline',
+    fontWeight: '600',
+  },
+  button: {
+    marginTop: dimensions.spacing.lg,
+  },
+  buttonText: {
+    ...typography.subtitle,
+    color: colors.text.light,
   },
 });
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Alert, Text } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { colors, dimensions, typography } from '@/shared/themes';
@@ -8,12 +8,10 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '@/navigation/types';
 
-import LogoHeader from '../components/LoginScreen/LogoHeader';
-import FormContainer from '../components/LoginScreen/FormContainer';
 import AuthInput from '../components/LoginScreen/AuthInput';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
-import { Button } from '@/shared/components';
+import { KeyboardDismissWrapper, ScreenHeader, Text, Button } from '../../../shared/components';
 
 const RegisterCodeScreen: React.FC = () => {
   const [verificationCode, setVerificationCode] = useState('');
@@ -71,44 +69,42 @@ const RegisterCodeScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingOverlay visible={isLoading} />
-      <LogoHeader mascotVisible={true} />
+      <ScreenHeader title="Verify Code" titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled">
-          <FormContainer
-            title="Verify Code"
-            onSignUp={() => navigation.navigate('Login')}>
-            <AuthInput
-              label="Verification Code"
-              value={verificationCode}
-              onChangeText={setVerificationCode}
-              placeholder="Enter 6-digit code"
-              maxLength={6}
-              keyboardType="number-pad"
-              editable={!isLoading}
-            />
-            {resendCountdown > 0 ? (
-              <Text style={styles.resendText}>
-                Resend code in {resendCountdown}s
-              </Text>
-            ) : (
-              <Text style={styles.resendLink} onPress={handleResendCode}>
-                Didn't receive code? Resend
-              </Text>
-            )}
-            <Button
-              onPress={handleVerifyCode}
-              disabled={isLoading || verificationCode.length !== 6}
-              loading={isLoading}
-              label="Verify"
-            />
-          </FormContainer>
-        </ScrollView>
+        <KeyboardDismissWrapper>
+          <Text style={styles.instructionText}>Enter the 6-digit verification code sent to your email</Text>
+          <AuthInput
+            label="Verification Code"
+            value={verificationCode}
+            onChangeText={setVerificationCode}
+            placeholder="Enter 6-digit code"
+            maxLength={6}
+            keyboardType="number-pad"
+            editable={!isLoading}
+          />
+          {resendCountdown > 0 ? (
+            <Text style={styles.resendText}>
+              Resend code in {resendCountdown}s
+            </Text>
+          ) : (
+            <Text style={styles.resendLink} onPress={handleResendCode}>
+              Didn't receive code? Resend
+            </Text>
+          )}
+          <Button
+            onPress={handleVerifyCode}
+            disabled={isLoading || verificationCode.length !== 6}
+            loading={isLoading}
+            size='lg'
+            variant='primary'
+            label={isLoading ? 'Verifying...' : 'Verify Code'}
+            style={styles.button}
+            textStyle={styles.buttonText}
+          />
+        </KeyboardDismissWrapper>
       </KeyboardAvoidingView>
     </View>
   );
@@ -117,31 +113,42 @@ const RegisterCodeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
+  },
+  titleStyle: {
+    ...typography.h2,
+    color: colors.text.light,
   },
   keyboardView: {
     flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
     paddingHorizontal: dimensions.spacing.lg,
-    paddingBottom: dimensions.spacing.xl,
+  },
+  instructionText: {
+    ...typography.subtitle,
+    color: colors.text.light,
+    marginBottom: dimensions.spacing.md,
   },
   resendText: {
     ...typography.caption,
-    color: colors.text.secondary,
+    color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
+    opacity: 0.8,
   },
   resendLink: {
     ...typography.caption,
-    color: colors.primary,
+    color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
     textDecorationLine: 'underline',
+    fontWeight: '600',
+  },
+  button: {
+    marginTop: dimensions.spacing.lg,
+  },
+  buttonText: {
+    ...typography.subtitle,
+    color: colors.text.light,
   },
 });
 

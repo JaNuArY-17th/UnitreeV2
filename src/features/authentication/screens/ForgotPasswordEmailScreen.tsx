@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Alert } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTranslation } from '@/shared/hooks/useTranslation';
 import { colors, dimensions, typography } from '@/shared/themes';
@@ -7,13 +7,11 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/navigation/types';
 
-import LogoHeader from '../components/LoginScreen/LogoHeader';
-import FormContainer from '../components/LoginScreen/FormContainer';
 import AuthInput from '../components/LoginScreen/AuthInput';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
-import Mail from '@/shared/assets/icons/Mail';
+import { Mail } from '@/shared/assets/icons';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
-import { Button } from '@/shared/components';
+import { KeyboardDismissWrapper, ScreenHeader, Text, Button } from '../../../shared/components';
 
 const ForgotPasswordEmailScreen: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -45,34 +43,32 @@ const ForgotPasswordEmailScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingOverlay visible={isLoading} />
-      <LogoHeader mascotVisible={true} />
+      <ScreenHeader title="Forgot Password" titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled">
-          <FormContainer
-            title={t('login:forgotPassword')}
-            onSignUp={() => navigation.navigate('Login')}>
-            <AuthInput
-              label="Email"
-              value={email}
-              onChangeText={setEmail}
-              placeholder="Enter your email"
-              icon={<Mail width={20} height={20} />}
-              editable={!isLoading}
-            />
-            <Button
-              onPress={handleSendEmail}
-              disabled={isLoading || !email.trim()}
-              loading={isLoading}
-              label="Send Code"
-            />
-          </FormContainer>
-        </ScrollView>
+        <KeyboardDismissWrapper>
+          <Text style={styles.instructionText}>Enter your email address to reset your password</Text>
+          <AuthInput
+            label="Email"
+            value={email}
+            onChangeText={setEmail}
+            placeholder="Enter your email"
+            icon={<Mail width={20} height={20} />}
+            editable={!isLoading}
+          />
+          <Button
+            onPress={handleSendEmail}
+            disabled={isLoading || !email.trim()}
+            loading={isLoading}
+            size='lg'
+            variant='primary'
+            label={isLoading ? 'Đang gửi...' : 'Send Code'}
+            style={styles.button}
+            textStyle={styles.buttonText}
+          />
+        </KeyboardDismissWrapper>
       </KeyboardAvoidingView>
     </View>
   );
@@ -81,18 +77,27 @@ const ForgotPasswordEmailScreen: React.FC = () => {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
+  },
+  titleStyle: {
+    ...typography.h2,
+    color: colors.text.light,
   },
   keyboardView: {
     flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
     paddingHorizontal: dimensions.spacing.lg,
-    paddingBottom: dimensions.spacing.xl,
+  },
+  instructionText: {
+    ...typography.subtitle,
+    color: colors.text.light,
+    marginBottom: dimensions.spacing.md,
+  },
+  button: {
+    marginTop: dimensions.spacing.lg,
+  },
+  buttonText: {
+    ...typography.subtitle,
+    color: colors.text.light,
   },
 });
 

@@ -1,19 +1,19 @@
 import React from 'react';
-import { View, StyleSheet, KeyboardAvoidingView, Platform, ScrollView, Text } from 'react-native';
+import { View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors, dimensions, typography } from '@/shared/themes';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/navigation/types';
 
-import LogoHeader from '../components/LoginScreen/LogoHeader';
-import FormContainer from '../components/LoginScreen/FormContainer';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
-import { Button } from '@/shared/components';
+import { useTranslation } from '@/shared/hooks/useTranslation';
+import { KeyboardDismissWrapper, ScreenHeader, Text, Button } from '../../../shared/components';
 
 const ForgotPasswordSuccessScreen: React.FC = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const { t } = useTranslation();
 
   const handleBackToLogin = () => {
     navigation.navigate('Login');
@@ -23,31 +23,23 @@ const ForgotPasswordSuccessScreen: React.FC = () => {
 
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
-      <LogoHeader mascotVisible={true} />
+      <ScreenHeader title={t('login:passwordReset')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled">
-          <FormContainer
-            title="Password Reset"
-            onSignUp={handleBackToLogin}>
-            <View style={styles.successContainer}>
-              <Text style={styles.successTitle}>Password Reset</Text>
-              <Text style={styles.successMessage}>
-                Your password has been successfully reset. You can now log in with your new password.
-              </Text>
-              <Button
-                onPress={handleBackToLogin}
-                disabled={false}
-                label="Back to Login"
-              />
-            </View>
-          </FormContainer>
-        </ScrollView>
+        <KeyboardDismissWrapper>
+          <Text style={styles.instructionText}>Your password has been successfully reset. You can now log in with your new password.</Text>
+          <Button
+            onPress={handleBackToLogin}
+            disabled={false}
+            size='lg'
+            variant='primary'
+            label="Back to Login"
+            style={styles.button}
+            textStyle={styles.buttonText}
+          />
+        </KeyboardDismissWrapper>
       </KeyboardAvoidingView>
     </View>
   );
@@ -56,34 +48,27 @@ const ForgotPasswordSuccessScreen: React.FC = () => {
 const styles = StyleSheet.create({
   safeContainer: {
     flex: 1,
-    backgroundColor: colors.secondary,
+    backgroundColor: colors.primary,
   },
   keyboardView: {
     flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-  },
-  scrollContent: {
-    flexGrow: 1,
     paddingHorizontal: dimensions.spacing.lg,
-    paddingBottom: dimensions.spacing.xl,
   },
-  successContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingVertical: dimensions.spacing.xxl,
+  titleStyle: {
+    ...typography.h2,
+    color: colors.text.light,
   },
-  successTitle: {
-    ...typography.h0,
-    color: colors.text.dark,
+  instructionText: {
+    ...typography.subtitle,
+    color: colors.text.light,
     marginBottom: dimensions.spacing.md,
   },
-  successMessage: {
-    ...typography.body,
-    color: colors.text.secondary,
-    textAlign: 'center',
-    marginBottom: dimensions.spacing.xxl,
+  button: {
+    marginTop: dimensions.spacing.lg,
+  },
+  buttonText: {
+    ...typography.subtitle,
+    color: colors.text.light,
   },
 });
 

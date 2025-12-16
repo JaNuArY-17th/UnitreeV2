@@ -9,7 +9,7 @@ import type { RootStackParamList } from '@/navigation/types';
 
 import AuthInput from '../components/LoginScreen/AuthInput';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
-import Mail from '@/shared/assets/icons/Mail';
+import { Mail, SignUp } from '@/shared/assets/icons';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
 import { KeyboardDismissWrapper, ScreenHeader, Text, Button } from '../../../shared/components';
 
@@ -62,7 +62,12 @@ const RegisterEmailScreen: React.FC = () => {
             onPress={handleSendEmail}
             disabled={isLoading || !email.trim()}
             loading={isLoading}
+            style={styles.button}
+            textStyle={styles.buttonText}
+            size='lg'
+            variant='primary'
             label={isLoading ? 'Đang gửi...' : 'Gửi mã'}
+            leftIcon={SignUp({ width: 24, height: 24, color: colors.text.light })}
           />
         </KeyboardDismissWrapper>
       </KeyboardAvoidingView>
@@ -95,6 +100,17 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: dimensions.spacing.lg,
     paddingBottom: dimensions.spacing.xl,
+  },
+  button: {
+    backgroundColor: colors.primaryDark,
+    borderRadius: dimensions.radius.round,
+    alignItems: 'center',
+    marginBottom: dimensions.spacing.md,
+    borderWidth: 0.5
+  },
+  buttonText: {
+    ...typography.subtitle,
+    color: colors.text.light,
   },
 });
 
