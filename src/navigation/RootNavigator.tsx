@@ -3,8 +3,14 @@ import { NavigationContainer, NavigationContainerRef } from '@react-navigation/n
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import LoginScreen from '@/features/authentication/screens/LoginScreen';
-import RegisterScreen from '@/features/authentication/screens/RegisterScreen';
-import ForgotPasswordScreen from '@/features/authentication/screens/ForgotPasswordScreen';
+import RegisterEmailScreen from '@/features/authentication/screens/RegisterEmailScreen';
+import RegisterCodeScreen from '@/features/authentication/screens/RegisterCodeScreen';
+import RegisterCompleteScreen from '@/features/authentication/screens/RegisterCompleteScreen';
+import RegisterSuccessScreen from '@/features/authentication/screens/RegisterSuccessScreen';
+import ForgotPasswordEmailScreen from '@/features/authentication/screens/ForgotPasswordEmailScreen';
+import ForgotPasswordCodeScreen from '@/features/authentication/screens/ForgotPasswordCodeScreen';
+import ForgotPasswordResetScreen from '@/features/authentication/screens/ForgotPasswordResetScreen';
+import ForgotPasswordSuccessScreen from '@/features/authentication/screens/ForgotPasswordSuccessScreen';
 import {BottomTabNavigator} from './BottomTabNavigator';
 import { useAuth } from '@/shared/components/AuthProvider';
 import type { RootStackParamList } from './types';
@@ -61,8 +67,19 @@ const NavigationContent = () => {
                 animation: 'fade',
               }}
             />
-            <Stack.Screen name="Register" component={RegisterScreen} />
-            <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
+            {/* Register flow */}
+            <Stack.Screen name="Register" component={RegisterEmailScreen} />
+            <Stack.Screen name="RegisterEmail" component={RegisterEmailScreen} />
+            <Stack.Screen name="RegisterCode" component={RegisterCodeScreen} />
+            <Stack.Screen name="RegisterComplete" component={RegisterCompleteScreen} />
+            <Stack.Screen name="RegisterSuccess" component={RegisterSuccessScreen} />
+            
+            {/* Forgot Password flow */}
+            <Stack.Screen name="ForgotPassword" component={ForgotPasswordEmailScreen} />
+            <Stack.Screen name="ForgotPasswordEmail" component={ForgotPasswordEmailScreen} />
+            <Stack.Screen name="ForgotPasswordCode" component={ForgotPasswordCodeScreen} />
+            <Stack.Screen name="ForgotPasswordReset" component={ForgotPasswordResetScreen} />
+            <Stack.Screen name="ForgotPasswordSuccess" component={ForgotPasswordSuccessScreen} />
           </Stack.Group>
         ) : (
           // Main App Stack

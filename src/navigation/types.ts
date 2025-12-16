@@ -11,8 +11,16 @@ export type TabParamList = {
 export type RootStackParamList = {
   // Authentication screens
   Login: undefined;
-  Register: { userType?: 'user' } | undefined;
+  Register: undefined;
+  RegisterEmail: undefined;
+  RegisterCode: { email: string };
+  RegisterComplete: { email: string };
+  RegisterSuccess: { nickname: string };
   ForgotPassword: undefined;
+  ForgotPasswordEmail: undefined;
+  ForgotPasswordCode: { email: string };
+  ForgotPasswordReset: { email: string };
+  ForgotPasswordSuccess: { email?: string };
   Policy: undefined;
 
   // Main app

@@ -88,7 +88,7 @@ const LoginScreen: React.FC = () => {
       // Handle unverified user
       if (result.isVerified === false) {
         console.log('🟡 User not verified, redirecting to RegisterOtpScreen');
-        navigation.navigate('RegisterOtp', { phone });
+        // navigation.navigate('RegisterOtp', { phone });
         return;
       }
 
@@ -117,11 +117,11 @@ const LoginScreen: React.FC = () => {
   };
 
   const handleForgotPassword = () => {
-    navigation.navigate('ForgotPassword');
+    navigation.navigate('ForgotPasswordEmail');
   };
 
   const handleSignUp = () => {
-    navigation.navigate('Register');
+    navigation.navigate('RegisterEmail');
   };
 
   useStatusBarEffect('transparent', 'dark-content', true);
