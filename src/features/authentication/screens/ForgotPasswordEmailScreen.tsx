@@ -64,7 +64,7 @@ const ForgotPasswordEmailScreen: React.FC = () => {
             loading={isLoading}
             size='lg'
             variant='primary'
-            label={isLoading ? 'Đang gửi...' : 'Send Code'}
+            label={isLoading ? t('forgotPassword:sending') : t('forgotPassword:send_code')}
             style={styles.button}
             textStyle={styles.buttonText}
             leftIcon={SignUp({ width: 24, height: 24, color: colors.text.light })}

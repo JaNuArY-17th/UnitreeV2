@@ -1,39 +1,45 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import Text from '@/shared/components/base/Text';
-import { setLanguage } from '@/shared/config/i18n';
-import { colors, FONT_WEIGHTS, getFontFamily, spacing } from '@/shared/themes';
-import { useTranslation } from 'react-i18next';
+import { dimensions, colors, typography } from '@/shared/themes';
+import { useLanguage } from '@/shared/providers/LanguageProvider';
 
 interface LanguageSwitcherProps {
   backgroundColor?: string;
 }
 
 const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ backgroundColor }) => {
-  const { i18n } = useTranslation();
-  const current = (i18n.language || 'vi').split('-')[0] as 'en' | 'vi';
+  const { currentLanguage, changeLanguage, isLoading } = useLanguage();
+
+  const handleLanguageChange = async (language: 'en' | 'vi') => {
+    if (currentLanguage !== language && !isLoading) {
+      await changeLanguage(language);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity
+        disabled={isLoading}
         style={[
           styles.button,
           styles.leftButton,
-          current === 'en' ? [styles.selectedButton, { backgroundColor: backgroundColor }] : styles.unselectedButton,
+          currentLanguage === 'en' ? [styles.selectedButton, { backgroundColor: backgroundColor }] : styles.unselectedButton,
         ]}
-        onPress={() => setLanguage('en')}
+        onPress={() => handleLanguageChange('en')}
       >
-        <Text style={styles.flagText}>🇺🇸</Text>
+        <Text style={[currentLanguage === 'en' ? [styles.selectedText] : styles.flagText]}>En</Text>
       </TouchableOpacity>
       <TouchableOpacity
+        disabled={isLoading}
         style={[
           styles.button,
           styles.rightButton,
-          current === 'vi' ? [styles.selectedButton, { backgroundColor: backgroundColor }] : styles.unselectedButton,
+          currentLanguage === 'vi' ? [styles.selectedButton, { backgroundColor: backgroundColor }] : styles.unselectedButton,
         ]}
-        onPress={() => setLanguage('vi')}
+        onPress={() => handleLanguageChange('vi')}
       >
-        <Text style={styles.flagText}>🇻🇳</Text>
+        <Text style={[currentLanguage === 'vi' ? [styles.selectedText] : styles.flagText]}>Vi</Text>
       </TouchableOpacity>
     </View>
   );
@@ -42,48 +48,46 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ backgroundColor }) 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    borderRadius: 100,
-    backgroundColor: colors.lightGray,
-    padding: spacing.xs,
-    width: 100,
+    borderRadius: dimensions.radius.round,
+    backgroundColor: colors.background,
+    padding: dimensions.spacing.xs,
+    width: 80,
   },
   button: {
     flex: 1,
-    // paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.sm,
+    paddingHorizontal: dimensions.spacing.sm,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingVertical: dimensions.spacing.xs,
   },
   leftButton: {
-    borderTopLeftRadius: 100,
-    borderBottomLeftRadius: 100,
+    borderTopLeftRadius: dimensions.radius.round,
+    borderBottomLeftRadius: dimensions.radius.round,
   },
   rightButton: {
-    borderTopRightRadius: 100,
-    borderBottomRightRadius: 100,
+    borderTopRightRadius: dimensions.radius.round,
+    borderBottomRightRadius: dimensions.radius.round,
   },
   selectedButton: {
-    borderRadius: 100,
+    borderRadius: dimensions.radius.round,
   },
   unselectedButton: {
     backgroundColor: 'transparent',
   },
   flagText: {
-    fontSize: 20,
-    lineHeight: 28,
+    ...typography.subtitle,
     textAlign: 'center',
     textAlignVertical: 'center',
-  },
-  buttonText: {
-    fontSize: 12,
-    fontFamily: getFontFamily(FONT_WEIGHTS.REGULAR),
+    color: colors.primary,
+    fontWeight: 'bold'
   },
   selectedText: {
-    color: '#FFFFFF',
-  },
-  unselectedText: {
-    color: colors.text.secondary,
-  },
+    ...typography.subtitle,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: colors.text.light,
+    fontWeight: 'bold'
+  }
 });
 
 export default LanguageSwitcher;

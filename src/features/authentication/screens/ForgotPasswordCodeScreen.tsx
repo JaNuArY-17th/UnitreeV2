@@ -94,6 +94,7 @@ const ForgotPasswordCodeScreen: React.FC = () => {
             label={isLoading ? t('forgotPassword:verifying') : t('forgotPassword:verify')}
             style={styles.button}
             textStyle={styles.buttonText}
+            leftIcon={Verify({ width: 24, height: 24, color: colors.text.light })}
           />
           {resendCountdown > 0 ? (
             <Text style={styles.resendText}>

@@ -4,6 +4,7 @@
   "email_label": "Email",
   "email_placeholder": "Nhập địa chỉ email của bạn",
   "password_label": "Mật khẩu",
+  "verification_code_placeholder": "Nhập mã 6 chữ số",
   "password_placeholder": "Nhập mật khẩu của bạn",
   "confirm_password_label": "Xác nhận mật khẩu",
   "confirm_password_placeholder": "Xác nhận mật khẩu của bạn",

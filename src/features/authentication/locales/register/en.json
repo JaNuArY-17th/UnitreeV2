@@ -4,6 +4,7 @@
   "email_label": "Email",
   "email_placeholder": "Enter your email address",
   "password_label": "Password",
+  "verification_code_placeholder": "Enter 6-digit code",
   "password_placeholder": "Enter your password",
   "confirm_password_label": "Confirm Password",
   "confirm_password_placeholder": "Confirm your password",

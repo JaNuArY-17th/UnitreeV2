@@ -94,6 +94,7 @@ const RegisterCodeScreen: React.FC = () => {
             label={isLoading ? t('register:verifying') : t('register:verify')}
             style={styles.button}
             textStyle={styles.buttonText}
+            leftIcon={Verify({ width: 24, height: 24, color: colors.text.light })}
           />
           {resendCountdown > 0 ? (
             <Text style={styles.resendText}>

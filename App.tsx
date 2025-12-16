@@ -17,7 +17,7 @@ import { store, persistor } from '@/shared/store';
 import RootNavigator from '@/navigation/RootNavigator';
 import { initI18n } from '@/shared/config/i18n';
 import { initializeFonts } from '@/shared/config/fonts';
-import { AlertProvider } from '@/shared/providers';
+import { AlertProvider, LanguageProvider } from '@/shared/providers';
 import { AuthProvider } from '@/shared/components/AuthProvider';
 import { initializeColorsFromStorage } from '@/shared/themes/colors';
 import SplashScreen from 'react-native-splash-screen';
@@ -87,22 +87,24 @@ const AppContent = () => {
 
   return (
     <SafeAreaProvider>
-      <AlertProvider>
-        <AuthProvider onLoginRequired={handleLoginRequired}>
-          <View style={styles.container}>
-            <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            />
-            {ready ? (
-              <RootNavigator ref={navigationRef} />
-            ) : (
-              <View style={styles.loader}>
-                <ActivityIndicator size="large" />
-              </View>
-            )}
-          </View>
-        </AuthProvider>
-      </AlertProvider>
+      <LanguageProvider>
+        <AlertProvider>
+          <AuthProvider onLoginRequired={handleLoginRequired}>
+            <View style={styles.container}>
+              <StatusBar
+                barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+              />
+              {ready ? (
+                <RootNavigator ref={navigationRef} />
+              ) : (
+                <View style={styles.loader}>
+                  <ActivityIndicator size="large" />
+                </View>
+              )}
+            </View>
+          </AuthProvider>
+        </AlertProvider>
+      </LanguageProvider>
     </SafeAreaProvider>
   );
 };

@@ -10,6 +10,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Animated, { FadeInDown } from 'react-native-reanimated';
 import { colors } from '@/shared/themes/colors';
 import { dimensions } from '@/shared/themes/dimensions';
+import LanguageSwitcher from '@/shared/components/LanguageSwitcher';
 
 interface LogoHeaderProps {
   primaryLogo?: React.ReactNode;
@@ -38,6 +39,10 @@ const LogoHeader: React.FC<LogoHeaderProps> = ({
           { paddingTop: insets.top + dimensions.spacing.md }
         ]}
       >
+        <View style={styles.headerTop}>
+          <View style={styles.spacer} />
+          <LanguageSwitcher backgroundColor={colors.primary} />
+        </View>
         {/* <View style={styles.logosContainer}>
           {secondaryLogo && (
             <Image
@@ -69,6 +74,15 @@ const styles = StyleSheet.create({
   contentWrapper: {
     flex: 1,
     paddingBottom: dimensions.spacing.xxl,
+    paddingHorizontal: dimensions.spacing.lg,
+  },
+  headerTop: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  spacer: {
+    flex: 1,
   },
   logosContainer: {
     flexDirection: 'row',
