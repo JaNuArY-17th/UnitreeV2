@@ -8,9 +8,8 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '@/navigation/types';
 
-import { ScreenHeader, KeyboardDismissWrapper, Text, Button, FullScreenLoading } from '@/shared/components';
+import { ScreenHeader, KeyboardDismissWrapper, Text, Button, LoadingModal } from '@/shared/components';
 import AuthInput from '../components/LoginScreen/AuthInput';
-import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import Lock from '@/shared/assets/icons/Lock';
 import UserCircle from '@/shared/assets/icons/UserCircle';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
@@ -22,7 +21,6 @@ const RegisterCompleteScreen: React.FC = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [showSuccessScreen, setShowSuccessScreen] = useState(false);
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -52,11 +50,9 @@ const RegisterCompleteScreen: React.FC = () => {
       // TODO: Implement API call to complete registration
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Show success screen with plant animation
-      setShowSuccessScreen(true);
-      
       // Navigate to LoginScreen after 3 seconds
       setTimeout(() => {
+        setIsLoading(false);
         navigation.replace('Login');
       }, 3000);
     } catch (err: any) {
@@ -67,23 +63,17 @@ const RegisterCompleteScreen: React.FC = () => {
 
   useStatusBarEffect('transparent', 'dark-content', true);
 
-  // Show success screen with plant animation
-  if (showSuccessScreen) {
-    const plantAnimation = getLoadingAnimation('plane');
-    return (
-      <FullScreenLoading
+  const plantAnimation = getLoadingAnimation('plant');
+
+  return (
+    <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
+      <LoadingModal 
+        visible={isLoading}
         title={t('register:welcome_message')}
         subtitle={`${nickname}! ${t('register:account_created_message')}`}
         animationSource={plantAnimation.source}
         animationStyle={plantAnimation.style}
-        showProgressBar={false}
       />
-    );
-  }
-
-  return (
-    <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
-      <LoadingOverlay visible={isLoading} />
       <ScreenHeader title={t('register:register_step_3')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.keyboardView}>
@@ -154,7 +144,7 @@ const styles = StyleSheet.create({
     marginBottom: dimensions.spacing.md,
   },
   button: {
-    marginTop: dimensions.spacing.lg,
+    
   },
   buttonText: {
     ...typography.subtitle,
