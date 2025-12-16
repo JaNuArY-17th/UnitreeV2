@@ -44,8 +44,8 @@ export const LOADING_ANIMATIONS = {
   plant: {
     source: require('@/shared/assets/lottie/plant.json'),
     style: {
-      width: 180,
-      height: 180,
+      width: 150,
+      height: 150,
     },
   },
 } as const;

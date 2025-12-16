@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { colors, dimensions, spacing } from '@/shared/themes';
@@ -11,7 +11,9 @@ interface LoadingModalProps {
   animationSource?: any;
   animationStyle?: any;
   animationSpeed?: number; // 0.5 = half speed, 1 = normal, 2 = double speed
-  duration?: number; // Duration in ms before auto-closing (optional)
+  duration?: number; // Duration in ms before showing completion message
+  completionMessage?: string; // Message to show when loading completes
+  completionAnimationSource?: any; // Animation to show on completion
 }
 
 /**
@@ -37,13 +39,22 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
   animationStyle,
   animationSpeed = 1,
   duration,
+  completionMessage,
+  completionAnimationSource,
 }) => {
   const animationRef = useRef<LottieView>(null);
+  const [isComplete, setIsComplete] = useState(false);
+
+  useEffect(() => {
+    if (visible) {
+      setIsComplete(false);
+    }
+  }, [visible]);
 
   useEffect(() => {
     if (visible && duration) {
       const timer = setTimeout(() => {
-        // Handle auto-close logic if needed
+        setIsComplete(true);
       }, duration);
       return () => clearTimeout(timer);
     }
@@ -58,21 +69,43 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
       <View style={styles.container}>
         <View style={styles.overlay} />
         <View style={styles.modalContent}>
-          <View style={styles.animationContainer}>
-            <LottieView
-              ref={animationRef}
-              source={animationSource || require('@/shared/assets/lottie/plane-loading.json')}
-              autoPlay
-              loop
-              speed={animationSpeed}
-              style={animationStyle || styles.animation}
-            />
-          </View>
+          {!isComplete ? (
+            <>
+              <View style={styles.animationContainer}>
+                <LottieView
+                  ref={animationRef}
+                  source={animationSource || require('@/shared/assets/lottie/plane-loading.json')}
+                  autoPlay
+                  loop
+                  speed={animationSpeed}
+                  style={animationStyle || styles.animation}
+                />
+              </View>
 
-          {title && (
-            <Heading level={2} style={styles.title}>
-              {title}
-            </Heading>
+              {title && (
+                <Heading level={2} style={styles.title}>
+                  {title}
+                </Heading>
+              )}
+            </>
+          ) : (
+            <>
+              {completionAnimationSource && (
+                <View style={styles.animationContainer}>
+                  <LottieView
+                    source={completionAnimationSource}
+                    autoPlay
+                    loop
+                    style={animationStyle || styles.animation}
+                  />
+                </View>
+              )}
+              {completionMessage && (
+                <Body style={styles.completionMessage}>
+                  {completionMessage}
+                </Body>
+              )}
+            </>
           )}
 
           {/* {subtitle && (
@@ -103,14 +136,16 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: colors.background,
     borderRadius: 9999,
-    width: 280,
-    height: 280,
-    padding: spacing.xl,
+    width: 240,
+    height: 240,
+    padding: spacing.xxxl,
     alignItems: 'center',
     justifyContent: 'center',
+    opacity: 0.8,
   },
   animationContainer: {
     marginBottom: spacing.md,
+    
   },
   animation: {
     width: 150,
@@ -125,6 +160,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.text.secondary,
     lineHeight: 22,
+  },
+  completionMessage: {
+    textAlign: 'center',
+    color: colors.text.primary,
+    fontSize: 16,
+    fontWeight: '500',
   },
 });
 
