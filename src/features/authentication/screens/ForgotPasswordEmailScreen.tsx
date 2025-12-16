@@ -9,7 +9,7 @@ import type { RootStackParamList } from '@/navigation/types';
 
 import AuthInput from '../components/LoginScreen/AuthInput';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
-import { Mail } from '@/shared/assets/icons';
+import { Mail, SignUp } from '@/shared/assets/icons';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
 import { KeyboardDismissWrapper, ScreenHeader, Text, Button } from '../../../shared/components';
 
@@ -43,18 +43,18 @@ const ForgotPasswordEmailScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingOverlay visible={isLoading} />
-      <ScreenHeader title="Forgot Password" titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
+      <ScreenHeader title={t('forgotPassword:title')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
         <KeyboardDismissWrapper>
-          <Text style={styles.instructionText}>Enter your email address to reset your password</Text>
+          <Text style={styles.instructionText}>{t('forgotPassword:instructions_email')}</Text>
           <AuthInput
-            label="Email"
+            label={t('forgotPassword:email_label')}
             value={email}
             onChangeText={setEmail}
-            placeholder="Enter your email"
+            placeholder={t('forgotPassword:email_placeholder')}
             icon={<Mail width={20} height={20} />}
             editable={!isLoading}
           />
@@ -67,6 +67,7 @@ const ForgotPasswordEmailScreen: React.FC = () => {
             label={isLoading ? 'Đang gửi...' : 'Send Code'}
             style={styles.button}
             textStyle={styles.buttonText}
+            leftIcon={SignUp({ width: 24, height: 24, color: colors.text.light })}
           />
         </KeyboardDismissWrapper>
       </KeyboardAvoidingView>
@@ -93,7 +94,11 @@ const styles = StyleSheet.create({
     marginBottom: dimensions.spacing.md,
   },
   button: {
-    marginTop: dimensions.spacing.lg,
+    backgroundColor: colors.primaryDark,
+    borderRadius: dimensions.radius.round,
+    alignItems: 'center',
+    marginBottom: dimensions.spacing.md,
+    borderWidth: 0.5
   },
   buttonText: {
     ...typography.subtitle,

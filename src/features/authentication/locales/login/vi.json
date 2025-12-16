@@ -1,47 +1,69 @@
 {
-  "header": {
-    "help": "Trợ giúp"
-  },
   "title": "Đăng nhập",
-  "welcomeBack": "Chào mừng trở lại",
-  "phoneNumber": "Số điện thoại",
-  "userType": {
-    "store": "Cửa hàng",
-    "user": "Người dùng"
+  "email_label": "Email",
+  "email_placeholder": "Nhập địa chỉ email của bạn",
+  "password_label": "Mật khẩu",
+  "password_placeholder": "Nhập mật khẩu của bạn",
+  "remember_me": "Nhớ tôi",
+  "forgot_password": "Quên mật khẩu?",
+  "login_button": "Đăng nhập",
+  "dont_have_account": "Chưa có tài khoản?",
+  "sign_up": "Đăng ký",
+  "login_error": "Đăng nhập thất bại",
+  "invalid_credentials": "Email hoặc mật khẩu không chính xác",
+  "email_required": "Email là bắt buộc",
+  "password_required": "Mật khẩu là bắt buộc",
+  "login_loading": "Đang đăng nhập...",
+  "create_account": "Tạo tài khoản",
+  "complete_profile": "Hoàn thành hồ sơ",
+  "account_created": "Tài khoản đã được tạo",
+  "welcome_message": "Chào mừng đến Unitree!",
+  "instructions_email": "Nhập địa chỉ email của bạn để bắt đầu",
+  "instructions_code": "Nhập mã xác minh 6 chữ số",
+  "instructions_password": "Đặt mật khẩu của bạn để tiếp tục",
+  "verification_code": "Mã xác minh",
+  "new_password": "Mật khẩu mới",
+  "confirm_password": "Xác nhận mật khẩu",
+  "password_reset": "Đặt lại mật khẩu",
+  "password_reset_success": "Mật khẩu của bạn đã được đặt lại thành công",
+  "password_minimum_chars": "Mật khẩu phải có ít nhất 6 ký tự",
+  "passwords_dont_match": "Mật khẩu không trùng khớp",
+  "nickname": "Biệt danh",
+  "nickname_placeholder": "Nhập biệt danh của bạn",
+  "verify": "Xác minh",
+  "verifying": "Đang xác minh...",
+  "resend_code": "Gửi lại mã sau",
+  "resend_link": "Không nhận được mã? Gửi lại",
+  "send_code": "Gửi mã",
+  "sending": "Đang gửi...",
+  "back_to_login": "Quay lại đăng nhập",
+  "reset_password": "Đặt lại mật khẩu",
+  "resetting": "Đang đặt lại...",
+  "forgot_password_title": "Quên mật khẩu",
+  "forgot_password_description": "Nhập địa chỉ email của bạn để đặt lại mật khẩu",
+  "validation": {
+    "emailRequired": "Email là bắt buộc",
+    "passwordRequired": "Mật khẩu là bắt buộc",
+    "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ",
+    "passwordTooShort": "Mật khẩu phải có ít nhất 6 ký tự",
+    "passwordMismatch": "Mật khẩu không trùng khớp",
+    "nicknameRequired": "Biệt danh là bắt buộc"
   },
-  "phoneInput": {
-    "placeholder": "Nhập số điện thoại"
-  },
-  "passwordInput": {
-    "placeholder": "Nhập mật khẩu"
-  },
-  "autoLogin": {
-    "text": "Ghi nhớ đăng nhập",
-    "tooltip": "TingTing sẽ ghi nhớ và tự động đăng nhập cho lần tiếp theo bạn vào ứng dụng. Nếu bạn không vào ứng dụng trong 7 ngày liên tiếp, ghi nhớ đăng nhập sẽ bị xóa."
-  },
-  "button": {
-    "continue": "Tiếp tục",
-    "useDifferentAccount": "Đăng nhập với tài khoản khác"
-  },
-  "signUp": {
-    "title": "Chưa có tài khoản?",
-    "button": "Tạo tài khoản mới"
-  },
-  "forgotPassword": "Quên mật khẩu",
   "errors": {
-    "loginFailed": "Đăng nhập không thành công",
-    "biometricLoginFailed": "Đăng nhập sinh trắc học thất bại",
-    "unexpectedError": "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại.",
-    "invalidCredentials": "Số điện thoại hoặc mật khẩu không đúng. Vui lòng kiểm tra thông tin và thử lại.",
-    "pleaseEnterAllFields": "Vui lòng nhập đầy đủ thông tin.",
-    "serverError": "Lỗi máy chủ. Vui lòng thử lại sau.",
-    "otpVerificationFailed": "Xác thực OTP không thành công",
-    "phoneRequired": "Vui lòng nhập số điện thoại",
-    "passwordRequired": "Vui lòng nhập mật khẩu"
+    "network_error": "Lỗi mạng. Vui lòng kiểm tra kết nối và thử lại.",
+    "unknown_error": "Đã xảy ra lỗi không xác định. Vui lòng thử lại.",
+    "invalid_email": "Địa chỉ email không hợp lệ",
+    "invalid_code": "Mã xác minh không hợp lệ",
+    "code_expired": "Mã xác minh đã hết hạn",
+    "user_exists": "Email này đã được đăng ký",
+    "user_not_found": "Không tìm thấy người dùng",
+    "wrong_password": "Mật khẩu không chính xác"
   },
-  "otpVerification": {
-    "title": "Xác thực OTP",
-    "subtitle": "Vui lòng nhập mã xác thực đã được gửi đến {{phone}}"
-  },
-  "otpResentSuccess": "Mã OTP đã được gửi lại thành công"
+  "success": {
+    "email_sent": "Mã xác minh đã được gửi đến email của bạn",
+    "code_verified": "Mã xác minh đã được xác nhận",
+    "password_reset": "Mật khẩu đã được đặt lại thành công",
+    "account_created": "Tài khoản đã được tạo thành công",
+    "profile_completed": "Hồ sơ đã được hoàn thành thành công"
+  }
 }

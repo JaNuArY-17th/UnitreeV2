@@ -1,47 +1,69 @@
 {
-  "header": {
-    "help": "Help"
+  "title": "Login",
+  "email_label": "Email",
+  "email_placeholder": "Enter your email address",
+  "password_label": "Password",
+  "password_placeholder": "Enter your password",
+  "remember_me": "Remember me",
+  "forgot_password": "Forgot password?",
+  "login_button": "Login",
+  "dont_have_account": "Don't have an account?",
+  "sign_up": "Sign up",
+  "login_error": "Login failed",
+  "invalid_credentials": "Invalid email or password",
+  "email_required": "Email is required",
+  "password_required": "Password is required",
+  "login_loading": "Logging in...",
+  "create_account": "Create Account",
+  "complete_profile": "Complete Profile",
+  "account_created": "Account Created",
+  "welcome_message": "Welcome to Unitree!",
+  "instructions_email": "Enter your email address to get started",
+  "instructions_code": "Enter the 6-digit verification code",
+  "instructions_password": "Set your password to continue",
+  "verification_code": "Verification Code",
+  "new_password": "New Password",
+  "confirm_password": "Confirm Password",
+  "password_reset": "Password Reset",
+  "password_reset_success": "Your password has been successfully reset",
+  "password_minimum_chars": "Password must be at least 6 characters",
+  "passwords_dont_match": "Passwords do not match",
+  "nickname": "Nickname",
+  "nickname_placeholder": "Enter your nickname",
+  "verify": "Verify",
+  "verifying": "Verifying...",
+  "resend_code": "Resend code in",
+  "resend_link": "Didn't receive code? Resend",
+  "send_code": "Send Code",
+  "sending": "Sending...",
+  "back_to_login": "Back to Login",
+  "reset_password": "Reset Password",
+  "resetting": "Resetting...",
+  "forgot_password_title": "Forgot Password",
+  "forgot_password_description": "Enter your email address to reset your password",
+  "validation": {
+    "emailRequired": "Email is required",
+    "passwordRequired": "Password is required",
+    "invalidEmail": "Please enter a valid email address",
+    "passwordTooShort": "Password must be at least 6 characters",
+    "passwordMismatch": "Passwords do not match",
+    "nicknameRequired": "Nickname is required"
   },
-  "title": "Login with account",
-  "welcomeBack": "Welcome back",
-  "phoneNumber": "Phone Number",
-  "userType": {
-    "store": "Store",
-    "user": "User"
-  },
-  "phoneInput": {
-    "placeholder": "Enter phone number"
-  },
-  "passwordInput": {
-    "placeholder": "Enter password"
-  },
-  "autoLogin": {
-    "text": "Remember me",
-    "tooltip": "TingTing will remember you and automatically log you in for the next time you access the app. If you don't access the app for 7 consecutive days, the login will be deleted."
-  },
-  "button": {
-    "continue": "Continue",
-    "useDifferentAccount": "Login with a different account"
-  },
-  "signUp": {
-    "title": "Don't have an account?",
-    "button": "Sign up"
-  },
-  "forgotPassword": "Forgot password?",
   "errors": {
-    "loginFailed": "Login Failed",
-    "biometricLoginFailed": "Biometric login failed",
-    "unexpectedError": "An unexpected error occurred. Please try again.",
-    "invalidCredentials": "Invalid phone number or password. Please check your credentials and try again.",
-    "pleaseEnterAllFields": "Please enter all required fields.",
-    "serverError": "Server error occurred. Please try again later.",
-    "otpVerificationFailed": "OTP Verification Failed",
-    "phoneRequired": "Please enter phone number",
-    "passwordRequired": "Please enter password"
+    "network_error": "Network error. Please check your connection and try again.",
+    "unknown_error": "An unknown error occurred. Please try again.",
+    "invalid_email": "Invalid email address",
+    "invalid_code": "Invalid verification code",
+    "code_expired": "Verification code has expired",
+    "user_exists": "This email is already registered",
+    "user_not_found": "User not found",
+    "wrong_password": "Wrong password"
   },
-  "otpVerification": {
-    "title": "OTP Verification",
-    "subtitle": "Please enter the verification code sent to {{phone}}"
-  },
-  "otpResentSuccess": "OTP code has been resent successfully"
+  "success": {
+    "email_sent": "Verification code sent to your email",
+    "code_verified": "Code verified successfully",
+    "password_reset": "Password reset successfully",
+    "account_created": "Account created successfully",
+    "profile_completed": "Profile completed successfully"
+  }
 }

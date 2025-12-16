@@ -105,3 +105,4 @@ export { default as FaceID } from './FaceID';
 export { default as Contact } from './Contact';
 export { default as Login } from './Login';
 export { default as SignUp } from './SignUp';
+export { default as Verify } from './Verify';

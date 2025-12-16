@@ -61,33 +61,33 @@ const RegisterCompleteScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingOverlay visible={isLoading} />
-      <ScreenHeader title={t('login:completeProfile')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
+      <ScreenHeader title={t('register:register_step_3')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.keyboardView}>
         <KeyboardDismissWrapper>
-          <Text style={styles.instructionText}>Complete your profile to finish registration</Text>
+          <Text style={styles.instructionText}>{t('register:instructions_complete')}</Text>
           <AuthInput
-            label="Nickname"
+            label={t('register:nickname_label')}
             value={nickname}
             onChangeText={setNickname}
-            placeholder="Enter your nickname"
+            placeholder={t('register:nickname_placeholder')}
             icon={<UserCircle width={20} height={20} />}
             editable={!isLoading}
           />
           <AuthInput
-            label="Password"
+            label={t('register:password_label')}
             value={password}
             onChangeText={setPassword}
-            placeholder="Enter password"
+            placeholder={t('register:password_placeholder')}
             icon={<Lock width={20} height={20} />}
             secureTextEntry
             editable={!isLoading}
           />
           <AuthInput
-            label="Confirm Password"
+            label={t('register:confirm_password_label')}
             value={confirmPassword}
             onChangeText={setConfirmPassword}
-            placeholder="Confirm password"
+            placeholder={t('register:confirm_password_placeholder')}
             icon={<Lock width={20} height={20} />}
             secureTextEntry
             editable={!isLoading}
@@ -98,7 +98,7 @@ const RegisterCompleteScreen: React.FC = () => {
             loading={isLoading}
             size="lg"
             variant="primary"
-            label="Create Account"
+            label={t('register:create_account')}
             style={styles.button}
             textStyle={styles.buttonText}
           />

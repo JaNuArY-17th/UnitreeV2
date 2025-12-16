@@ -27,21 +27,21 @@ const RegisterSuccessScreen: React.FC = () => {
 
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
-      <ScreenHeader title={t('login:accountCreated')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
+      <ScreenHeader title={t('register:register_step_4')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.keyboardView}>
         <KeyboardDismissWrapper>
           <View style={styles.successContainer}>
-            <Text style={styles.welcomeText}>Welcome!</Text>
+            <Text style={styles.welcomeText}>{t('register:welcome_message')}</Text>
             <Text style={styles.successMessage}>
-              Hello <Text style={styles.nickname}>{nickname}</Text>, your account has been successfully created.
+              {t('register:account_created_message')} <Text style={styles.nickname}>{nickname}</Text>, {t('register:account_created_success')}
             </Text>
             <Button
               onPress={handleBackToLogin}
               disabled={false}
               size="lg"
               variant="primary"
-              label="Back to Login"
+              label={t('register:back_to_login')}
               style={styles.button}
               textStyle={styles.buttonText}
             />

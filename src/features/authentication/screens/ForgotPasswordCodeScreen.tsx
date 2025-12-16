@@ -12,6 +12,7 @@ import AuthInput from '../components/LoginScreen/AuthInput';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
 import { KeyboardDismissWrapper, ScreenHeader, Text, Button } from '../../../shared/components';
+import { Verify } from '../../../shared/assets';
 
 const ForgotPasswordCodeScreen: React.FC = () => {
   const [verificationCode, setVerificationCode] = useState('');
@@ -69,44 +70,41 @@ const ForgotPasswordCodeScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingOverlay visible={isLoading} />
-      <LogoHeader mascotVisible={true} />
+      <ScreenHeader title={t('forgotPassword:forgot_password_step_2')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled">
-          <FormContainer
-            title="Verify Code"
-            onSignUp={() => navigation.navigate('Login')}>
-            <AuthInput
-              label="Verification Code"
-              value={verificationCode}
-              onChangeText={setVerificationCode}
-              placeholder="Enter 6-digit code"
-              maxLength={6}
-              keyboardType="number-pad"
-              editable={!isLoading}
-            />
-            {resendCountdown > 0 ? (
-              <Text style={styles.resendText}>
-                Resend code in {resendCountdown}s
-              </Text>
-            ) : (
-              <Text style={styles.resendLink} onPress={handleResendCode}>
-                Didn't receive code? Resend
-              </Text>
-            )}
-            <Button
-              onPress={handleVerifyCode}
-              disabled={isLoading || verificationCode.length !== 6}
-              loading={isLoading}
-              label="Verify"
-            />
-          </FormContainer>
-        </ScrollView>
+        <KeyboardDismissWrapper>
+          <Text style={styles.instructionText}>{t('forgotPassword:instructions_code')}</Text>
+          <AuthInput
+            label={t('forgotPassword:verification_code')}
+            value={verificationCode}
+            onChangeText={setVerificationCode}
+            placeholder={t('forgotPassword:verification_code_placeholder')}
+            keyboardType="number-pad"
+            editable={!isLoading}
+          />
+          <Button
+            onPress={handleVerifyCode}
+            disabled={isLoading || verificationCode.length !== 6}
+            loading={isLoading}
+            size='lg'
+            variant='primary'
+            label={isLoading ? t('forgotPassword:verifying') : t('forgotPassword:verify')}
+            style={styles.button}
+            textStyle={styles.buttonText}
+          />
+          {resendCountdown > 0 ? (
+            <Text style={styles.resendText}>
+              {t('forgotPassword:resend_code')} {resendCountdown}s
+            </Text>
+          ) : (
+            <Text style={styles.resendLink} onPress={handleResendCode}>
+              {t('forgotPassword:resend_link')}
+            </Text>
+          )}
+        </KeyboardDismissWrapper>
       </KeyboardAvoidingView>
     </View>
   );
@@ -131,14 +129,14 @@ const styles = StyleSheet.create({
     marginBottom: dimensions.spacing.md,
   },
   resendText: {
-    ...typography.caption,
+    ...typography.subtitle,
     color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
     opacity: 0.8,
   },
   resendLink: {
-    ...typography.caption,
+    ...typography.subtitle,
     color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
@@ -146,7 +144,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   button: {
-    marginTop: dimensions.spacing.lg,
+    backgroundColor: colors.primaryDark,
   },
   buttonText: {
     ...typography.subtitle,

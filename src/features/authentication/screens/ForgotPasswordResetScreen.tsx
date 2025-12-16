@@ -55,26 +55,26 @@ const ForgotPasswordResetScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingOverlay visible={isLoading} />
-      <ScreenHeader title="Reset Password" titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
+      <ScreenHeader title={t('forgotPassword:title')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
         <KeyboardDismissWrapper>
           <AuthInput
-            label="New Password"
+            label={t('forgotPassword:new_password_label')}
             value={newPassword}
             onChangeText={setNewPassword}
-            placeholder="Enter new password"
+            placeholder={t('forgotPassword:new_password_placeholder')}
             icon={<Lock width={20} height={20} />}
             secureTextEntry
             editable={!isLoading}
           />
           <AuthInput
-            label="Confirm Password"
+            label={t('forgotPassword:confirm_password_label')}
             value={confirmPassword}
             onChangeText={setConfirmPassword}
-            placeholder="Confirm password"
+            placeholder={t('forgotPassword:confirm_password_placeholder')}
             icon={<Lock width={20} height={20} />}
             secureTextEntry
             editable={!isLoading}
@@ -85,7 +85,7 @@ const ForgotPasswordResetScreen: React.FC = () => {
             loading={isLoading}
             size='lg'
             variant='primary'
-            label={isLoading ? 'Resetting...' : 'Reset Password'}
+            label={isLoading ? t('forgotPassword:resetting') : t('forgotPassword:reset')}
             style={styles.button}
             textStyle={styles.buttonText}
           />

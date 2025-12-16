@@ -43,18 +43,18 @@ const RegisterEmailScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingOverlay visible={isLoading} />
-      <ScreenHeader title={t('login:createAccount')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
+      <ScreenHeader title={t('register:register_step_1')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
         <KeyboardDismissWrapper>
-          <Text style={styles.instructionText}>Enter your email address to get started</Text>
+          <Text style={styles.instructionText}>{t('register:instructions_email')}</Text>
           <AuthInput
-            label="Email"
+            label={t('register:email_label')}
             value={email}
             onChangeText={setEmail}
-            placeholder="Enter your email"
+            placeholder={t('register:email_placeholder')}
             icon={<Mail width={20} height={20} />}
             editable={!isLoading}
           />
@@ -66,7 +66,7 @@ const RegisterEmailScreen: React.FC = () => {
             textStyle={styles.buttonText}
             size='lg'
             variant='primary'
-            label={isLoading ? 'Đang gửi...' : 'Gửi mã'}
+            label={isLoading ? t('register:sending') : t('register:send_code')}
             leftIcon={SignUp({ width: 24, height: 24, color: colors.text.light })}
           />
         </KeyboardDismissWrapper>

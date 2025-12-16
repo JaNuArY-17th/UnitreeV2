@@ -12,6 +12,7 @@ import AuthInput from '../components/LoginScreen/AuthInput';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
 import { KeyboardDismissWrapper, ScreenHeader, Text, Button } from '../../../shared/components';
+import { Verify } from '../../../shared/assets';
 
 const RegisterCodeScreen: React.FC = () => {
   const [verificationCode, setVerificationCode] = useState('');
@@ -69,41 +70,40 @@ const RegisterCodeScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingOverlay visible={isLoading} />
-      <ScreenHeader title="Verify Code" titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
+      <ScreenHeader title={t('register:register_step_2')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
         <KeyboardDismissWrapper>
-          <Text style={styles.instructionText}>Enter the 6-digit verification code sent to your email</Text>
+          <Text style={styles.instructionText}>{t('register:instructions_code')}</Text>
           <AuthInput
-            label="Verification Code"
+            label={t('register:verification_code')}
             value={verificationCode}
             onChangeText={setVerificationCode}
-            placeholder="Enter 6-digit code"
-            maxLength={6}
+            placeholder={t('register:verification_code_placeholder')}
             keyboardType="number-pad"
             editable={!isLoading}
           />
-          {resendCountdown > 0 ? (
-            <Text style={styles.resendText}>
-              Resend code in {resendCountdown}s
-            </Text>
-          ) : (
-            <Text style={styles.resendLink} onPress={handleResendCode}>
-              Didn't receive code? Resend
-            </Text>
-          )}
           <Button
             onPress={handleVerifyCode}
             disabled={isLoading || verificationCode.length !== 6}
             loading={isLoading}
             size='lg'
             variant='primary'
-            label={isLoading ? 'Verifying...' : 'Verify Code'}
+            label={isLoading ? t('register:verifying') : t('register:verify')}
             style={styles.button}
             textStyle={styles.buttonText}
           />
+          {resendCountdown > 0 ? (
+            <Text style={styles.resendText}>
+              {t('register:resend_code')} {resendCountdown}s
+            </Text>
+          ) : (
+            <Text style={styles.resendLink} onPress={handleResendCode}>
+              {t('register:resend_link')}
+            </Text>
+          )}
         </KeyboardDismissWrapper>
       </KeyboardAvoidingView>
     </View>
@@ -129,14 +129,14 @@ const styles = StyleSheet.create({
     marginBottom: dimensions.spacing.md,
   },
   resendText: {
-    ...typography.caption,
+    ...typography.subtitle,
     color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
     opacity: 0.8,
   },
   resendLink: {
-    ...typography.caption,
+    ...typography.subtitle,
     color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
@@ -144,7 +144,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   button: {
-    marginTop: dimensions.spacing.lg,
+    backgroundColor: colors.primaryDark,
   },
   buttonText: {
     ...typography.subtitle,

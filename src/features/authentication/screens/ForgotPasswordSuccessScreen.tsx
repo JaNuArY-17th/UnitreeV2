@@ -23,19 +23,19 @@ const ForgotPasswordSuccessScreen: React.FC = () => {
 
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
-      <ScreenHeader title={t('login:passwordReset')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
+      <ScreenHeader title={t('forgotPassword:forgot_password_step_4')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.keyboardView}>
         <KeyboardDismissWrapper>
-          <Text style={styles.instructionText}>Your password has been successfully reset. You can now log in with your new password.</Text>
+          <Text style={styles.instructionText}>{t('forgotPassword:success_message')}</Text>
           <Button
             onPress={handleBackToLogin}
             disabled={false}
             size='lg'
             variant='primary'
-            label="Back to Login"
+            label={t('forgotPassword:back_to_login')}
             style={styles.button}
             textStyle={styles.buttonText}
           />

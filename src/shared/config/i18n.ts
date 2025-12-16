@@ -7,31 +7,23 @@ import enCommon from '@/shared/locales/en.json';
 import viCommon from '@/shared/locales/vi.json';
 import enLogin from '@/features/authentication/locales/login/en.json';
 import viLogin from '@/features/authentication/locales/login/vi.json';
-import enFileUpload from '@/features/authentication/locales/fileUpload/en.json';
-import viFileUpload from '@/features/authentication/locales/fileUpload/vi.json';
-import enForgotPassword from '@/features/authentication/locales/forgotPassword/en.json';
-import viForgotPassword from '@/features/authentication/locales/forgotPassword/vi.json';
-import enResetPassword from '@/features/authentication/locales/resetPassword/en.json';
-import viResetPassword from '@/features/authentication/locales/resetPassword/vi.json';
-import enSignup from '@/features/authentication/locales/signup/en.json';
-import viSignup from '@/features/authentication/locales/signup/vi.json';
+import enRegister from '@/features/authentication/locales/register/en.json';
+import viRegister from '@/features/authentication/locales/register/vi.json';
+import enForgotPassword from '@/features/authentication/locales/forgot-password/en.json';
+import viForgotPassword from '@/features/authentication/locales/forgot-password/vi.json';
 
 export const resources = {
   en: {
     common: enCommon,
     login: enLogin,
-    fileUpload: enFileUpload,
+    register: enRegister,
     forgotPassword: enForgotPassword,
-    resetPassword: enResetPassword,
-    signup: enSignup,
   },
   vi: {
     common: viCommon,
     login: viLogin,
-    fileUpload: viFileUpload,
+    register: viRegister,
     forgotPassword: viForgotPassword,
-    resetPassword: viResetPassword,
-    signup: viSignup,
   },
 } as const;
 
@@ -57,7 +49,7 @@ export async function initI18n() {
       resources,
       lng,
       fallbackLng: 'vi',
-      ns: ['common', 'login', 'forgotPassword', 'resetPassword', 'signup'],
+      ns: ['common', 'login', 'register', 'forgotPassword'],
       defaultNS: 'common',
       interpolation: { escapeValue: false },
       react: { useSuspense: false },
