@@ -141,3 +141,5 @@ const queryClient = new QueryClient({
 - Locales: `en.json`, `vi.json`
 
 Refer to `AGENTS.md` for comprehensive developer documentation and troubleshooting.
+
+### NOTE: do not automatically push to github. This step is manual.

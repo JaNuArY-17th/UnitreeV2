@@ -13,9 +13,7 @@ export {
 
 // export { EnhancedFlatList } from './list/EnhancedFlatList';
 export { default as ScreenHeader } from './ScreenHeader';
-export { default as FullScreenLoading } from './FullScreenLoading';
 export { default as LoadingModal } from './LoadingModal';
-export type { } from './FullScreenLoading';
 export { default as LoadingOverlay } from './LoadingOverlay';
 export { NativeModuleErrorBoundary } from './NativeModuleErrorBoundary';
 export { default as SectionCardBackground } from './SectionCardBackground';
