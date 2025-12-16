@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/navigation';
 import { get } from 'react-native/Libraries/TurboModule/TurboModuleRegistry';
+import { ChevronLeft } from '../assets';
 
 export interface ScreenHeaderAction {
   key: string;
@@ -84,7 +85,7 @@ const ScreenHeader: React.FC<ScreenHeaderProps> = ({
               pressed && styles.pressed
             ]}
           >
-            <HugeiconsIcon icon={ArrowLeft01Icon} size={24} color={backIconColor} />
+            <ChevronLeft width={24} height={24} color={backIconColor} />
           </Pressable>
         )}
       </View>

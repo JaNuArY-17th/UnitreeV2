@@ -54,5 +54,6 @@
     "email_sent": "Verification code sent to your email",
     "code_verified": "Code verified successfully",
     "password_reset": "Password reset successfully"
-  }
+  },
+  "password_reset_success": "Your password\nhas been reset!"
 }

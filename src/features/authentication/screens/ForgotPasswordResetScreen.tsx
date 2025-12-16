@@ -9,10 +9,10 @@ import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '@/navigation/types';
 
 import AuthInput from '../components/LoginScreen/AuthInput';
-import LoadingOverlay from '@/shared/components/LoadingOverlay';
-import { Lock } from '@/shared/assets/icons';
+import { Lock, Reset } from '@/shared/assets/icons';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
-import { KeyboardDismissWrapper, ScreenHeader, Button } from '../../../shared/components';
+import { KeyboardDismissWrapper, ScreenHeader, Button, LoadingModal } from '../../../shared/components';
+import { getLoadingAnimation } from '@/shared/assets/animations';
 
 const ForgotPasswordResetScreen: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
@@ -42,19 +42,32 @@ const ForgotPasswordResetScreen: React.FC = () => {
     try {
       // TODO: Implement API call to reset password
       await new Promise(resolve => setTimeout(resolve, 1000));
-      navigation.navigate('ForgotPasswordSuccess', { email });
+      
+      // Navigate to LoginScreen after 3 seconds via LoadingModal
+      setTimeout(() => {
+        setIsLoading(false);
+        navigation.replace('Login');
+      }, 3000);
     } catch (err: any) {
-      Alert.alert(t('forgotPassword:error_title'), err.message || t('forgotPassword:errors.reset_failed'));
-    } finally {
       setIsLoading(false);
+      Alert.alert(t('forgotPassword:error_title'), err.message || t('forgotPassword:errors.reset_failed'));
     }
   };
 
   useStatusBarEffect('transparent', 'dark-content', true);
 
+  const successAnimation = getLoadingAnimation('success');
+
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
-      <LoadingOverlay visible={isLoading} />
+      <LoadingModal
+        visible={isLoading}
+        title={t('forgotPassword:resetting')}
+        duration={2500}
+        completionMessage={t('forgotPassword:password_reset_success')}
+        completionAnimationSource={successAnimation.source}
+        animationStyle={successAnimation.style}
+      />
       <ScreenHeader title={t('forgotPassword:title')} titleStyle={styles.titleStyle} backIconColor={colors.text.light} />
 
       <KeyboardAvoidingView
@@ -78,6 +91,7 @@ const ForgotPasswordResetScreen: React.FC = () => {
             icon={<Lock width={20} height={20} />}
             secureTextEntry
             editable={!isLoading}
+            autoFocus={false}
           />
           <Button
             onPress={handleResetPassword}
@@ -88,6 +102,7 @@ const ForgotPasswordResetScreen: React.FC = () => {
             label={isLoading ? t('forgotPassword:resetting') : t('forgotPassword:reset')}
             style={styles.button}
             textStyle={styles.buttonText}
+            leftIcon={<Reset width={20} height={20} color={colors.text.light} />}
           />
         </KeyboardDismissWrapper>
       </KeyboardAvoidingView>
@@ -109,7 +124,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: dimensions.spacing.lg,
   },
   button: {
-    marginTop: dimensions.spacing.lg,
+    backgroundColor: colors.primaryDark,
+    borderRadius: dimensions.radius.round,
+    alignItems: 'center',
+    marginBottom: dimensions.spacing.md,
+    borderWidth: 0.5
   },
   buttonText: {
     ...typography.subtitle,

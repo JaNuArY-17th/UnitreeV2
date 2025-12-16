@@ -114,7 +114,7 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
                 <LottieView
                   source={successAnimation}
                   autoPlay
-                  loop
+                  loop={false}
                   style={animationStyle || styles.animation}
                 />
               </Animated.View>
@@ -161,8 +161,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   animationContainer: {
-    marginBottom: spacing.md,
-    
+
   },
   animation: {
     width: 150,

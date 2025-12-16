@@ -54,5 +54,6 @@
     "email_sent": "Mã xác minh đã được gửi đến email của bạn",
     "code_verified": "Mã xác minh đã được xác nhận",
     "password_reset": "Mật khẩu đã được đặt lại thành công"
-  }
+  },
+  "password_reset_success": "Mật khẩu của bạn\nđã được đặt lại!"
 }

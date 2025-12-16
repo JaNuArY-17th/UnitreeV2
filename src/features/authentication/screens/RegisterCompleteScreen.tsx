@@ -54,7 +54,7 @@ const RegisterCompleteScreen: React.FC = () => {
       setTimeout(() => {
         setIsLoading(false);
         navigation.replace('Login');
-      }, 3000);
+      }, 5000);
     } catch (err: any) {
       setIsLoading(false);
       Alert.alert(t('register:error_title'), err.message || t('register:errors.failed_to_complete'));

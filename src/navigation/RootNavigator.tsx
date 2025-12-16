@@ -9,7 +9,6 @@ import RegisterCompleteScreen from '@/features/authentication/screens/RegisterCo
 import ForgotPasswordEmailScreen from '@/features/authentication/screens/ForgotPasswordEmailScreen';
 import ForgotPasswordCodeScreen from '@/features/authentication/screens/ForgotPasswordCodeScreen';
 import ForgotPasswordResetScreen from '@/features/authentication/screens/ForgotPasswordResetScreen';
-import ForgotPasswordSuccessScreen from '@/features/authentication/screens/ForgotPasswordSuccessScreen';
 import {BottomTabNavigator} from './BottomTabNavigator';
 import { useAuth } from '@/shared/components/AuthProvider';
 import type { RootStackParamList } from './types';
@@ -77,7 +76,6 @@ const NavigationContent = () => {
             <Stack.Screen name="ForgotPasswordEmail" component={ForgotPasswordEmailScreen} />
             <Stack.Screen name="ForgotPasswordCode" component={ForgotPasswordCodeScreen} />
             <Stack.Screen name="ForgotPasswordReset" component={ForgotPasswordResetScreen} />
-            <Stack.Screen name="ForgotPasswordSuccess" component={ForgotPasswordSuccessScreen} />
           </Stack.Group>
         ) : (
           // Main App Stack

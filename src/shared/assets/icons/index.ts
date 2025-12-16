@@ -86,7 +86,7 @@ export { default as CloseRound } from './CloseRound';
 export { default as Gender } from './Gender';
 export { default as ID } from './ID';
 export { default as Address } from './Address';
-export { default as Deal } from './Deal';
+export { default as Reset } from './Reset';
 export { default as BellDash } from './BellDash';
 export { default as Edit } from './Edit';
 export { default as ResetPassword } from './ResetPassword';

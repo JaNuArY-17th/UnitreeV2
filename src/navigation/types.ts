@@ -20,7 +20,6 @@ export type RootStackParamList = {
   ForgotPasswordEmail: undefined;
   ForgotPasswordCode: { email: string };
   ForgotPasswordReset: { email: string };
-  ForgotPasswordSuccess: { email?: string };
   Policy: undefined;
 
   // Main app
