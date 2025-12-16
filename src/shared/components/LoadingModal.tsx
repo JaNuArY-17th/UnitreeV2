@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import LottieView from 'lottie-react-native';
 import { colors, spacing } from '@/shared/themes';
@@ -10,6 +10,8 @@ interface LoadingModalProps {
   subtitle?: string;
   animationSource?: any;
   animationStyle?: any;
+  animationSpeed?: number; // 0.5 = half speed, 1 = normal, 2 = double speed
+  duration?: number; // Duration in ms before auto-closing (optional)
 }
 
 /**
@@ -30,10 +32,28 @@ interface LoadingModalProps {
 const LoadingModal: React.FC<LoadingModalProps> = ({
   visible,
   title = 'Loading...',
-  subtitle = 'Please wait while we process your request...',
+  // subtitle = 'Please wait while we process your request...',
   animationSource,
   animationStyle,
+  animationSpeed = 1,
+  duration,
 }) => {
+  const animationRef = useRef<LottieView>(null);
+
+  useEffect(() => {
+    if (animationRef.current && animationSpeed !== 1) {
+      animationRef.current.setSpeed?.(animationSpeed);
+    }
+  }, [animationSpeed]);
+
+  useEffect(() => {
+    if (visible && duration) {
+      const timer = setTimeout(() => {
+        // Handle auto-close logic if needed
+      }, duration);
+      return () => clearTimeout(timer);
+    }
+  }, [visible, duration]);
   return (
     <Modal
       visible={visible}
@@ -46,9 +66,11 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
         <View style={styles.modalContent}>
           <View style={styles.animationContainer}>
             <LottieView
+              ref={animationRef}
               source={animationSource || require('@/shared/assets/lottie/plane-loading.json')}
               autoPlay
               loop
+              speed={animationSpeed}
               style={animationStyle || styles.animation}
             />
           </View>
@@ -59,11 +81,11 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
             </Heading>
           )}
 
-          {subtitle && (
+          {/* {subtitle && (
             <Body style={styles.subtitle}>
               {subtitle}
             </Body>
-          )}
+          )} */}
         </View>
       </View>
     </Modal>

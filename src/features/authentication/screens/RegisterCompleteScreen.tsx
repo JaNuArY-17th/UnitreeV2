@@ -68,9 +68,7 @@ const RegisterCompleteScreen: React.FC = () => {
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingModal 
-        visible={isLoading}
-        title={t('register:welcome_message')}
-        subtitle={`${nickname}! ${t('register:account_created_message')}`}
+        visible={!isLoading}
         animationSource={plantAnimation.source}
         animationStyle={plantAnimation.style}
       />
@@ -144,7 +142,11 @@ const styles = StyleSheet.create({
     marginBottom: dimensions.spacing.md,
   },
   button: {
-    
+    backgroundColor: colors.primaryDark,
+    borderRadius: dimensions.radius.round,
+    alignItems: 'center',
+    marginBottom: dimensions.spacing.md,
+    borderWidth: 0.5
   },
   buttonText: {
     ...typography.subtitle,
