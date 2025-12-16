@@ -4,15 +4,9 @@ import { SvgXml } from 'react-native-svg';
 export type IconProps = { width?: number; height?: number; color?: string };
 
 // Eye off icon for hiding balance
-const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Eye shape (partially visible) -->
-  <path d="M9.9 4.24C10.5 4.07 11.2 4 12 4C19 4 22 12 22 12C22 12 21.3 13.8 19.8 15.5M14.1 14.1C13.5 14.7 12.8 15 12 15C10.3 15 9 13.7 9 12C9 11.2 9.3 10.5 9.9 9.9M9.9 9.9L14.1 14.1M9.9 9.9L2 2M14.1 14.1L22 22M2 12C2 12 2.7 10.2 4.2 8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  
-  <!-- Strike through line -->
-  <line x1="2" y1="2" x2="22" y2="22" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-</svg>`;
+const xml = (color: string) => `<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M2.99902 3L20.999 21M9.8433 9.91364C9.32066 10.4536 8.99902 11.1892 8.99902 12C8.99902 13.6569 10.3422 15 11.999 15C12.8215 15 13.5667 14.669 14.1086 14.133M6.49902 6.64715C4.59972 7.90034 3.15305 9.78394 2.45703 12C3.73128 16.0571 7.52159 19 11.9992 19C13.9881 19 15.8414 18.4194 17.3988 17.4184M10.999 5.04939C11.328 5.01673 11.6617 5 11.9992 5C16.4769 5 20.2672 7.94291 21.5414 12C21.2607 12.894 20.8577 13.7338 20.3522 14.5" stroke=${color} stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>`;
 
 export default function EyeOffIcon({ width = 24, height = 24, color = '#9CA3AF' }: IconProps) {
-  return <SvgXml xml={xml} width={width} height={height} color={color} />;
+  return <SvgXml xml={xml(color)} width={width} height={height} color={color} />;
 }

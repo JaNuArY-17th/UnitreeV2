@@ -1,296 +1,237 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, StatusBar, KeyboardAvoidingView, Platform, ScrollView, Animated, Keyboard, Alert } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Alert,
+  Image,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/navigation/types';
-import { EnsogoLogo } from '@/shared/assets/images/EnsogoLogo';
-import Text from '@/shared/components/base/Text';
-import Button from '@/shared/components/base/Button';
-import LoginForm from '../components/LoginScreen/LoginForm';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import { spacing, colors, typography } from '@/shared/themes';
-import LanguageSwitcher from '@/shared/components/LanguageSwitcher';
-import { BackgroundPattern, KeyboardDismissWrapper } from '@/shared/components/base';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import { useTabLogin } from '../hooks/useTabLogin';
 import { formatPhoneNumber } from '../utils/authUtils';
-import { useStatusBarEffect } from '@/shared/utils/StatusBarManager';
-import { getColors, updateColorsForAccountType } from '@/shared/themes/colors';
 import { AutoLoginUtils } from '@/features/authentication/utils/autoLoginUtils';
-import { HugeiconsIcon } from '@hugeicons/react-native';
-import { UserAdd01Icon } from '@hugeicons/core-free-icons';
+import { colors } from '@/shared/themes/colors';
+import { dimensions } from '@/shared/themes/dimensions';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-// Dynamic colors for different user types
-const getUserTypeColor = (userType: 'store' | 'user') => {
-  const accountType = userType === 'store' ? 'STORE' : 'USER';
-  return getColors(accountType).primary;
-};
+// New components
+import LogoHeader from '../components/LoginScreen/LogoHeader';
+import FormContainer from '../components/LoginScreen/FormContainer';
+import AuthInput from '../components/LoginScreen/AuthInput';
+import RememberForgotRow from '../components/LoginScreen/RememberForgotRow';
+import LoginButton from '../components/LoginScreen/LoginButton';
+import Mail from '@/shared/assets/icons/Mail';
+import Lock from '@/shared/assets/icons/Lock';
 
-interface LoginScreenProps {
-  // Props can be added here in the future
-}
-
-const LoginScreen: React.FC<LoginScreenProps> = () => {
-  const insets = useSafeAreaInsets();
+const LoginScreen: React.FC = () => {
   const { t } = useTranslation();
   const { login, isLoading } = useTabLogin();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const [rememberedPhone, setRememberedPhone] = useState<string>('');
-  const [keyboardOffset] = useState(new Animated.Value(0));
+  const insets = useSafeAreaInsets();
 
-  const currentColor = getUserTypeColor('user');
+  const [phone, setPhone] = useState('');
+  const [password, setPassword] = useState('');
+  const [rememberMe, setRememberMe] = useState(false);
 
-  const handleLogin = async (phone: string, password: string, autoLogin: boolean) => {
-    const userType: 'user' = 'user';
+  // Load remembered phone on mount
+  useEffect(() => {
+    loadRememberedPhone();
+  }, []);
+
+  const loadRememberedPhone = async () => {
     try {
-      // Format phone number and create login request
+      const savedPhone = await AutoLoginUtils.getRememberedPhone();
+      if (savedPhone) {
+        setPhone(savedPhone);
+        setRememberMe(true);
+      }
+    } catch (error) {
+      console.error('Error loading remembered phone:', error);
+    }
+  };
+
+  const validateForm = (): boolean => {
+    if (!phone.trim() || !password.trim()) {
+      Alert.alert(
+        t('login:errors.loginFailed'),
+        'Vui lòng điền đầy đủ thông tin'
+      );
+      return false;
+    }
+    return true;
+  };
+
+  const handleLogin = async () => {
+    if (!validateForm()) return;
+
+    try {
       const loginRequest = {
         phone_number: formatPhoneNumber(phone),
         password: password,
       };
 
-      // Attempt login with the specified user type
-      const result = await login(loginRequest, userType);
+      const result = await login(loginRequest, 'user');
 
-      // Defensive: log the full result for debugging
-      console.log('🔍 Tab login result:', {
+      console.log('🔍 Login result:', {
         hasAccessToken: !!result.accessToken,
         isNewDevice: result.isNewDevice,
-        userType: userType,
         isVerified: result.isVerified,
-        rawResult: result,
       });
 
-      // If login API returns is_verified: false, redirect to RegisterOtpScreen (treat as a valid flow, not error)
+      // Handle unverified user
       if (result.isVerified === false) {
         console.log('🟡 User not verified, redirecting to RegisterOtpScreen');
-        navigation.navigate('RegisterOtp', {
-          phone: phone,
-        });
+        navigation.navigate('RegisterOtp', { phone });
         return;
       }
 
-      // Check for successful login with access token
+      // Handle successful login
       if (result.accessToken) {
-        // Successful login with access token - user is fully authenticated
-        // Navigation will be handled by AuthProvider
-        console.log(`✅ ${userType} login successful with access token`);
+        console.log('✅ Login successful with access token');
 
-        // Handle auto login (save/clear phone based on checkbox)
+        // Save auto-login preference
         try {
-          console.log('💾 [LoginScreen] Handling auto login...');
-          await AutoLoginUtils.handleAutoLogin(
-            formatPhoneNumber(phone),
-            autoLogin
-          );
-          console.log('✅ [LoginScreen] Auto login handled successfully');
-        } catch (autoLoginError) {
-          console.error('❌ [LoginScreen] Error handling auto login:', autoLoginError);
-        }
-
-        // Handle login success (always save user type for tab memory)
-        try {
-          console.log('📝 [LoginScreen] Saving user type for tab memory...');
+          await AutoLoginUtils.handleAutoLogin(formatPhoneNumber(phone), rememberMe);
           await AutoLoginUtils.handleLoginSuccess('user');
-          console.log('✅ [LoginScreen] User type saved successfully');
-
-          // Update app colors based on user type
-          updateColorsForAccountType('USER');
-          console.log(`🎨 [LoginScreen] Updated app colors for USER`);
-        } catch (userTypeError) {
-          console.error('❌ [LoginScreen] Error saving user type:', userTypeError);
+          console.log('✅ Auto login updated');
+        } catch (error) {
+          console.error('❌ Error handling login success:', error);
         }
-        return; // Exit early, no need to show any modal
+        return;
       }
 
-      if (result.isNewDevice === true) {
-        // New device detected - navigate to OTP verification screen
-        console.log('📱 New device detected, navigating to OTP');
-        navigation.navigate('LoginOtp', {
-          phone: phone,
-          userType: 'user',
-        });
-        return; // Exit early, no need to show any modal
-      }
-
-      // If we reach here, only then treat as error
-      console.log('❌ Unexpected login response for', userType, result);
-      throw new Error(t('login:errors.unexpectedError'));
+      throw new Error('Unexpected login response');
     } catch (error: any) {
-      // Show error alert to user
       Alert.alert(
         t('login:errors.loginFailed'),
-        error.message || t('login:errors.unexpectedError'),
-        [{ text: 'OK', style: 'default' }]
+        error.message || 'Đăng nhập thất bại'
       );
     }
   };
 
-  const handleBiometricLogin = async (phone: string) => {
-    const userType: 'user' = 'user';
-    try {
-      console.log('🔐 Starting biometric login for:', phone);
-
-      // The biometric login is handled by the biometric service
-      // which stores tokens and triggers auth updates
-      // Navigation will be handled by AuthProvider
-
-      console.log(`✅ User biometric login successful`);
-
-      // Save user type for tab memory (biometric login counts as successful login)
-      try {
-        console.log('📝 [LoginScreen] Saving user type for tab memory (biometric)...');
-        await AutoLoginUtils.handleLoginSuccess(userType);
-        console.log('✅ [LoginScreen] User type saved successfully');
-
-        // Update app colors based on user type
-        const accountType = userType === 'store' ? 'STORE' : 'USER';
-        updateColorsForAccountType(accountType);
-        console.log(`🎨 [LoginScreen] Updated app colors for ${accountType}`);
-      } catch (userTypeError) {
-        console.error('❌ [LoginScreen] Error saving user type:', userTypeError);
-      }
-
-    } catch (error: any) {
-      // Show error alert to user
-      Alert.alert(
-        t('login:errors.loginFailed'),
-        error.message || t('login:errors.unexpectedError'),
-        [{ text: 'OK', style: 'default' }]
-      );
-    }
+  const handleForgotPassword = () => {
+    navigation.navigate('ForgotPassword');
   };
 
-  // Add smooth keyboard animations
-  useEffect(() => {
-    const keyboardWillShow = Keyboard.addListener(
-      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
-      (e) => {
-        Animated.timing(keyboardOffset, {
-          toValue: -e.endCoordinates.height * 0.25, // Move up by 25% of keyboard height
-          duration: Platform.OS === 'ios' ? 250 : 200,
-          useNativeDriver: true,
-        }).start();
-      }
-    );
-
-    const keyboardWillHide = Keyboard.addListener(
-      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
-      () => {
-        Animated.timing(keyboardOffset, {
-          toValue: 0,
-          duration: Platform.OS === 'ios' ? 250 : 200,
-          useNativeDriver: true,
-        }).start();
-      }
-    );
-
-    return () => {
-      keyboardWillShow.remove();
-      keyboardWillHide.remove();
-    };
-  }, [keyboardOffset]);
-
-  useStatusBarEffect('transparent', 'dark-content', true);
+  const handleSignUp = () => {
+    navigation.navigate('Register');
+  };
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
+    <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
+      <StatusBar barStyle="dark-content" backgroundColor={colors.secondary} />
+      <LoadingOverlay visible={isLoading} />
 
-      {/* Main Content with Keyboard Avoiding */}
-      <Animated.View style={[styles.animatedContainer, { transform: [{ translateY: keyboardOffset }] }]}>
-        <KeyboardDismissWrapper style={styles.wrapper}>
+      <View style={styles.container}>
+        {/* Logo Header */}
+        <LogoHeader
+          primaryLogo={<View style={styles.placeholder} />}
+          secondaryLogo={<View style={styles.placeholder} />}
+        />
+
+        {/* Mascot - positioned absolutely above form */}
+        <View style={styles.mascotContainer}>
+          <Image
+            source={require('@/shared/assets/mascots/Unitree - Mascot-1.png')}
+            style={styles.mascotImage}
+            resizeMode="contain"
+          />
+        </View>
+
+        {/* Form Container */}
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.keyboardAvoid}
+        >
           <ScrollView
-            contentContainerStyle={[styles.scrollContent, { paddingTop: insets.top }]}
+            contentContainerStyle={styles.scrollContent}
             keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
             bounces={false}
           >
-            {/* Header */}
-            <View style={styles.header}>
-              <View style={styles.logoContainer}>
-                <EnsogoLogo color={currentColor} />
-              </View>
-            </View>
-
-            {/* Content - Vertically Centered */}
-            <View style={styles.content}>
-              <LoginForm
-                onLogin={handleLogin}
-                onBiometricLogin={handleBiometricLogin}
-                isLoading={isLoading}
-                initialPhone={rememberedPhone}
+            <FormContainer
+              title="Đăng nhập"
+              onSignUp={handleSignUp}
+            >
+              {/* Phone Input */}
+              <AuthInput
+                label="Số điện thoại"
+                value={phone}
+                onChangeText={setPhone}
+                placeholder="Nhập số điện thoại"
+                keyboardType="phone-pad"
+                icon={<Mail width={20} height={20} color="#666" />}
               />
-            </View>
-          </ScrollView>
-        </KeyboardDismissWrapper>
-      </Animated.View>
 
-      {/* Sign Up Button - Fixed at Bottom */}
-      <View style={[styles.signUpSection, { paddingBottom: insets.bottom || spacing.lg }]}>
-        <Button
-          label={t('login:signUp.button')}
-          onPress={() => navigation.navigate('Register')}
-          variant="outline"
-          size="lg"
-          fullWidth
-          style={[styles.signUpButton, { borderColor: currentColor }]}
-          textStyle={{ color: currentColor }}
-          leftIcon={<HugeiconsIcon icon={UserAdd01Icon} size={20} color={currentColor} />}
-        />
+              {/* Password Input */}
+              <AuthInput
+                label="Mật khẩu"
+                value={password}
+                onChangeText={setPassword}
+                placeholder="Nhập mật khẩu"
+                secureTextEntry={true}
+                icon={<Lock width={20} height={20} color="#666" />}
+              />
+
+              {/* Remember Me & Forgot Password */}
+              <RememberForgotRow
+                rememberMe={rememberMe}
+                onRememberMeChange={setRememberMe}
+                onForgotPassword={handleForgotPassword}
+              />
+
+              {/* Login Button */}
+              <LoginButton
+                onPress={handleLogin}
+                loading={isLoading}
+              />
+            </FormContainer>
+          </ScrollView>
+        </KeyboardAvoidingView>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  safeContainer: {
+    flex: 1,
+    backgroundColor: colors.secondary,
+  },
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.secondary,
   },
-  animatedContainer: {
-    flex: 1,
+  mascotContainer: {
+    position: 'absolute',
+    right: dimensions.spacing.lg,
+    top: 80,
+    zIndex: 999,
+    width: 150,
+    height: 150,
+    pointerEvents: 'none',
   },
-  wrapper: {
+  mascotImage: {
+    width: '100%',
+    height: '100%',
+  },
+  keyboardAvoid: {
     flex: 1,
   },
   scrollContent: {
     flexGrow: 1,
-    justifyContent: 'center',
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingHorizontal: spacing.lg,
-    paddingBottom: spacing.xl,
-  },
-  logoContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-  },
-  logoText: {
-    alignItems: 'flex-start',
-    marginLeft: spacing.lg,
-  },
-  helpButton: {
-    paddingVertical: spacing.sm,
-    paddingHorizontal: spacing.md,
-  },
-  content: {
-    paddingHorizontal: spacing.lg,
-    marginBottom: spacing.xl,
-  },
-  title: {
-    ...typography.h1,
-    textAlign: 'center',
-    lineHeight: 40,
-  },
-  signUpSection: {
-    paddingHorizontal: spacing.lg,
-  },
-  signUpButton: {
-    // borderColor is set dynamically
+  placeholder: {
+    width: 100,
+    height: 60,
+    backgroundColor: colors.secondary,
+    borderRadius: dimensions.radius.md,
   },
 });
 

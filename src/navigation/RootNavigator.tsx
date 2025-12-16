@@ -3,14 +3,9 @@ import { NavigationContainer, NavigationContainerRef } from '@react-navigation/n
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import LoginScreen from '@/features/authentication/screens/LoginScreen';
-import RememberLoginScreen from '@/features/authentication/screens/RememberLoginScreen';
 import RegisterScreen from '@/features/authentication/screens/RegisterScreen';
-import LoginOtpScreen from '@/features/authentication/screens/LoginOtpScreen';
-import RegisterOtpScreen from '@/features/authentication/screens/RegisterOtpScreen';
 import ForgotPasswordScreen from '@/features/authentication/screens/ForgotPasswordScreen';
-import ForgotPasswordOtpScreen from '@/features/authentication/screens/ForgotPasswordOtpScreen';
-import ResetPasswordScreen from '@/features/authentication/screens/ResetPasswordScreen';
-import BottomTabNavigator from './BottomTabNavigator';
+import {BottomTabNavigator} from './BottomTabNavigator';
 import { useAuth } from '@/shared/components/AuthProvider';
 import type { RootStackParamList } from './types';
 
@@ -19,28 +14,15 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 // Component that renders inside NavigationContainer to handle notifications
 const NavigationContent = () => {
   const { isAuthenticated } = useAuth();
-  const [initialAuthRoute, setInitialAuthRoute] = useState<'Login' | 'RememberLogin'>('Login');
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   // Check for cached credentials on mount to determine initial route
   useEffect(() => {
     const checkInitialRoute = async () => {
       try {
-        const { AutoLoginUtils } = await import('@/features/authentication/utils/autoLoginUtils');
-        const cachedPhone = await AutoLoginUtils.getRememberedPhone();
-        const cachedUserType = await AutoLoginUtils.getLastUserType();
-
-        if (cachedPhone && cachedUserType) {
-          console.log('✅ [RootNavigator] Found cached credentials, setting initial route to RememberLogin');
-          setInitialAuthRoute('RememberLogin');
-        } else {
-          console.log('⚠️ [RootNavigator] No cached credentials, setting initial route to Login');
-          setInitialAuthRoute('Login');
-        }
+        setIsCheckingAuth(false);
       } catch (error) {
         console.error('❌ [RootNavigator] Error checking cached credentials:', error);
-        setInitialAuthRoute('Login');
-      } finally {
         setIsCheckingAuth(false);
       }
     };
@@ -70,56 +52,17 @@ const NavigationContent = () => {
         }}
       >
         {!isAuthenticated ? (
-          // Auth Stack - order matters! First screen is the initial route
+          // Auth Stack
           <Stack.Group key="auth">
-            {initialAuthRoute === 'RememberLogin' ? (
-              <>
-                <Stack.Screen
-                  name="RememberLogin"
-                  component={RememberLoginScreen}
-                  options={{
-                    animation: 'fade',
-                  }}
-                />
-                <Stack.Screen
-                  name="Login"
-                  component={LoginScreen}
-                  options={{
-                    animation: 'fade',
-                  }}
-                />
-              </>
-            ) : (
-              <>
-                <Stack.Screen
-                  name="Login"
-                  component={LoginScreen}
-                  options={{
-                    animation: 'fade',
-                  }}
-                />
-                <Stack.Screen
-                  name="RememberLogin"
-                  component={RememberLoginScreen}
-                  options={{
-                    animation: 'fade',
-                  }}
-                />
-              </>
-            )}
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{
+                animation: 'fade',
+              }}
+            />
             <Stack.Screen name="Register" component={RegisterScreen} />
-            <Stack.Screen name="RegisterOtp" component={RegisterOtpScreen} />
-            <Stack.Screen name="LoginOtp" component={LoginOtpScreen} />
             <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-            <Stack.Screen
-              name="ForgotPasswordOtp"
-              component={ForgotPasswordOtpScreen}
-            />
-            <Stack.Screen
-              name="ResetPassword"
-              component={ResetPasswordScreen}
-            />
-            <Stack.Screen name="Policy" component={PolicyScreen} />
           </Stack.Group>
         ) : (
           // Main App Stack

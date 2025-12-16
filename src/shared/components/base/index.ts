@@ -11,7 +11,6 @@ import SelectField from './SelectField';
 import BottomSheet from './BottomSheet';
 import BottomSheetModal from './BottomSheetModal';
 import BottomSheetFlatList from './BottomSheetFlatList';
-import CurrencyInput from './CurrencyInput';
 import ErrorMessage from './ErrorMessage';
 import SuccessMessage from './SuccessMessage';
 import CustomAlert from '../CustomAlert';
@@ -41,7 +40,6 @@ export {
   BottomSheet,
   BottomSheetModal,
   BottomSheetFlatList,
-  CurrencyInput,
   ErrorMessage,
   SuccessMessage,
   CustomAlert,

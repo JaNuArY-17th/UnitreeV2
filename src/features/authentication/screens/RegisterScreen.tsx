@@ -1,131 +1,341 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Platform, StatusBar, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  SafeAreaView,
+  Text,
+} from 'react-native';
+import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import type { RouteProp } from '@react-navigation/native';
-import type { RootStackParamList } from '@/navigation/types';
-import RegisterForm from '../components/RegisterScreen/RegisterForm';
-import type { RegisterFormData } from '../hooks/useRegister';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import { spacing, colors } from '@/shared/themes';
-import { getColors } from '@/shared/themes/colors';
-import { KeyboardDismissWrapper } from '@/shared/components/base';
-import { formatPhoneNumber } from '../utils/authUtils';
-import { useRegister } from '../hooks/useRegister';
-import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
-import ScreenHeader from '@/shared/components/ScreenHeader';
+import { colors, dimensions, typographyStyles } from '@/shared/themes';
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '@/navigation/types';
 
-// Dynamic colors for different user types
-const getUserTypeColor = (userType: 'store' | 'user') => {
-  const accountType = userType === 'store' ? 'STORE' : 'USER';
-  return getColors(accountType).primary;
-};
+import LogoHeader from '../components/LoginScreen/LogoHeader';
+import FormContainer from '../components/LoginScreen/FormContainer';
+import AuthInput from '../components/LoginScreen/AuthInput';
+import LoginButton from '../components/LoginScreen/LoginButton';
+import LoadingOverlay from '@/shared/components/LoadingOverlay';
+import Mail from '@/shared/assets/icons/Mail';
+import Lock from '@/shared/assets/icons/Lock';
 
-interface RegisterScreenProps {
-  // Props can be added here in the future
-}
+const RegisterScreen: React.FC = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [email, setEmail] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [resendCountdown, setResendCountdown] = useState(0);
 
-const RegisterScreen: React.FC<RegisterScreenProps> = () => {
-  const insets = useSafeAreaInsets();
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
-  const route = useRoute<RouteProp<RootStackParamList, 'Register'>>();
-  const { register, isLoading } = useRegister();
 
-  // Get userType from navigation params or default to 'store'
-  const initialUserType = route.params?.userType || 'store';
-  const [userType, setUserType] = useState<'store' | 'user'>(initialUserType);
+  useEffect(() => {
+    let timer: ReturnType<typeof setInterval>;
+    if (resendCountdown > 0) {
+      timer = setInterval(() => {
+        setResendCountdown(prev => prev - 1);
+      }, 1000);
+    }
+    return () => clearInterval(timer);
+  }, [resendCountdown]);
 
-  const currentColor = getUserTypeColor(userType);
+  const handleSendEmail = async () => {
+    setError('');
+    if (!email.trim()) {
+      setError(t('login:validation.emailRequired') || 'Email is required');
+      return;
+    }
 
-  const handleRegister = async (formData: RegisterFormData) => {
+    setIsLoading(true);
     try {
-      // Format phone number
-      const formattedFormData: RegisterFormData = {
-        ...formData,
-        phone: formatPhoneNumber(formData.phone),
-      };
-
-      console.log('🔍 Register request:', {
-        userType: formattedFormData.userType,
-        phone: formattedFormData.phone,
-        endpoint: formattedFormData.userType === 'store' ? 'registerStore' : 'register',
-      });
-
-      // Call the appropriate API based on user type
-      const result = await register(formattedFormData);
-
-      console.log('✅ Registration successful:', result);
-
-      // Check if registration was successful
-      if (result.success) {
-        // Registration requires OTP by default → navigate to RegisterOtp
-        // Be tolerant of different response shapes
-        const otpSent = Boolean(
-          (result as any)?.data?.otp_sent ??
-          (result as any)?.otp_sent ??
-          (result as any)?.data?.is_verified === false
-        );
-
-        if (otpSent) {
-          navigation.navigate('RegisterOtp', { phone: formattedFormData.phone });
-        } else {
-          navigation.navigate('Login');
-        }
-      } else {
-        throw new Error(result.message || t('signup:errors.unexpectedError'));
-      }
-
-    } catch (error: any) {
-      console.error('❌ Registration error:', error);
-      const message = error?.message || error?.data?.message || error?.response?.data?.message || t('signup:errors.unexpectedError');
-      Alert.alert(
-        t('signup:errors.registrationFailed'),
-        message,
-        [{ text: t('common:ok'), style: 'default' }]
-      );
+      // TODO: Implement API call to send verification code
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setCurrentStep(2);
+      setResendCountdown(60);
+    } catch (err: any) {
+      setError(err.message || 'Failed to send verification code');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  useStatusBarEffect('transparent', 'dark-content', true);
+  const handleVerifyCode = async () => {
+    setError('');
+    if (!verificationCode.trim()) {
+      setError('Verification code is required');
+      return;
+    }
 
-  const handleGoBack = () => {
+    setIsLoading(true);
+    try {
+      // TODO: Implement API call to verify code
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setCurrentStep(3);
+    } catch (err: any) {
+      setError(err.message || 'Invalid verification code');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleCompleteRegistration = async () => {
+    setError('');
+    if (!nickname.trim()) {
+      setError('Nickname is required');
+      return;
+    }
+    if (!password.trim()) {
+      setError('Password is required');
+      return;
+    }
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // TODO: Implement API call to complete registration
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setCurrentStep(4);
+    } catch (err: any) {
+      setError(err.message || 'Failed to complete registration');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResendCode = async () => {
+    setIsLoading(true);
+    try {
+      // TODO: Implement API call to resend verification code
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setResendCountdown(60);
+    } catch (err: any) {
+      setError(err.message || 'Failed to resend code');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSuccess = () => {
     navigation.navigate('Login');
   };
 
   return (
-    <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor={'transparent'} />
+    <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.secondary} />
+      <LoadingOverlay visible={isLoading} />
 
-      <KeyboardDismissWrapper style={StyleSheet.flatten([styles.container, { paddingTop: insets.top }])}>
-        <ScreenHeader
-          title={t('signup:title')}
-          showBack={true}
-          onBackPress={handleGoBack}
-          backIconColor={currentColor}
-          titleStyle={{ color: currentColor }}
-        />
+      <LogoHeader mascotVisible={true} />
 
-        {/* Content */}
-        <View style={styles.content}>
-          <RegisterForm onRegister={handleRegister} isLoading={isLoading} onUserTypeChange={setUserType} initialUserType={initialUserType} />
-        </View>
-      </KeyboardDismissWrapper>
-    </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardView}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled">
+          <FormContainer
+            title={
+              currentStep === 1
+                ? 'Create Account'
+                : currentStep === 2
+                ? 'Verify Code'
+                : currentStep === 3
+                ? 'Complete Registration'
+                : 'Welcome!'
+            }
+            onSignUp={() => navigation.navigate('Login')}>
+            {error ? (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            ) : null}
+
+            {currentStep === 1 && (
+              <Animated.View entering={FadeInUp}>
+                <AuthInput
+                  label="Email"
+                  value={email}
+                  onChangeText={setEmail}
+                  placeholder="Enter your email"
+                  icon={<Mail width={20} height={20} />}
+                  editable={!isLoading}
+                />
+                <LoginButton
+                  onPress={handleSendEmail}
+                  disabled={isLoading || !email.trim()}
+                  loading={isLoading}
+                  title="Send Code"
+                />
+              </Animated.View>
+            )}
+
+            {currentStep === 2 && (
+              <Animated.View entering={FadeInUp}>
+                <AuthInput
+                  label="Verification Code"
+                  value={verificationCode}
+                  onChangeText={setVerificationCode}
+                  placeholder="Enter 6-digit code"
+                  maxLength={6}
+                  keyboardType="number-pad"
+                  editable={!isLoading}
+                />
+                {resendCountdown > 0 ? (
+                  <Text style={styles.resendText}>
+                    Resend code in {resendCountdown}s
+                  </Text>
+                ) : (
+                  <Text style={styles.resendLink} onPress={handleResendCode}>
+                    Didn't receive code? Resend
+                  </Text>
+                )}
+                <LoginButton
+                  onPress={handleVerifyCode}
+                  disabled={isLoading || verificationCode.length !== 6}
+                  loading={isLoading}
+                  title="Verify"
+                />
+              </Animated.View>
+            )}
+
+            {currentStep === 3 && (
+              <Animated.View entering={FadeInUp}>
+                <AuthInput
+                  label="Nickname"
+                  value={nickname}
+                  onChangeText={setNickname}
+                  placeholder="Choose a nickname"
+                  editable={!isLoading}
+                />
+                <AuthInput
+                  label="Password"
+                  value={password}
+                  onChangeText={setPassword}
+                  placeholder="Create a password"
+                  icon={<Lock width={20} height={20} />}
+                  secureTextEntry
+                  editable={!isLoading}
+                />
+                <AuthInput
+                  label="Confirm Password"
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                  placeholder="Confirm password"
+                  icon={<Lock width={20} height={20} />}
+                  secureTextEntry
+                  editable={!isLoading}
+                />
+                <LoginButton
+                  onPress={handleCompleteRegistration}
+                  disabled={
+                    isLoading ||
+                    !nickname.trim() ||
+                    !password.trim() ||
+                    !confirmPassword.trim()
+                  }
+                  loading={isLoading}
+                  title="Complete Registration"
+                />
+              </Animated.View>
+            )}
+
+            {currentStep === 4 && (
+              <Animated.View entering={FadeInDown}>
+                <View style={styles.successContainer}>
+                  <Text style={styles.successTitle}>
+                    Welcome, {nickname}!
+                  </Text>
+                  <Text style={styles.successMessage}>
+                    Your account has been successfully created.
+                  </Text>
+                  <LoginButton
+                    onPress={handleSuccess}
+                    disabled={false}
+                    title="Go to Login"
+                  />
+                </View>
+              </Animated.View>
+            )}
+          </FormContainer>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.secondary,
   },
-  content: {
+  keyboardView: {
     flex: 1,
-    paddingHorizontal: spacing.lg,
-    gap: spacing.xl,
-    height: '100%'
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: dimensions.spacing.lg,
+    paddingBottom: dimensions.spacing.xl,
+  },
+  errorContainer: {
+    backgroundColor: colors.error,
+    borderRadius: dimensions.radius.lg,
+    padding: dimensions.spacing.md,
+    marginBottom: dimensions.spacing.md,
+  },
+  errorText: {
+    ...typographyStyles.caption,
+    color: colors.text.light,
+    textAlign: 'center',
+  },
+  resendText: {
+    ...typographyStyles.caption,
+    color: colors.text.secondary,
+    textAlign: 'center',
+    marginVertical: dimensions.spacing.md,
+  },
+  resendLink: {
+    ...typographyStyles.caption,
+    color: colors.primary,
+    textAlign: 'center',
+    marginVertical: dimensions.spacing.md,
+    textDecorationLine: 'underline',
+  },
+  successContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: dimensions.spacing.xxxl,
+  },
+  successTitle: {
+    ...typographyStyles.h0,
+    color: colors.text.dark,
+    marginBottom: dimensions.spacing.md,
+  },
+  successMessage: {
+    ...typographyStyles.body,
+    color: colors.text.secondary,
+    textAlign: 'center',
+    marginBottom: dimensions.spacing.xxxl,
   },
 });
 

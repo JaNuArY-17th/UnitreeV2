@@ -14,15 +14,20 @@ export const typography = {
     xl: 28,
     xxl: 32,
     xxxl: 36,
-    xxxxl: 40,
+    xxxxl: 58,
   },
 };
 
 export default StyleSheet.create({
+    h0: {
+    color: colors.text.primary,
+    fontSize: typography.fontSizes.xxxxl,
+    ...getPlatformFontExtras(FONT_WEIGHTS.BOLD),
+    lineHeight: typography.lineHeights.xxl,
+  },
   h1: {
     color: colors.text.primary,
     fontSize: typography.fontSizes.xxxl,
-
     ...getPlatformFontExtras(FONT_WEIGHTS.SEMIBOLD),
     lineHeight: typography.lineHeights.xxxl,
   },
@@ -33,29 +38,24 @@ export default StyleSheet.create({
     ...getPlatformFontExtras(FONT_WEIGHTS.SEMIBOLD),
     lineHeight: typography.lineHeights.xl,
   },
-
   h3: {
     color: colors.text.primary,
     fontSize: typography.fontSizes.xl,
-
     ...getPlatformFontExtras(FONT_WEIGHTS.SEMIBOLD),
     lineHeight: typography.lineHeights.lg,
   },
-
   title: {
     color: colors.text.primary,
     fontSize: typography.fontSizes.xl,
     ...getPlatformFontExtras(FONT_WEIGHTS.SEMIBOLD),
     lineHeight: typography.lineHeights.lg,
   },
-
   subtitle: {
     color: colors.text.primary,
     fontSize: typography.fontSizes.lg,
     ...getPlatformFontExtras(FONT_WEIGHTS.MEDIUM),
     lineHeight: typography.lineHeights.lg,
   },
-
   body: {
     color: colors.text.primary,
     fontSize: typography.fontSizes.md,
@@ -69,7 +69,6 @@ export default StyleSheet.create({
     ...getPlatformFontExtras(FONT_WEIGHTS.REGULAR),
     lineHeight: typography.lineHeights.sm,
   },
-
   caption: {
     color: colors.text.secondary,
     fontSize: typography.fontSizes.sm,
@@ -84,7 +83,6 @@ export default StyleSheet.create({
     ...getPlatformFontExtras(FONT_WEIGHTS.MEDIUM),
     lineHeight: typography.lineHeights.sm,
   },
-
   longLabel: {
     color: colors.text.secondary,
     fontSize: typography.fontSizes.sm,
@@ -92,7 +90,6 @@ export default StyleSheet.create({
     ...getPlatformFontExtras(FONT_WEIGHTS.MEDIUM),
     lineHeight: typography.lineHeights.sm,
   },
-
   price: {
     fontSize: typography.fontSizes.lg,
     ...getPlatformFontExtras(FONT_WEIGHTS.MEDIUM),
@@ -105,7 +102,6 @@ export default StyleSheet.create({
     ...getPlatformFontExtras(FONT_WEIGHTS.MEDIUM),
     lineHeight: typography.lineHeights.md,
   },
-
   priceBid: {
     color: colors.success,
     fontSize: typography.fontSizes.md,
@@ -120,31 +116,25 @@ export default StyleSheet.create({
     ...getPlatformFontExtras(FONT_WEIGHTS.REGULAR),
     lineHeight: typography.lineHeights.md,
   },
-
   buttonText: {
     color: colors.text.primary,
     fontSize: typography.fontSizes.lg,
-
     ...getPlatformFontExtras(FONT_WEIGHTS.SEMIBOLD),
     textAlign: 'center',
     lineHeight: typography.lineHeights.md,
   },
-
   tabActive: {
     color: colors.text.primary,
     fontSize: typography.fontSizes.md,
-
     ...getPlatformFontExtras(FONT_WEIGHTS.BOLD),
     lineHeight: typography.lineHeights.md,
   },
-
   tabInactive: {
     color: colors.text.secondary,
     fontSize: typography.fontSizes.md,
     ...getPlatformFontExtras(FONT_WEIGHTS.REGULAR),
     lineHeight: typography.lineHeights.md,
   },
-
   currentPrice: {
     color: colors.danger,
     fontSize: typography.fontSizes.lg,
@@ -152,7 +142,6 @@ export default StyleSheet.create({
     ...getPlatformFontExtras(FONT_WEIGHTS.BOLD),
     lineHeight: typography.lineHeights.md,
   },
-
   timestamp: {
     color: colors.text.secondary,
     fontSize: typography.fontSizes.xs,

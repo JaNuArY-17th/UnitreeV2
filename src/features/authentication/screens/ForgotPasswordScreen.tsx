@@ -1,173 +1,329 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, StatusBar, KeyboardAvoidingView, Platform } from 'react-native';
-import Text from '@/shared/components/base/Text';
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+  Text,
+} from 'react-native';
+import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import ScreenHeader from '@/shared/components/ScreenHeader';
-import Button from '@/shared/components/base/Button';
-import PhoneInput from '../components/LoginScreen/PhoneInput';
 import { useTranslation } from '@/shared/hooks/useTranslation';
-import { colors, spacing, dimensions, typography } from '@/shared/themes';
-import { KeyboardDismissWrapper } from '@/shared/components/base';
+import { colors, dimensions, typographyStyles } from '@/shared/themes';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/navigation/types';
-interface ForgotPasswordScreenProps {
-  onContinue?: (phone: string) => void;
-}
 
-const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = ({
-  onContinue,
-}) => {
-  const [phone, setPhone] = useState('');
+import LogoHeader from '../components/LoginScreen/LogoHeader';
+import FormContainer from '../components/LoginScreen/FormContainer';
+import AuthInput from '../components/LoginScreen/AuthInput';
+import LoginButton from '../components/LoginScreen/LoginButton';
+import LoadingOverlay from '@/shared/components/LoadingOverlay';
+import Mail from '@/shared/assets/icons/Mail';
+import Lock from '@/shared/assets/icons/Lock';
+
+const ForgotPasswordScreen: React.FC = () => {
+  const [currentStep, setCurrentStep] = useState(1);
+  const [email, setEmail] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [phoneError, setPhoneError] = useState<string | undefined>(undefined);
-  const [touched, setTouched] = useState(false);
+  const [error, setError] = useState('');
+  const [resendCountdown, setResendCountdown] = useState(0);
+
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const handleBackPress = () => {
-    navigation.navigate('Login');
-  }
-
-  // Validate phone number
-  const validatePhone = (phoneNumber: string): string | undefined => {
-    if (!phoneNumber || phoneNumber.trim() === '') {
-      return 'Vui lòng nhập số điện thoại';
+  useEffect(() => {
+    let timer: ReturnType<typeof setInterval>;
+    if (resendCountdown > 0) {
+      timer = setInterval(() => {
+        setResendCountdown(prev => prev - 1);
+      }, 1000);
     }
-    // Remove non-digits to validate
-    const phoneDigits = phoneNumber.replace(/\D/g, '');
-    if (phoneDigits.length < 10) {
-      return 'Số điện thoại không hợp lệ';
-    }
-    return undefined;
-  };
+    return () => clearInterval(timer);
+  }, [resendCountdown]);
 
-  const handlePhoneChange = (text: string) => {
-    setPhone(text);
-    // Clear error when user starts typing
-    if (phoneError) {
-      setPhoneError(undefined);
-    }
-  };
-
-  const handlePhoneBlur = () => {
-    setTouched(true);
-    const error = validatePhone(phone);
-    setPhoneError(error);
-  };
-
-  const isPhoneValid = () => {
-    return validatePhone(phone) === undefined;
-  };
-
-  const handleContinue = async () => {
-    // Mark as touched to show validation errors
-    setTouched(true);
-
-    // Validate phone
-    const error = validatePhone(phone);
-    setPhoneError(error);
-
-    if (error) {
-      return; // Don't proceed if validation fails
-    }
-
-    if (onContinue) {
-      onContinue(phone);
+  const handleSendEmail = async () => {
+    setError('');
+    if (!email.trim()) {
+      setError(t('login:validation.emailRequired') || 'Email is required');
       return;
     }
 
     setIsLoading(true);
     try {
-      // TODO: Implement forgot password API call
-      console.log('Sending OTP to phone:', phone);
-
-      // Simulate API call
+      // TODO: Implement API call to send verification code
       await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Navigate to OTP verification screen
-      navigation.navigate('ForgotPasswordOtp', { phone });
-    } catch (error) {
-      console.error('Failed to send OTP:', error);
-      // TODO: Handle error (show toast, etc.)
+      setCurrentStep(2);
+      setResendCountdown(60);
+    } catch (err: any) {
+      setError(err.message || 'Failed to send verification code');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const isButtonDisabled = !isPhoneValid() || isLoading;
+  const handleVerifyCode = async () => {
+    setError('');
+    if (!verificationCode.trim()) {
+      setError('Verification code is required');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // TODO: Implement API call to verify code
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setCurrentStep(3);
+    } catch (err: any) {
+      setError(err.message || 'Invalid verification code');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResetPassword = async () => {
+    setError('');
+    if (!newPassword.trim()) {
+      setError('Password is required');
+      return;
+    }
+    if (newPassword !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    if (newPassword.length < 6) {
+      setError('Password must be at least 6 characters');
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      // TODO: Implement API call to reset password
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setCurrentStep(4);
+    } catch (err: any) {
+      setError(err.message || 'Failed to reset password');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResendCode = async () => {
+    setIsLoading(true);
+    try {
+      // TODO: Implement API call to resend verification code
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      setResendCountdown(60);
+    } catch (err: any) {
+      setError(err.message || 'Failed to resend code');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSuccess = () => {
+    navigation.navigate('Login');
+  };
 
   return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={{ flex: 1 }}
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 0}>
-      <View style={[styles.container, { paddingTop: insets.top }]}>
-        {/* <BackgroundPattern /> */}
-        <StatusBar barStyle="dark-content" backgroundColor='transparent' />
+    <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.secondary} />
+      <LoadingOverlay visible={isLoading} />
 
-        <KeyboardDismissWrapper style={styles.container}>
-          <ScreenHeader
-            title={t('login:forgotPassword')}
-            showBack={true}
-            centerTitle={false}
-            onBackPress={handleBackPress}
-          />
+      <LogoHeader mascotVisible={true} />
 
-          <View style={styles.content}>
-            <View style={{ marginBottom: spacing.sm, alignItems: 'center', justifyContent: 'center' }}>
-              <Text style={styles.subtitle}>
-                {t('forgotPassword:instruction')}
-              </Text>
-            </View>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardView}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
+          keyboardShouldPersistTaps="handled">
+          <FormContainer
+            title={
+              currentStep === 1
+                ? t('login:forgotPassword')
+                : currentStep === 2
+                ? 'Verify Code'
+                : currentStep === 3
+                ? 'Reset Password'
+                : 'Success'
+            }
+            onSignUp={() => navigation.navigate('Login')}>
+            {error ? (
+              <View style={styles.errorContainer}>
+                <Text style={styles.errorText}>{error}</Text>
+              </View>
+            ) : null}
 
-            <PhoneInput
-              value={phone}
-              onChangeText={handlePhoneChange}
-              onBlur={handlePhoneBlur}
-              error={touched ? phoneError : undefined}
-            />
+            {currentStep === 1 && (
+              <Animated.View entering={FadeInUp}>
+                <AuthInput
+                  label="Email"
+                  value={email}
+                  onChangeText={setEmail}
+                  placeholder="Enter your email"
+                  icon={<Mail width={20} height={20} />}
+                  editable={!isLoading}
+                />
+                <LoginButton
+                  onPress={handleSendEmail}
+                  disabled={isLoading || !email.trim()}
+                  loading={isLoading}
+                  title="Send Code"
+                />
+              </Animated.View>
+            )}
 
-            <Button
-              label={t('forgotPassword:button.continue')}
-              onPress={handleContinue}
-              disabled={isButtonDisabled}
-              variant="primary"
-              size="lg"
-              fullWidth
-              loading={isLoading}
-            />
-          </View>
-        </KeyboardDismissWrapper>
-      </View>
-    </KeyboardAvoidingView>
+            {currentStep === 2 && (
+              <Animated.View entering={FadeInUp}>
+                <AuthInput
+                  label="Verification Code"
+                  value={verificationCode}
+                  onChangeText={setVerificationCode}
+                  placeholder="Enter 6-digit code"
+                  maxLength={6}
+                  keyboardType="number-pad"
+                  editable={!isLoading}
+                />
+                {resendCountdown > 0 ? (
+                  <Text style={styles.resendText}>
+                    Resend code in {resendCountdown}s
+                  </Text>
+                ) : (
+                  <TouchableOpacity onPress={handleResendCode} disabled={isLoading}>
+                    <Text style={styles.resendLink}>
+                      Didn't receive code? Resend
+                    </Text>
+                  </TouchableOpacity>
+                )}
+                <LoginButton
+                  onPress={handleVerifyCode}
+                  disabled={isLoading || verificationCode.length !== 6}
+                  loading={isLoading}
+                  title="Verify"
+                />
+              </Animated.View>
+            )}
+
+            {currentStep === 3 && (
+              <Animated.View entering={FadeInUp}>
+                <AuthInput
+                  label="New Password"
+                  value={newPassword}
+                  onChangeText={setNewPassword}
+                  placeholder="Enter new password"
+                  icon={<Lock width={20} height={20} />}
+                  secureTextEntry
+                  editable={!isLoading}
+                />
+                <AuthInput
+                  label="Confirm Password"
+                  value={confirmPassword}
+                  onChangeText={setConfirmPassword}
+                  placeholder="Confirm password"
+                  icon={<Lock width={20} height={20} />}
+                  secureTextEntry
+                  editable={!isLoading}
+                />
+                <LoginButton
+                  onPress={handleResetPassword}
+                  disabled={
+                    isLoading ||
+                    !newPassword.trim() ||
+                    !confirmPassword.trim()
+                  }
+                  loading={isLoading}
+                  title="Reset Password"
+                />
+              </Animated.View>
+            )}
+
+            {currentStep === 4 && (
+              <Animated.View entering={FadeInDown}>
+                <View style={styles.successContainer}>
+                  <Text style={styles.successTitle}>Password Reset</Text>
+                  <Text style={styles.successMessage}>
+                    Your password has been successfully reset.
+                  </Text>
+                  <LoginButton
+                    onPress={handleSuccess}
+                    disabled={false}
+                    title="Back to Login"
+                  />
+                </View>
+              </Animated.View>
+            )}
+          </FormContainer>
+        </ScrollView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.secondary,
   },
-  content: {
+  keyboardView: {
     flex: 1,
-    paddingHorizontal: spacing.lg,
-    paddingTop: spacing.sm,
-    gap: spacing.md,
-    // justifyContent: 'space-between',
   },
-  inputSection: {
-    // paddingTop: spacing.xl,
+  scrollView: {
+    flex: 1,
   },
-  subtitle: {
-    ...typography.body,
+  scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: dimensions.spacing.lg,
+    paddingBottom: dimensions.spacing.xl,
+  },
+  errorContainer: {
+    backgroundColor: colors.error,
+    borderRadius: dimensions.radius.lg,
+    padding: dimensions.spacing.md,
+    marginBottom: dimensions.spacing.md,
+  },
+  errorText: {
+    ...typographyStyles.caption,
+    color: colors.text.light,
     textAlign: 'center',
-    width: '80%',
-    lineHeight: 22,
   },
-  buttonSection: {
-    // paddingBottom: spacing.lg,
+  resendText: {
+    ...typographyStyles.caption,
+    color: colors.text.secondary,
+    textAlign: 'center',
+    marginVertical: dimensions.spacing.md,
+  },
+  resendLink: {
+    ...typographyStyles.caption,
+    color: colors.primary,
+    textAlign: 'center',
+    marginVertical: dimensions.spacing.md,
+    textDecorationLine: 'underline',
+  },
+  successContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: dimensions.spacing.xxxl,
+  },
+  successTitle: {
+    ...typographyStyles.h0,
+    color: colors.text.dark,
+    marginBottom: dimensions.spacing.md,
+  },
+  successMessage: {
+    ...typographyStyles.body,
+    color: colors.text.secondary,
+    textAlign: 'center',
+    marginBottom: dimensions.spacing.xxxl,
   },
 });
 

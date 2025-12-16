@@ -1,3 +1,4 @@
+
 // Navigation types for the app
 
 // Tab navigator parameter list
@@ -9,15 +10,9 @@ export type TabParamList = {
 // Root stack parameter list
 export type RootStackParamList = {
   // Authentication screens
-  AuthLoading: undefined;
   Login: undefined;
-  RememberLogin: undefined;
   Register: { userType?: 'user' } | undefined;
-  RegisterOtp: { phone: string };
-  LoginOtp: { phone: string; userType: 'user' };
   ForgotPassword: undefined;
-  ForgotPasswordOtp: { phone: string };
-  ResetPassword: { token: string; phone: string };
   Policy: undefined;
 
   // Main app
