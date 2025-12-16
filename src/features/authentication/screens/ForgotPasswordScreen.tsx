@@ -265,12 +265,12 @@ const ForgotPasswordScreen: React.FC = () => {
           </FormContainer>
         </ScrollView>
       rdAvoidingView>
-    </SafeAreaView>
+    </View>
   );
 };
 
-cosafeCst styles = StyleSheet.create({
-  container: {
+const styles = StyleSheet.create({
+  safeContainer: {
     flex: 1,
     backgroundColor: colors.secondary,
   },
