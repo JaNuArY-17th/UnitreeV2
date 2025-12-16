@@ -75,14 +75,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   flagText: {
-    ...typography.subtitle,
+    ...typography.body,
     textAlign: 'center',
     textAlignVertical: 'center',
     color: colors.primary,
     fontWeight: 'bold'
   },
   selectedText: {
-    ...typography.subtitle,
+    ...typography.body,
     textAlign: 'center',
     textAlignVertical: 'center',
     color: colors.text.light,

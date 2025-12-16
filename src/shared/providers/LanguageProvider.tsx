@@ -1,6 +1,7 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { createContext, useContext, useEffect, useState, ReactNode, useCallback } from 'react';
+import i18n from '@/shared/config/i18n';
 import { setLanguage as setLanguageInI18n } from '@/shared/config/i18n';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface LanguageContextType {
   currentLanguage: 'en' | 'vi';
@@ -15,17 +16,47 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const { i18n } = useTranslation();
   const [currentLanguage, setCurrentLanguage] = useState<'en' | 'vi'>('vi');
   const [isLoading, setIsLoading] = useState(false);
+  const [initialized, setInitialized] = useState(false);
 
-  // Initialize with current i18n language
+  // Initialize language from i18n on mount
   useEffect(() => {
-    const lng = (i18n.language || 'vi').split('-')[0] as 'en' | 'vi';
-    setCurrentLanguage(lng);
-  }, [i18n.language]);
+    const initLanguage = async () => {
+      try {
+        // Get language from AsyncStorage first
+        const stored = await AsyncStorage.getItem('app_language');
+        const lng = (stored || i18n.language || 'vi').split('-')[0] as 'en' | 'vi';
+        setCurrentLanguage(lng);
+      } catch (error) {
+        console.warn('Failed to load language preference:', error);
+        setCurrentLanguage((i18n.language || 'vi').split('-')[0] as 'en' | 'vi');
+      }
+      setInitialized(true);
+    };
 
-  const changeLanguage = async (language: 'en' | 'vi') => {
+    initLanguage();
+  }, []);
+
+  // Listen to i18n language changes
+  useEffect(() => {
+    const handleLanguageChanged = (lng: string) => {
+      const newLng = lng.split('-')[0] as 'en' | 'vi';
+      setCurrentLanguage(newLng);
+    };
+
+    i18n.on('languageChanged', handleLanguageChanged);
+
+    return () => {
+      i18n.off('languageChanged', handleLanguageChanged);
+    };
+  }, []);
+
+  const changeLanguage = useCallback(async (language: 'en' | 'vi') => {
+    if (currentLanguage === language || isLoading) {
+      return;
+    }
+
     setIsLoading(true);
     try {
       await setLanguageInI18n(language);
@@ -35,7 +66,11 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [currentLanguage, isLoading]);
+
+  if (!initialized) {
+    return <>{children}</>;
+  }
 
   return (
     <LanguageContext.Provider value={{ currentLanguage, changeLanguage, isLoading }}>
