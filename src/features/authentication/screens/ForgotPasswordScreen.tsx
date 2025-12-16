@@ -264,7 +264,7 @@ const ForgotPasswordScreen: React.FC = () => {
             )}
           </FormContainer>
         </ScrollView>
-      rdAvoidingView>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
   successContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: dimensions.spacing.xxxl,
+    paddingVertical: dimensions.spacing.xxl,
   },
   successTitle: {
     ...typographyStyles.h0,
@@ -323,7 +323,7 @@ const styles = StyleSheet.create({
     ...typographyStyles.body,
     color: colors.text.secondary,
     textAlign: 'center',
-    marginBottom: dimensions.spacing.xxxl,
+    marginBottom: dimensions.spacing.xxl,
   },
 });
 

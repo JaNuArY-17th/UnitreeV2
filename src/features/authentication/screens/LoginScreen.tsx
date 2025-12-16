@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
-  StatusBar,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -129,7 +128,6 @@ const LoginScreen: React.FC = () => {
 
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.secondary} />
       <LoadingOverlay visible={isLoading} />
 
       <View style={styles.container}>
