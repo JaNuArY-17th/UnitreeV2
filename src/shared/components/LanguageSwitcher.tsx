@@ -12,10 +12,18 @@ const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ backgroundColor }) 
   const { currentLanguage, changeLanguage, isLoading } = useLanguage();
 
   const handleLanguageChange = async (language: 'en' | 'vi') => {
+    console.log('[LanguageSwitcher] Button pressed for language:', language);
+    console.log('[LanguageSwitcher] Current language:', currentLanguage, 'Is loading:', isLoading);
+    
     if (currentLanguage !== language && !isLoading) {
+      console.log('[LanguageSwitcher] Calling changeLanguage');
       await changeLanguage(language);
+    } else {
+      console.log('[LanguageSwitcher] Skipping change - same language or loading');
     }
   };
+
+  console.log('[LanguageSwitcher] Rendering with currentLanguage:', currentLanguage);
 
   return (
     <View style={styles.container}>
