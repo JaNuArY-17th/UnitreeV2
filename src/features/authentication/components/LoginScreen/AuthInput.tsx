@@ -16,6 +16,7 @@ interface AuthInputProps {
   secureTextEntry?: boolean;
   keyboardType?: 'default' | 'email-address' | 'phone-pad' | 'number-pad';
   editable?: boolean;
+  autoFocus?: boolean;
 }
 
 const AuthInput: React.FC<AuthInputProps> = ({
@@ -27,6 +28,7 @@ const AuthInput: React.FC<AuthInputProps> = ({
   secureTextEntry = false,
   keyboardType = 'default',
   editable = true,
+  autoFocus = true
 }) => {
   const [showPassword, setShowPassword] = useState(!secureTextEntry);
   const isPasswordField = secureTextEntry !== undefined && secureTextEntry;
@@ -45,6 +47,7 @@ const AuthInput: React.FC<AuthInputProps> = ({
           editable={editable}
           style={[styles.input, !editable && styles.inputDisabled]}
           autoCapitalize="none"
+          autoFocus={autoFocus}
         />
         {isPasswordField && (
           <TouchableOpacity

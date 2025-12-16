@@ -9,17 +9,21 @@ import type { RouteProp } from '@react-navigation/native';
 import type { RootStackParamList } from '@/navigation/types';
 
 import { ScreenHeader, KeyboardDismissWrapper, Text, Button } from '@/shared/components';
+import FullScreenLoading from '@/shared/screens/FullScreenLoading';
 import AuthInput from '../components/LoginScreen/AuthInput';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import Lock from '@/shared/assets/icons/Lock';
 import UserCircle from '@/shared/assets/icons/UserCircle';
 import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
+import { UserPlus } from '../../../shared/assets';
+import { getLoadingAnimation } from '@/shared/assets/animations';
 
 const RegisterCompleteScreen: React.FC = () => {
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showSuccessScreen, setShowSuccessScreen] = useState(false);
   const { t } = useTranslation();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -48,15 +52,35 @@ const RegisterCompleteScreen: React.FC = () => {
     try {
       // TODO: Implement API call to complete registration
       await new Promise(resolve => setTimeout(resolve, 1000));
-      navigation.navigate('RegisterSuccess', { nickname });
+      
+      // Show success screen with plant animation
+      setShowSuccessScreen(true);
+      
+      // Navigate to LoginScreen after 3 seconds
+      setTimeout(() => {
+        navigation.replace('Login');
+      }, 3000);
     } catch (err: any) {
-      Alert.alert(t('register:error_title'), err.message || t('register:errors.failed_to_complete'));
-    } finally {
       setIsLoading(false);
+      Alert.alert(t('register:error_title'), err.message || t('register:errors.failed_to_complete'));
     }
   };
 
   useStatusBarEffect('transparent', 'dark-content', true);
+
+  // Show success screen with plant animation
+  if (showSuccessScreen) {
+    const plantAnimation = getLoadingAnimation('plant');
+    return (
+      <FullScreenLoading
+        title={t('register:welcome_message')}
+        subtitle={`${nickname}! ${t('register:account_created_message')}`}
+        animationSource={plantAnimation.source}
+        animationStyle={plantAnimation.style}
+        showProgressBar={false}
+      />
+    );
+  }
 
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
@@ -73,6 +97,7 @@ const RegisterCompleteScreen: React.FC = () => {
             placeholder={t('register:nickname_placeholder')}
             icon={<UserCircle width={20} height={20} />}
             editable={!isLoading}
+
           />
           <AuthInput
             label={t('register:password_label')}
@@ -82,6 +107,7 @@ const RegisterCompleteScreen: React.FC = () => {
             icon={<Lock width={20} height={20} />}
             secureTextEntry
             editable={!isLoading}
+            autoFocus={false}
           />
           <AuthInput
             label={t('register:confirm_password_label')}
@@ -91,6 +117,7 @@ const RegisterCompleteScreen: React.FC = () => {
             icon={<Lock width={20} height={20} />}
             secureTextEntry
             editable={!isLoading}
+            autoFocus={false}
           />
           <Button
             onPress={handleCompleteRegistration}
@@ -101,6 +128,7 @@ const RegisterCompleteScreen: React.FC = () => {
             label={t('register:create_account')}
             style={styles.button}
             textStyle={styles.buttonText}
+            leftIcon={<UserPlus width={20} height={20} color={colors.text.light} />}
           />
         </KeyboardDismissWrapper>
       </KeyboardAvoidingView>

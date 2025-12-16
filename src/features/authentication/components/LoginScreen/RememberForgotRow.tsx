@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderWidth: 1.5,
     borderColor: colors.light,
-    borderRadius: 4,
+    borderRadius: dimensions.radius.round,
     marginRight: 8,
     alignItems: 'center',
     justifyContent: 'center',
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   checkmark: {
     width: 12,
     height: 12,
-    borderRadius: 2,
+    borderRadius: dimensions.radius.round,
   },
 });
 

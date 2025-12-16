@@ -39,6 +39,15 @@ export const LOADING_ANIMATIONS = {
       height: 250,
     },
   },
+
+  // Plant animation for registration success
+  plant: {
+    source: require('@/shared/assets/lottie/plant.json'),
+    style: {
+      width: 180,
+      height: 180,
+    },
+  },
 } as const;
 
 // Type for animation keys

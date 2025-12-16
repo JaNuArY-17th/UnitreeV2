@@ -44,7 +44,7 @@ const RegisterCodeScreen: React.FC = () => {
     try {
       // TODO: Implement API call to verify code
       await new Promise(resolve => setTimeout(resolve, 1000));
-      navigation.navigate('RegisterComplete', { email });
+      navigation.replace('RegisterComplete', { email });
     } catch (err: any) {
       Alert.alert(t('register:error_title'), err.message || t('register:errors.invalid_code'));
     } finally {
@@ -84,6 +84,7 @@ const RegisterCodeScreen: React.FC = () => {
             placeholder={t('register:verification_code_placeholder')}
             keyboardType="number-pad"
             editable={!isLoading}
+            
           />
           <Button
             onPress={handleVerifyCode}
