@@ -29,6 +29,7 @@ import RememberForgotRow from '../components/LoginScreen/RememberForgotRow';
 import LoginButton from '../components/LoginScreen/LoginButton';
 import Mail from '@/shared/assets/icons/Mail';
 import Lock from '@/shared/assets/icons/Lock';
+import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
 
 const LoginScreen: React.FC = () => {
   const { t } = useTranslation();
@@ -123,6 +124,8 @@ const LoginScreen: React.FC = () => {
   const handleSignUp = () => {
     navigation.navigate('Register');
   };
+
+  useStatusBarEffect('transparent', 'dark-content', true);
 
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>

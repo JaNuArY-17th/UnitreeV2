@@ -2,11 +2,9 @@ import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
-  StatusBar,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  SafeAreaView,
   Text,
 } from 'react-native';
 import Animated, { FadeInDown, FadeInUp } from 'react-native-reanimated';
@@ -24,6 +22,7 @@ import LoginButton from '../components/LoginScreen/LoginButton';
 import LoadingOverlay from '@/shared/components/LoadingOverlay';
 import Mail from '@/shared/assets/icons/Mail';
 import Lock from '@/shared/assets/icons/Lock';
+import { useStatusBarEffect } from '../../../shared/utils/StatusBarManager';
 
 const RegisterScreen: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -137,9 +136,10 @@ const RegisterScreen: React.FC = () => {
     navigation.navigate('Login');
   };
 
+  useStatusBarEffect('transparent', 'dark-content', true);
+
   return (
-    <SafeAreaView style={[styles.container, { paddingTop: insets.top }]}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.secondary} />
+    <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingOverlay visible={isLoading} />
 
       <LogoHeader mascotVisible={true} />
@@ -276,12 +276,12 @@ const RegisterScreen: React.FC = () => {
             )}
           </FormContainer>
         </ScrollView>
-      </KeyboardAvoidingView>
+      rdAvoidingView>
     </SafeAreaView>
   );
 };
 
-const styles = StyleSheet.create({
+cosafeCst styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.secondary,
