@@ -1,0 +1,32 @@
+{
+  "header": {
+    "title": "WiFi Tracking"
+  },
+  "session": {
+    "current": "Current Session",
+    "timeConnected": "Time Connected",
+    "endSession": "End Session",
+    "viewStatistics": "View Statistics"
+  },
+  "info": {
+    "connectedNetwork": "Connected Network",
+    "signalStrength": "Signal Strength",
+    "speed": "Speed",
+    "pointsEarned": "Points Earned"
+  },
+  "summary": {
+    "title": "Today's Summary",
+    "totalTime": "Total Time",
+    "sessions": "Sessions",
+    "pointsToday": "Points Today",
+    "locations": "Locations"
+  },
+  "recentLocations": {
+    "title": "Recent Locations"
+  },
+  "status": {
+    "noConnection": "No Connection",
+    "connecting": "Connecting...",
+    "connected": "Connected"
+  }
+}

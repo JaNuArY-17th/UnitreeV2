@@ -124,16 +124,7 @@ const HomeScreen = () => {
         setActiveButtonId('history');
         // Navigate to history screen
       },
-    },
-    {
-      id: 'map',
-      label: 'Map',
-      icon: 'globe',
-      onPress: () => {
-        setActiveButtonId('map');
-        // Navigate to map screen
-      },
-    },
+    }
   ];
 
   // Discover cards configuration
@@ -191,7 +182,7 @@ const HomeScreen = () => {
         style={styles.scrollContainer}
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: insets.bottom + spacing.xl * 2 },
+          { paddingBottom: insets.bottom + spacing.xl * 3 },
         ]}
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -216,27 +207,27 @@ const HomeScreen = () => {
         {/* Current WiFi Card - Becomes sticky */}
         <Animated.View style={[styles.wifiSection, wifiAnimStyle]}
         >
-          <CurrentWiFiCard
-            onPress={() => {
-              // Navigate to WiFi details
-            }}
-          />
+            <CurrentWiFiCard
+              onPress={() => {
+                // Navigate to WiFi details
+              }}
+            />
+
+            {/* Action Buttons */}
+            <ActionButtons
+              buttons={actionButtons}
+              activeButtonId={activeButtonId}
+            />
+
+            {/* Discover Section */}
+            <DiscoverCards
+              title="Discover"
+              cards={discoverCards}
+              onViewAll={() => {
+                // Handle view all
+              }}
+            />
         </Animated.View>
-
-        {/* Action Buttons */}
-        <ActionButtons
-          buttons={actionButtons}
-          activeButtonId={activeButtonId}
-        />
-
-        {/* Discover Section */}
-        <DiscoverCards
-          title="Discover"
-          cards={discoverCards}
-          onViewAll={() => {
-            // Handle view all
-          }}
-        />
       </Animated.ScrollView>
     </View>
   );
@@ -275,7 +266,7 @@ const styles = StyleSheet.create({
   confettiAnimation: {
     width: 150,
     height: 150,
-  },
+  }
 });
 
 export default HomeScreen;

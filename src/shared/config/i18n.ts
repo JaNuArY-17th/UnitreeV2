@@ -11,6 +11,8 @@ import enRegister from '@/features/authentication/locales/register/en.json';
 import viRegister from '@/features/authentication/locales/register/vi.json';
 import enForgotPassword from '@/features/authentication/locales/forgot-password/en.json';
 import viForgotPassword from '@/features/authentication/locales/forgot-password/vi.json';
+import enWifi from '@/features/wifi/locales/en.json';
+import viWifi from '@/features/wifi/locales/vi.json';
 
 export const resources = {
   en: {
@@ -18,12 +20,14 @@ export const resources = {
     login: enLogin,
     register: enRegister,
     forgotPassword: enForgotPassword,
+    wifi: enWifi,
   },
   vi: {
     common: viCommon,
     login: viLogin,
     register: viRegister,
     forgotPassword: viForgotPassword,
+    wifi: viWifi,
   },
 } as const;
 
@@ -49,7 +53,7 @@ export async function initI18n() {
       resources,
       lng,
       fallbackLng: 'vi',
-      ns: ['common', 'login', 'register', 'forgotPassword'],
+      ns: ['common', 'login', 'register', 'forgotPassword', 'wifi'],
       defaultNS: 'common',
       interpolation: { escapeValue: false },
       react: { useSuspense: false },

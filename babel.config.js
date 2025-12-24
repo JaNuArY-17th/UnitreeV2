@@ -29,7 +29,6 @@ module.exports = {
         },
       },
     ],
-    // Must be the last plugin
-    'react-native-worklets/plugin',
+    'react-native-reanimated/plugin',
   ],
 };

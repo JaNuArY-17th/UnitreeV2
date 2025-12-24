@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
     width: 52,
     height: 52,
     borderRadius: dimensions.radius.round,
-    backgroundColor: colors.lightGray,
+    backgroundColor: colors.thirdary,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',

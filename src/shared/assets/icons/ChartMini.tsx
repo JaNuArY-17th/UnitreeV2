@@ -7,14 +7,22 @@ export type IconProps = {
   color?: string;
 };
 
-// Converted from chart.svg; replaced stroke colors with currentColor
-const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M9 22H15C20 22 22 20 22 15V9C22 4 20 2 15 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M15.5 18.5C16.6 18.5 17.5 17.6 17.5 16.5V7.5C17.5 6.4 16.6 5.5 15.5 5.5C14.4 5.5 13.5 6.4 13.5 7.5V16.5C13.5 17.6 14.39 18.5 15.5 18.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M8.5 18.5C9.6 18.5 10.5 17.6 10.5 16.5V13C10.5 11.9 9.6 11 8.5 11C7.4 11 6.5 11.9 6.5 13V16.5C6.5 17.6 7.39 18.5 8.5 18.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+// Hàm tạo XML với độ mờ riêng cho từng đường line
+const xml = (color: string) => `
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="${color}" stroke-width="4" stroke-linecap="round" stroke-linejoin="miter">
+  <g id="SVGRepo_iconCarrier">
+    <line x1="0" y1="12" x2="0" y2="21" stroke-opacity="0.3"></line>
+    
+    <line x1="7" y1="7" x2="7" y2="21" stroke-opacity="0.65"></line>
+    
+    <line x1="14" y1="3" x2="14" y2="21" stroke-opacity="1"></line>
+    
+    <line x1="21" y1="10" x2="21" y2="21" stroke-opacity="0.65"></line>
+    
+    <line x1="28" y1="16" x2="28" y2="21" stroke-opacity="0.3"></line>
+  </g>
 </svg>`;
 
 export default function ChartMini({ width = 18, height = 18, color = '#111827' }: IconProps) {
-  return <SvgXml xml={xml} width={width} height={height} color={color} />;
+  return <SvgXml xml={xml(color)} width={width} height={height} />;
 }

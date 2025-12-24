@@ -1,0 +1,32 @@
+{
+  "header": {
+    "title": "Theo Dõi WiFi"
+  },
+  "session": {
+    "current": "Phiên Hiện Tại",
+    "timeConnected": "Thời Gian Kết Nối",
+    "endSession": "Kết Thúc Phiên",
+    "viewStatistics": "Xem Thống Kê"
+  },
+  "info": {
+    "connectedNetwork": "Mạng Đã Kết Nối",
+    "signalStrength": "Cường Độ Tín Hiệu",
+    "speed": "Tốc Độ",
+    "pointsEarned": "Điểm Kiếm Được"
+  },
+  "summary": {
+    "title": "Tóm Tắt Hôm Nay",
+    "totalTime": "Tổng Thời Gian",
+    "sessions": "Phiên",
+    "pointsToday": "Điểm Hôm Nay",
+    "locations": "Địa Điểm"
+  },
+  "recentLocations": {
+    "title": "Địa Điểm Gần Đây"
+  },
+  "status": {
+    "noConnection": "Không Kết Nối",
+    "connecting": "Đang Kết Nối...",
+    "connected": "Đã Kết Nối"
+  }
+}

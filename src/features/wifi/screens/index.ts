@@ -1,1 +1,1 @@
-export { WifiScreen } from './WifiScreen';
+export { default as WifiScreen } from './WifiScreen';

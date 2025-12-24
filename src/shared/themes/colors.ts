@@ -16,6 +16,7 @@ export const colors = {
 
   //thirdary colors
   thirdary: '#FFCED2',
+  brown: '#654419',
 
   // Additional colors
   success: '#4CAF50',

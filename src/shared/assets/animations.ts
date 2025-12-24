@@ -64,6 +64,22 @@ export const LOADING_ANIMATIONS = {
       height: 150,
     },
   },
+
+  liquidCircle: {
+    source: require('@/shared/assets/lottie/Liquid-circle.json'),
+    style: {
+      width: 150,
+      height: 150,
+    },
+  },
+
+  Water: {
+    source: require('@/shared/assets/lottie/Water.json'),
+    style: {
+      width: 150,
+      height: 150,
+    },
+  },
 } as const;
 
 // Type for animation keys

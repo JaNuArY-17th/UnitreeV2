@@ -23,6 +23,8 @@
 		ACB4392328B44075A32B98BB /* FZ Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A31387EE96AE4BE388BD949A /* FZ Poppins-Bold.ttf */; };
 		B2EDB110399E4E06812A35B0 /* FZ Poppins-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD5B365C1E2B4E82974511F1 /* FZ Poppins-SemiBoldItalic.ttf */; };
 		C1C427F62EF0508A0034FE62 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1C427F52EF0508A0034FE62 /* LaunchScreen.storyboard */; };
+		C1C7B44E2EFBC91E00D555FC /* WifiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B44D2EFBC91E00D555FC /* WifiManager.swift */; };
+		C1C7B4502EFBC98C00D555FC /* WifiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C7B44F2EFBC98C00D555FC /* WifiManager.m */; };
 		C3F10042EEE2A4BD4AB6F87A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		D25DE926E7824A07807ED563 /* FZ Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0C0420987DDA4EF2B1E719A7 /* FZ Poppins-MediumItalic.ttf */; };
 		E4A755E81C97494C904B92AF /* FZ Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CD23DAC30297468F99B8D443 /* FZ Poppins-ThinItalic.ttf */; };
@@ -55,6 +57,9 @@
 		AD5B365C1E2B4E82974511F1 /* FZ Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FZ Poppins-SemiBoldItalic.ttf"; path = "../assets/fonts/FZ Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		C1B777182EFB074900F85AD6 /* Unitree.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Unitree.entitlements; path = Unitree/Unitree.entitlements; sourceTree = "<group>"; };
 		C1C427F52EF0508A0034FE62 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C1C7B44C2EFBC7E000D555FC /* Unitree-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Unitree-Bridging-Header.h"; sourceTree = "<group>"; };
+		C1C7B44D2EFBC91E00D555FC /* WifiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiManager.swift; sourceTree = "<group>"; };
+		C1C7B44F2EFBC98C00D555FC /* WifiManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WifiManager.m; sourceTree = "<group>"; };
 		CA53A12D707749A6AFFEF575 /* FZ Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FZ Poppins-ExtraLight.ttf"; path = "../assets/fonts/FZ Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		CD23DAC30297468F99B8D443 /* FZ Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FZ Poppins-ThinItalic.ttf"; path = "../assets/fonts/FZ Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
 		D2C881310B63417B8BDE274B /* FZ Poppins-ExtraLightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FZ Poppins-ExtraLightItalic.ttf"; path = "../assets/fonts/FZ Poppins-ExtraLightItalic.ttf"; sourceTree = "<group>"; };
@@ -108,6 +113,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				C1C7B44C2EFBC7E000D555FC /* Unitree-Bridging-Header.h */,
+				C1C7B44D2EFBC91E00D555FC /* WifiManager.swift */,
+				C1C7B44F2EFBC98C00D555FC /* WifiManager.m */,
 				13B07FAE1A68108700A75B9A /* Unitree */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -342,6 +350,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1C7B44E2EFBC91E00D555FC /* WifiManager.swift in Sources */,
+				C1C7B4502EFBC98C00D555FC /* WifiManager.m in Sources */,
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -380,6 +390,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Unitree-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -417,6 +428,7 @@
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Unitree-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";

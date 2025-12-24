@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Text } from '@/shared/components';
-import { colors, spacing, typography } from '@/shared/themes';
+import { colors, dimensions, spacing, typography } from '@/shared/themes';
 import { Gift, Clock, Globe } from '@shared/assets/icons';
 
 export interface ActionButtonConfig {
@@ -58,12 +58,11 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
             <IconComponent
               width={18}
               height={18}
-              color={isActive ? colors.dark : colors.dark}
+              color={colors.light}
             />
             <Text
               style={[
                 styles.buttonText,
-                isActive ? styles.buttonTextActive : styles.buttonTextInactive,
               ]}
             >
               {button.label}
@@ -77,10 +76,8 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: spacing.md,
   },
   contentContainer: {
-    paddingHorizontal: spacing.md,
     gap: spacing.sm,
     paddingVertical: spacing.md,
   },
@@ -90,22 +87,17 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
-    borderRadius: 24,
-    height: 48,
+    borderRadius: dimensions.radius.round,
+    height: 40,
     justifyContent: 'center',
-    shadowColor: colors.dark,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
   },
   buttonActive: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.primaryDark,
   },
   buttonInactive: {
-    backgroundColor: colors.light,
-    borderWidth: 1,
-    borderColor: '#f0f0f0',
+    backgroundColor: colors.primary,
+    // borderWidth: 1,
+    // borderColor: '#f0f0f0',
   },
   buttonFirst: {
     marginLeft: 0,
@@ -114,15 +106,8 @@ const styles = StyleSheet.create({
     marginRight: spacing.md,
   },
   buttonText: {
-    fontSize: 13,
+    ...typography.body,
     fontWeight: '600',
-  },
-  buttonTextActive: {
-    color: colors.dark,
-    fontWeight: '700',
-  },
-  buttonTextInactive: {
-    color: colors.dark,
-    fontWeight: '500',
-  },
+    color: colors.light
+  }
 });

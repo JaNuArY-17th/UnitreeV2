@@ -107,3 +107,5 @@ export { default as Login } from './Login';
 export { default as SignUp } from './SignUp';
 export { default as Verify } from './Verify';
 export { default as UserPlus } from './UserPlus';
+export { default as ArrowRight } from './ArrowRight';
+export { default as Water } from './Water';
