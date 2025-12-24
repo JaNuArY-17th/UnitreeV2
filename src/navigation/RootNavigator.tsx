@@ -9,6 +9,7 @@ import RegisterCompleteScreen from '@/features/authentication/screens/RegisterCo
 import ForgotPasswordEmailScreen from '@/features/authentication/screens/ForgotPasswordEmailScreen';
 import ForgotPasswordCodeScreen from '@/features/authentication/screens/ForgotPasswordCodeScreen';
 import ForgotPasswordResetScreen from '@/features/authentication/screens/ForgotPasswordResetScreen';
+import HomeScreen from '@/features/home/screens/HomeScreen';
 import {BottomTabNavigator} from './BottomTabNavigator';
 import { useAuth } from '@/shared/components/AuthProvider';
 import type { RootStackParamList } from './types';

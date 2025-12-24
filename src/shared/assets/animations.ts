@@ -55,7 +55,15 @@ export const LOADING_ANIMATIONS = {
       width: 150,
       height: 150,
     },
-  }
+  },
+
+  confetti: {
+    source: require('@/shared/assets/lottie/Confetti.json'),
+    style: {
+      width: 150,
+      height: 150,
+    },
+  },
 } as const;
 
 // Type for animation keys

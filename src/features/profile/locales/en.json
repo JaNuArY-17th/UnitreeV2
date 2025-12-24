@@ -1,0 +1,28 @@
+{
+  "en": {
+    "title": "Profile",
+    "yourImpact": "Your Impact",
+    "points": "Points",
+    "trees": "Trees",
+    "co2": "kg CO₂/year",
+    "settings": "Settings",
+    "userSettings": "User Settings",
+    "systemSettings": "System Settings",
+    "logout": "Logout",
+    "logoutConfirm": "Are you sure you want to logout?",
+    "cancel": "Cancel"
+  },
+  "vi": {
+    "title": "Hồ sơ",
+    "yourImpact": "Tác động của bạn",
+    "points": "Điểm",
+    "trees": "Cây",
+    "co2": "kg CO₂/năm",
+    "settings": "Cài đặt",
+    "userSettings": "Cài đặt người dùng",
+    "systemSettings": "Cài đặt hệ thống",
+    "logout": "Đăng xuất",
+    "logoutConfirm": "Bạn có chắc chắn muốn đăng xuất?",
+    "cancel": "Hủy"
+  }
+}

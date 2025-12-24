@@ -58,11 +58,14 @@ const ForgotPasswordResetScreen: React.FC = () => {
 
   const successAnimation = getLoadingAnimation('success');
 
+  const plantAnimation = getLoadingAnimation('plant');
+
   return (
     <View style={[styles.safeContainer, { paddingTop: insets.top }]}>
       <LoadingModal
         visible={isLoading}
         title={t('forgotPassword:resetting')}
+        animationSource={plantAnimation.source}
         duration={2500}
         completionMessage={t('forgotPassword:password_reset_success')}
         completionAnimationSource={successAnimation.source}

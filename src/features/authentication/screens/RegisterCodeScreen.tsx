@@ -131,14 +131,14 @@ const styles = StyleSheet.create({
     marginBottom: dimensions.spacing.md,
   },
   resendText: {
-    ...typography.subtitle,
+    ...typography.body,
     color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,
     opacity: 0.8,
   },
   resendLink: {
-    ...typography.subtitle,
+    ...typography.body,
     color: colors.text.light,
     textAlign: 'center',
     marginVertical: dimensions.spacing.md,

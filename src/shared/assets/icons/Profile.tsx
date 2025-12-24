@@ -1,25 +1,11 @@
 import React from 'react';
 import { SvgXml } from 'react-native-svg';
-import type { IconProps } from './Home';
-import { colors } from '@/shared/themes/colors';
 
-// Default (inactive) profile icon - keep existing strokes with currentColor
-const defaultXml = (brand: string) => `<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z" fill="${brand}"/>
-<path d="M7.15997 14.56C4.73997 16.18 4.73997 18.82 7.15997 20.43C9.90997 22.27 14.42 22.27 17.17 20.43C19.59 18.81 19.59 16.17 17.17 14.56C14.43 12.73 9.91997 12.73 7.15997 14.56Z" fill="${brand}"/>
-</svg>`;
+export type IconProps = { width?: number; height?: number; color?: string };
 
-// Focused (active) profile icon - same geometry, filled with brand color
-const focusedXml = (brand: string) => `<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M12.1601 10.87C12.0601 10.86 11.9401 10.86 11.8301 10.87C9.45006 10.79 7.56006 8.84 7.56006 6.44C7.56006 3.99 9.54006 2 12.0001 2C14.4501 2 16.4401 3.99 16.4401 6.44C16.4301 8.84 14.5401 10.79 12.1601 10.87Z" fill="${brand}"/>
-<path d="M7.15997 14.56C4.73997 16.18 4.73997 18.82 7.15997 20.43C9.90997 22.27 14.42 22.27 17.17 20.43C19.59 18.81 19.59 16.17 17.17 14.56C14.43 12.73 9.91997 12.73 7.15997 14.56Z" fill="${brand}"/>
-</svg>`;
+const xml = (color: string) => `<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <circle cx="12" cy="6" r="4" stroke=${color} stroke-width="2.4"></circle> <path d="M15 20.6151C14.0907 20.8619 13.0736 21 12 21C8.13401 21 5 19.2091 5 17C5 14.7909 8.13401 13 12 13C15.866 13 19 14.7909 19 17C19 17.3453 18.9234 17.6804 18.7795 18" stroke=${color} stroke-width="2.4" stroke-linecap="round"></path> </g></svg>`;
 
-export type ProfileIconProps = IconProps & { focused?: boolean };
-
-export default function ProfileIcon({ width = 24, height = 24, color = '#111827', focused = false }: ProfileIconProps) {
-  const xml = focused ? focusedXml(colors.primary) : defaultXml(color);
-  return <SvgXml xml={xml} width={width} height={height} color={color} />;
+export default function Profile({ width = 22, height = 22, color = '#FFFFFF' }: IconProps) {
+  return <SvgXml xml={xml(color)} width={width} height={height} color={color} />;
 }

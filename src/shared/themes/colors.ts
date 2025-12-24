@@ -14,6 +14,9 @@ export const colors = {
   secondaryLight: '#D5E8F0',
   secondarySoft: '#E8F4F7',
 
+  //thirdary colors
+  thirdary: '#FFCED2',
+
   // Additional colors
   success: '#4CAF50',
   successSoft: '#9df4c1ff',

@@ -19,6 +19,8 @@ import { AutoLoginUtils } from '@/features/authentication/utils/autoLoginUtils';
 import { colors } from '@/shared/themes/colors';
 import { dimensions } from '@/shared/themes/dimensions';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { tokenManager } from '@/shared/utils/tokenManager';
+import { authGuard } from '@/shared/services/authGuard';
 
 // New components
 import LogoHeader from '../components/LoginScreen/LogoHeader';
@@ -72,48 +74,83 @@ const LoginScreen: React.FC = () => {
   const handleLogin = async () => {
     if (!validateForm()) return;
 
+    // 🟡 DEV MODE: Skip credential validation but follow real auth flow
     try {
-      const loginRequest = {
-        phone_number: formatPhoneNumber(phone),
-        password: password,
+      console.log('🟡 DEV MODE: Creating mock authentication tokens...');
+      
+      // Create realistic JWT tokens (development only)
+      const now = Math.floor(Date.now() / 1000);
+      const expiresIn = 24 * 60 * 60; // 24 hours
+      
+      // Mock JWT payload structure
+      const mockAccessPayload = {
+        sub: 'dev_user_' + Date.now(),
+        phone: phone || 'dev_phone',
+        roles: ['user'],
+        iat: now,
+        exp: now + expiresIn,
+        iss: 'unitree-dev',
       };
-
-      const result = await login(loginRequest, 'user');
-
-      console.log('🔍 Login result:', {
-        hasAccessToken: !!result.accessToken,
-        isNewDevice: result.isNewDevice,
-        isVerified: result.isVerified,
-      });
-
-      // Handle unverified user
-      if (result.isVerified === false) {
-        console.log('🟡 User not verified, redirecting to RegisterOtpScreen');
-        // navigation.navigate('RegisterOtp', { phone });
-        return;
+      
+      const mockRefreshPayload = {
+        sub: 'dev_user_' + Date.now(),
+        type: 'refresh',
+        iat: now,
+        exp: now + (7 * 24 * 60 * 60), // 7 days
+        iss: 'unitree-dev',
+      };
+      
+      // Create base64 encoded JWT-like tokens (for development)
+      const createMockJWT = (payload: any): string => {
+        // Simple base64 encoding for React Native using native methods
+        const toBase64 = (obj: any): string => {
+          const jsonStr = JSON.stringify(obj);
+          // Use btoa if available, otherwise fallback to simple encoding
+          try {
+            return btoa(jsonStr);
+          } catch {
+            // Fallback: create a simple base64-like string
+            return Buffer.from(jsonStr, 'utf8').toString('base64');
+          }
+        };
+        
+        const header = toBase64({ alg: 'HS256', typ: 'JWT' });
+        const encodedPayload = toBase64(payload);
+        const signature = toBase64('dev_signature');
+        return `${header}.${encodedPayload}.${signature}`;
+      };
+      
+      const accessToken = createMockJWT(mockAccessPayload);
+      const refreshToken = createMockJWT(mockRefreshPayload);
+      
+      console.log('🟡 DEV MODE: Mock tokens created');
+      console.log('  Access Token:', accessToken.substring(0, 40) + '...');
+      console.log('  Refresh Token:', refreshToken.substring(0, 40) + '...');
+      
+      // Save tokens using proper tokenManager method (same as production)
+      await tokenManager.setTokens(accessToken, refreshToken);
+      console.log('✅ Tokens saved to storage');
+      
+      // Trigger auth state update to notify the app that user is authenticated
+      authGuard.triggerAuthUpdate();
+      console.log('✅ Auth state updated');
+      
+      // Optional: Save login preferences
+      try {
+        await AutoLoginUtils.handleAutoLogin(phone || 'dev_user', rememberMe);
+        await AutoLoginUtils.handleLoginSuccess('user');
+        console.log('✅ Auto login preferences saved');
+      } catch (error) {
+        console.warn('⚠️ Could not save auto login preferences:', error);
+        // Don't fail if auto login save fails
       }
-
-      // Handle successful login
-      if (result.accessToken) {
-        console.log('✅ Login successful with access token');
-
-        // Save auto-login preference
-        try {
-          await AutoLoginUtils.handleAutoLogin(formatPhoneNumber(phone), rememberMe);
-          await AutoLoginUtils.handleLoginSuccess('user');
-          console.log('✅ Auto login updated');
-        } catch (error) {
-          console.error('❌ Error handling login success:', error);
-        }
-        return;
-      }
-
-      throw new Error('Unexpected login response');
-    } catch (error: any) {
-      Alert.alert(
-        t('login:loginFailed'),
-        error.message || t('login:login_error')
-      );
+      
+      console.log('✅ Development authentication completed, navigating to MainTabs');
+      // Navigation will happen automatically when AuthContext detects isAuthenticated change
+      
+    } catch (error) {
+      console.error('❌ Error during development authentication:', error);
+      Alert.alert('Error', 'Failed to create authentication tokens');
     }
   };
 

@@ -53,6 +53,7 @@
 		9F9D77A11338468BA748F08B /* FZ Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FZ Poppins-Medium.ttf"; path = "../assets/fonts/FZ Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		A31387EE96AE4BE388BD949A /* FZ Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FZ Poppins-Bold.ttf"; path = "../assets/fonts/FZ Poppins-Bold.ttf"; sourceTree = "<group>"; };
 		AD5B365C1E2B4E82974511F1 /* FZ Poppins-SemiBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FZ Poppins-SemiBoldItalic.ttf"; path = "../assets/fonts/FZ Poppins-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
+		C1B777182EFB074900F85AD6 /* Unitree.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Unitree.entitlements; path = Unitree/Unitree.entitlements; sourceTree = "<group>"; };
 		C1C427F52EF0508A0034FE62 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CA53A12D707749A6AFFEF575 /* FZ Poppins-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FZ Poppins-ExtraLight.ttf"; path = "../assets/fonts/FZ Poppins-ExtraLight.ttf"; sourceTree = "<group>"; };
 		CD23DAC30297468F99B8D443 /* FZ Poppins-ThinItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "FZ Poppins-ThinItalic.ttf"; path = "../assets/fonts/FZ Poppins-ThinItalic.ttf"; sourceTree = "<group>"; };
@@ -78,6 +79,7 @@
 		13B07FAE1A68108700A75B9A /* Unitree */ = {
 			isa = PBXGroup;
 			children = (
+				C1B777182EFB074900F85AD6 /* Unitree.entitlements */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				761780EC2CA45674006654EE /* AppDelegate.swift */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -353,10 +355,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Unitree/Unitree.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53MMV4Z28N;
+				DEVELOPMENT_TEAM = YX8LX8TZFL;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Unitree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
@@ -370,7 +373,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.unitree.mobile;
 				PRODUCT_NAME = Unitree;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -390,10 +393,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Unitree/Unitree.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53MMV4Z28N;
+				DEVELOPMENT_TEAM = YX8LX8TZFL;
 				INFOPLIST_FILE = Unitree/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -406,7 +410,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.unitree.mobile;
 				PRODUCT_NAME = Unitree;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
