@@ -12,32 +12,32 @@ import Animated, {
   useAnimatedStyle,
   interpolate,
 } from 'react-native-reanimated';
-import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '@/navigation/types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useStatusBarEffect } from '@/shared/utils/StatusBarManager';
 import { spacing, colors } from '@/shared/themes';
-import { getLoadingAnimation } from '@/shared/assets/animations';
 import {
   HomeHeader,
-  SessionTimer,
   CurrentWiFiCard,
   ActionButtons,
   ActionButtonConfig,
   DiscoverCards,
   DiscoverCardConfig,
 } from '../components';
+import { AnimatedWaterCircle, RecentSessions } from '@/features/wifi/components';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
-const TIMER_HEIGHT = 150; // Approximate height including padding
+const TIMER_HEIGHT = 280; // Increased height for AnimatedWaterCircle
 const WIFI_CARD_HEIGHT = 100; // Approximate height
+const HOMEHEADER_HEIGHT = 130; // Height of HomeHeader (includes safe area)
 
 const HomeScreen = () => {
   const navigation = useNavigation<NavigationProp>();
   const insets = useSafeAreaInsets();
+  const scrollViewRef = React.useRef<Animated.ScrollView>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [userName, setUserName] = useState('Alex');
   const [pointsGained, setPointsGained] = useState(2450);
@@ -45,44 +45,32 @@ const HomeScreen = () => {
   const [signalStrength, setSignalStrength] = useState<'Excellent' | 'Good' | 'Fair' | 'Poor'>('Excellent');
   const [wifiSpeed, setWifiSpeed] = useState(120);
   const [activeButtonId, setActiveButtonId] = useState('redeem');
-  const [showConfetti, setShowConfetti] = useState(false);
   const [isSessionActive, setIsSessionActive] = useState(true);
+  const [timeConnected, setTimeConnected] = useState('01:45:23');
+  const [elapsedSeconds, setElapsedSeconds] = useState(0); // Synchronized timer state
 
   // Scroll animation values
   const scrollOffsetAnim = useSharedValue(0);
 
   // Animation styles for scroll-driven animations
-  const timerAnimStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        scale: interpolate(
-          scrollOffsetAnim.value,
-          [0, TIMER_HEIGHT],
-          [1, 0],
-          'clamp'
-        ),
-      },
-    ],
-    opacity: interpolate(
+  const timerAnimStyle = useAnimatedStyle(() => {
+    const scale = interpolate(
       scrollOffsetAnim.value,
       [0, TIMER_HEIGHT],
-      [1, 0],
+      [1, 0.1],
       'clamp'
-    ),
-  }));
-
-  const wifiAnimStyle = useAnimatedStyle(() => ({
-    transform: [
-      {
-        translateY: interpolate(
-          scrollOffsetAnim.value,
-          [0, TIMER_HEIGHT],
-          [0, -TIMER_HEIGHT],
-          'clamp'
-        ),
-      },
-    ],
-  }));
+    );
+    const opacity = interpolate(
+      scrollOffsetAnim.value,
+      [0, TIMER_HEIGHT * 0.8, TIMER_HEIGHT],
+      [1, 0.3, 0],
+      'clamp'
+    );
+    return {
+      transform: [{ scale }],
+      opacity,
+    };
+  });
 
   // Set status bar color
   useStatusBarEffect(colors.secondary, 'dark-content', true);
@@ -104,8 +92,6 @@ const HomeScreen = () => {
       scrollOffsetAnim.value = event.contentOffset.y;
     },
   });
-
-  // Action buttons configuration
   const actionButtons: ActionButtonConfig[] = [
     {
       id: 'redeem',
@@ -165,69 +151,64 @@ const HomeScreen = () => {
         }}
       />
 
-      {/* Confetti Overlay - Full screen, not affected by scroll */}
-      {showConfetti && (
-        <View style={styles.confettiOverlay}>
-          <LottieView
-            source={getLoadingAnimation('confetti').source}
-            autoPlay
-            loop={false}
-            style={styles.confettiAnimation}
-          />
-        </View>
-      )}
-
       {/* Scrollable Content */}
       <Animated.ScrollView
+        ref={scrollViewRef}
         style={styles.scrollContainer}
         contentContainerStyle={[
           styles.scrollContent,
           { paddingBottom: insets.bottom + spacing.xl * 3 },
         ]}
         showsVerticalScrollIndicator={false}
+        onScroll={handleScroll}
+        scrollEventThrottle={16}
+        stickyHeaderIndices={[1]}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
-        scrollEventThrottle={16}
-        onScroll={handleScroll}
       >
-        {/* Session Timer - Animates out */}
-        <Animated.View style={[styles.timerSection, timerAnimStyle]}
-        >
-          <SessionTimer
-            pointsGained={pointsGained}
+        {/* Animated Water Circle - Collapse and fade out */}
+        <Animated.View style={[styles.timerSection, timerAnimStyle]}>
+          <AnimatedWaterCircle
+            timeDisplay={timeConnected}
             isActive={isSessionActive}
-            targetSeconds={3600} // 1 hour
-            initialSeconds={0}
-            opacityAnim={scrollOffsetAnim}
-            onConfettiTrigger={setShowConfetti}
+            elapsedSeconds={elapsedSeconds}
+            pointsGained={pointsGained}
           />
         </Animated.View>
 
-        {/* Current WiFi Card - Becomes sticky */}
-        <Animated.View style={[styles.wifiSection, wifiAnimStyle]}
-        >
-            <CurrentWiFiCard
-              onPress={() => {
-                // Navigate to WiFi details
-              }}
-            />
+        {/* Current WiFi Card */}
+        <View style={styles.wifiCardWrapper}>
+          <CurrentWiFiCard
+            onPress={() => {
+              // Navigate to WiFi details
+            }}
+            pointsGained={pointsGained}
+            isSessionActive={isSessionActive}
+            elapsedSeconds={elapsedSeconds}
+            scrollOffsetAnim={scrollOffsetAnim}
+            onTimerElapsedChange={setElapsedSeconds}
+          />
+        </View>
 
-            {/* Action Buttons */}
-            <ActionButtons
-              buttons={actionButtons}
-              activeButtonId={activeButtonId}
-            />
+        {/* Action Buttons */}
+        <View style={styles.contentSection}>
+          <ActionButtons
+            buttons={actionButtons}
+            activeButtonId={activeButtonId}
+          />
 
-            {/* Discover Section */}
-            <DiscoverCards
-              title="Discover"
-              cards={discoverCards}
-              onViewAll={() => {
-                // Handle view all
-              }}
-            />
-        </Animated.View>
+          {/* Discover Section */}
+          <DiscoverCards
+            title="Discover"
+            cards={discoverCards}
+            onViewAll={() => {
+              // Handle view all
+            }}
+          />
+
+          <RecentSessions />
+        </View>
       </Animated.ScrollView>
     </View>
   );
@@ -245,12 +226,28 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   timerSection: {
-    // paddingVertical: spacing.lg,
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: spacing.lg,
+  },
+  wifiCardWrapper: {
+    // paddingBottom: spacing.md,
+    paddingHorizontal: spacing.lg,
+    backgroundColor: colors.secondarySoft,
+  },
+  contentSection: {
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
   },
   wifiSection: {
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.lg,
+    width: '100%',
+  },
+  wifiStickySection: {
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
+    width: '100%',
   },
   confettiOverlay: {
     position: 'absolute',

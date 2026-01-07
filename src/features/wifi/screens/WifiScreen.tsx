@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   StyleSheet,
@@ -13,18 +13,23 @@ import {
   ConnectedNetwork,
   TwoStatsCards,
   PointsRedeemBar,
+  RecentSessions,
 } from '../components';
+import { useStatusBarEffect } from '@/shared/utils/StatusBarManager';
 
 const WifiScreen = () => {
   const insets = useSafeAreaInsets();
 
   // State management
-  const [timeConnected] = useState('01:45:23');
-  const [connectedNetwork] = useState('Home_Network_5G');
-  const [totalTime] = useState('3h 12m');
-  const [signalStrength] = useState('Excellent');
-  const [pointsEarned] = useState(105);
-  const [isActive] = useState(true);
+  const [timeConnected] = React.useState('01:45:23');
+  const [connectedNetwork] = React.useState('Home_Network_5G');
+  const [totalTime] = React.useState('3h 12m');
+  const [signalStrength] = React.useState('Excellent');
+  const [pointsEarned] = React.useState(105);
+  const [isActive] = React.useState(true);
+
+  useStatusBarEffect(colors.secondary, 'dark-content', true);
+
 
   const handleWifiPress = useCallback(() => {
     Alert.alert('WiFi', 'WiFi settings');
@@ -41,10 +46,10 @@ const WifiScreen = () => {
   return (
     <View style={styles.container}>
       {/* Header */}
-      <WifiHeader 
+      {/* <WifiHeader 
         onWifiPress={handleWifiPress}
         onSettingsPress={handleSettingsPress}
-      />
+      /> */}
 
       {/* Content */}
       <ScrollView
@@ -55,16 +60,10 @@ const WifiScreen = () => {
         ]}
         showsVerticalScrollIndicator={false}
       >
-        {/* Animated Water Circle */}
-        <View style={styles.circleWrapper}>
-          <AnimatedWaterCircle 
-            timeDisplay={timeConnected}
-            isActive={isActive}
-          />
-        </View>
+
 
         {/* Connected Network */}
-        <ConnectedNetwork 
+        <ConnectedNetwork
           networkName={connectedNetwork}
           isConnected={true}
         />
@@ -80,6 +79,9 @@ const WifiScreen = () => {
           points={pointsEarned}
           onRedeemPress={handleRedeemPress}
         />
+
+        {/* Recent Sessions */}
+        <RecentSessions />
       </ScrollView>
     </View>
   );
@@ -95,10 +97,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: spacing.lg,
-  },
-  circleWrapper: {
-    alignItems: 'center',
-    marginTop: spacing.md,
+    paddingTop: spacing.lg,
   },
 });
 

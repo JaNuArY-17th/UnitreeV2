@@ -96,11 +96,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingRight: spacing.lg,
-    // position: 'absolute',
-    // top: -20,
-    // left: 0,
-    // right: 0,
-    // zIndex: 10,
   },
   leftSection: {
     flexDirection: 'row',

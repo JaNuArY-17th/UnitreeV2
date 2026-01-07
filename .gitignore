@@ -84,3 +84,5 @@ acli.exe
 .vscode/
 
 .claude
+.shared
+.github

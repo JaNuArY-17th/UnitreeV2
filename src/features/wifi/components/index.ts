@@ -6,3 +6,5 @@ export { PointsRedeemBar } from './PointsRedeemBar';
 export { SessionInfoCard } from './SessionInfoCard';
 export { QuickStatsGrid } from './QuickStatsGrid';
 export { RecentLocations } from './RecentLocations';
+export { RecentSessions } from './RecentSessions';
+export type { WifiSession } from './RecentSessions';

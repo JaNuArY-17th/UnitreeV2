@@ -8,23 +8,31 @@ import {
 } from 'react-native';
 import { Text } from '@/shared/components';
 import { colors, dimensions, spacing, typography } from '@/shared/themes';
-import { ChartMini } from '../../../shared/assets';
+import { SessionTimer } from './SessionTimer';
 import { useWifiInfo, getSignalStrengthLabel, getSignalColor } from '@/features/wifi';
 
 interface CurrentWiFiCardProps {
   onPress?: () => void;
+  pointsGained?: number;
+  isSessionActive?: boolean;
+  elapsedSeconds?: number; // Sync timer with parent
+  scrollOffsetAnim?: any; // Scroll animation for fade animations
+  onTimerElapsedChange?: (seconds: number) => void; // Notify parent of time changes
 }
 
 export const CurrentWiFiCard: React.FC<CurrentWiFiCardProps> = ({
   onPress,
+  pointsGained = 0,
+  isSessionActive = true,
+  elapsedSeconds,
+  scrollOffsetAnim,
+  onTimerElapsedChange,
 }) => {
   const { ssid, bssid, signalLevel, isLoading } = useWifiInfo();
 
   const signalStrength = getSignalStrengthLabel(signalLevel);
   const signalColor = getSignalColor(signalStrength);
   const wifiName = ssid || 'Loading...';
-
-  
 
   return (
     <TouchableOpacity
@@ -65,8 +73,15 @@ export const CurrentWiFiCard: React.FC<CurrentWiFiCardProps> = ({
         </View>
       </View>
 
-      <View style={styles.speedSection}>
-          <ChartMini width={80} height={50} color={colors.light} />
+      <View style={styles.timerSection}>
+        <SessionTimer
+          pointsGained={pointsGained}
+          isActive={isSessionActive}
+          targetSeconds={3600}
+          initialSeconds={elapsedSeconds || 0}
+          scrollOffsetAnim={scrollOffsetAnim}
+          onTimerElapsedChange={onTimerElapsedChange}
+        />
       </View>
     </TouchableOpacity>
   );
@@ -80,7 +95,7 @@ const styles = StyleSheet.create({
     borderRadius: dimensions.radius.round,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.md,
-    marginVertical: spacing.md,
+    marginVertical: spacing.sm,
   },
   iconContainer: {
     width: 64,
@@ -125,22 +140,12 @@ const styles = StyleSheet.create({
     ...typography.subtitle,
     fontWeight: '500',
   },
-  speedSection: {
-    alignItems: 'flex-end',
-    gap: spacing.xs,
-    marginRight: spacing.sm
-  },
-  speedValue: {
-    ...typography.h3,
-    fontWeight: '700',
-    color: colors.dark,
-  },
-  speedUnit: {
-    ...typography.caption,
-    fontWeight: '600',
-    color: colors.gray,
-    textTransform: 'uppercase',
-    fontSize: 10,
+  timerSection: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 60,
+    height: 60,
+    transform: [{ scale: 0.5 }],
   },
   mascotImage: {
     width: 60,
