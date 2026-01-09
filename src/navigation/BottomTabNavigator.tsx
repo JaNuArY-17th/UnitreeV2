@@ -12,12 +12,23 @@ import { ProfileScreen } from '@/features/profile/screens';
 import { PlantScreen } from '@/features/plant/screens';
 import { PointScreen } from '@/features/point/screens';
 import { WifiScreen } from '@/features/wifi/screens';
+import { ChatScreen } from '@/features/chat';
 import { colors, spacing, dimensions } from '@/shared/themes';
-import { Home, Wifi, Leaf, StarDouble, Profile, Connect } from '@/shared/assets/icons';
+import { Home, Wifi, Leaf, StarDouble, Profile, Connect, MessageCircle } from '@/shared/assets/icons';
 
 const Tab = createBottomTabNavigator();
 
 // Enhanced Animated Tab Item Component
+
+// Tab configuration (icons order must match Tab.Screen order)
+  const tabConfig = [
+    { name: 'Home', icon: Home },
+    { name: 'Plant', icon: Leaf },
+    { name: 'Point', icon: StarDouble },
+    { name: 'Chat', icon: MessageCircle },
+    { name: 'Wifi', icon: Connect },
+    { name: 'Profile', icon: Profile },
+  ];
 const AnimatedTabItem = ({
   route,
   isFocused,
@@ -81,6 +92,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
     { name: 'Home', icon: Home },
     { name: 'Plant', icon: Leaf },
     { name: 'Point', icon: StarDouble },
+    { name: 'Chat', icon: MessageCircle },
     { name: 'Wifi', icon: Connect },
     { name: 'Profile', icon: Profile },
   ];
@@ -158,6 +170,13 @@ export function BottomTabNavigator() {
         component={PointScreen}
         options={{
           title: 'Point',
+        }}
+      />
+      <Tab.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{
+          title: 'Chat',
         }}
       />
       <Tab.Screen
