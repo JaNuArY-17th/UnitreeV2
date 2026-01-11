@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { colors, spacing } from '@/shared/themes';
 import { MessageFlashList } from '../components/MessageFlashList';
 import Composer from '../components/Composer';
@@ -7,11 +7,13 @@ import { useMessages } from '../hooks/useMessages';
 import StickyDateHeader from '../components/StickyDateHeader';
 import TypingIndicator from '../components/TypingIndicator';
 import useKeyboardInsets from '../hooks/useKeyboardInsets';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export const ChatScreen: React.FC = () => {
   const { messages, sendMessage, generateMock, typing, setTyping, loadOlder, isLoadingOlder } = useMessages();
   const [topDate, setTopDate] = React.useState<string | undefined>(undefined);
   const { keyboardHeight } = useKeyboardInsets();
+  const insets = useSafeAreaInsets();
 
   React.useEffect(() => {
     // create a moderate mock dataset for local dev; can be scaled in perf tests
@@ -27,7 +29,7 @@ export const ChatScreen: React.FC = () => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container} testID="chat-screen">
+    <View style={[styles.container, { paddingTop: insets.top, paddingBottom: insets.bottom + 100 }]}>
       <View style={[styles.listContainer]}>
         <MessageFlashList messages={messages} onTopVisibleDate={setTopDate} loadOlder={loadOlder} isLoadingOlder={isLoadingOlder} contentBottomInset={keyboardHeight} />
         <StickyDateHeader title={topDate} />
@@ -40,7 +42,7 @@ export const ChatScreen: React.FC = () => {
           onSend={(text) => sendMessage({ text, type: 'text' })}
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

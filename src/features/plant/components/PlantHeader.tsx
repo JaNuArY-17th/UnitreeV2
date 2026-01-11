@@ -6,11 +6,13 @@ import { colors } from '@/shared/themes';
 interface PlantHeaderProps {
   title?: string;
   subtitle?: string;
+  overlayOpacity?: number;
 }
 
 export const PlantHeader: React.FC<PlantHeaderProps> = ({
   title = 'Plant Trees',
   subtitle = 'Grow your virtual forest and earn rewards',
+  overlayOpacity = 0.3,
 }) => {
   const insets = useSafeAreaInsets();
 
@@ -18,16 +20,12 @@ export const PlantHeader: React.FC<PlantHeaderProps> = ({
     <ImageBackground
       source={require('@/shared/assets/background/forest.png')}
       resizeMode="cover"
-      style={[styles.headerSection, { paddingTop: insets.top + 20 }]}
+      style={[styles.headerSection]}
     >
-      <View style={styles.overlay}>
-        <View style={styles.welcomeSection}>
-          <Text style={styles.titleText}>{title}</Text>
-          <Text style={styles.subtitleText}>{subtitle}</Text>
-        </View>
+      <View style={[styles.overlay]}>
         <View style={styles.treeContainer}>
           <Image
-            source={require('@shared/assets/trees/stage06.png')} // Assuming tree image exists
+            source={require('@shared/assets/trees/stage06.png')}
             style={styles.treeImage}
             resizeMode="contain"
           />
@@ -39,43 +37,21 @@ export const PlantHeader: React.FC<PlantHeaderProps> = ({
 
 const styles = StyleSheet.create({
   headerSection: {
-    minHeight: 250,
+    minHeight: '40%',
     width: '100%',
-    opacity: 0.8,
-    paddingBottom: 90,
   },
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.3)', // Dark overlay for text readability
-  },
-  welcomeSection: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-    alignItems: 'center',
-  },
-  titleText: {
-    fontSize: 40,
-    fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 16,
-    textAlign: 'center',
-  },
-  subtitleText: {
-    fontSize: 18,
-    color: '#fff',
-    opacity: 0.9,
-    lineHeight: 28,
-    textAlign: 'center',
   },
   treeContainer: {
-    position: 'absolute',
-    bottom: 20,
+    // position: 'absolute',
+    bottom: -150,
     left: 0,
     right: 0,
     alignItems: 'center',
   },
   treeImage: {
-    width: 150,
-    height: 150,
+    width: 200,
+    height: 200,
   },
 });

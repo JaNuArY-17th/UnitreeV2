@@ -1,5 +1,4 @@
 import React from 'react';
-import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { Message } from '../types';
@@ -40,11 +39,10 @@ export const MessageFlashList: React.FC<Props> = ({ messages = [], onTopVisibleD
     <View style={{ flex: 1 }}>
       <FlashList
         data={messages}
-        inverted
+        // inverted
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => <MessageItem message={item} />}
         estimatedItemSize={80}
-        // Tuned defaults for chat perf
         maxToRenderPerBatch={10}
         initialNumToRender={20}
         windowSize={5}
@@ -53,7 +51,7 @@ export const MessageFlashList: React.FC<Props> = ({ messages = [], onTopVisibleD
         viewabilityConfig={viewabilityConfig.current}
         onEndReached={loadOlder}
         onEndReachedThreshold={0.1}
-        maintainVisibleContentPosition={{ minIndexForVisible: 1 }}
+        maintainVisibleContentPosition={{ minIndexForVisible: 1 } as any}
         ListFooterComponent={ListFooter}
         contentContainerStyle={{ paddingBottom: contentBottomInset }}
       />

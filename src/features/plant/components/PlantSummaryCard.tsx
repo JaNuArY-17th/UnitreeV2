@@ -13,21 +13,25 @@ export const PlantSummaryCard: React.FC<PlantSummaryCardProps> = ({
   totalPoints,
   activePlants,
 }) => {
+  const getStatValueStyle = (value: number) => ({
+    color: value > 100 ? colors.success || '#4CAF50' : value > 50 ? colors.warning || '#FF9800' : colors.primary,
+  });
+
   return (
     <View style={styles.summaryContainer}>
       <View style={styles.summaryCard}>
         <View style={styles.statItem}>
-          <Text style={styles.statValue}>{totalPlanted}</Text>
+          <Text style={[styles.statValue, getStatValueStyle(totalPlanted)]}>{totalPlanted}</Text>
           <Text style={styles.statLabel}>Trees Planted</Text>
         </View>
         <View style={styles.statDivider} />
         <View style={styles.statItem}>
-          <Text style={styles.statValue}>{totalPoints}</Text>
+          <Text style={[styles.statValue, getStatValueStyle(totalPoints)]}>{totalPoints}</Text>
           <Text style={styles.statLabel}>Points Earned</Text>
         </View>
         <View style={styles.statDivider} />
         <View style={styles.statItem}>
-          <Text style={styles.statValue}>{activePlants}</Text>
+          <Text style={[styles.statValue, getStatValueStyle(activePlants)]}>{activePlants}</Text>
           <Text style={styles.statLabel}>Active Trees</Text>
         </View>
       </View>

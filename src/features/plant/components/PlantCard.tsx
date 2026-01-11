@@ -20,8 +20,19 @@ interface PlantCardProps {
 export const PlantCard: React.FC<PlantCardProps> = ({ plant, onPress }) => {
   const { name, species, stage, pointsCost, imageUri, isPlanted } = plant;
 
+  const dynamicStyles = {
+    plantStatus: {
+      color: isPlanted ? colors.success || '#4CAF50' : colors.warning || '#FF9800',
+    },
+    plantCard: {
+      ...styles.plantCard,
+      borderColor: isPlanted ? colors.success || '#4CAF50' : 'transparent',
+      borderWidth: isPlanted ? 2 : 0,
+    },
+  };
+
   return (
-    <TouchableOpacity style={styles.plantCard} onPress={onPress}>
+    <TouchableOpacity style={dynamicStyles.plantCard} onPress={onPress}>
       <View style={styles.plantHeader}>
         <View style={styles.plantImageContainer}>
           <Image
@@ -38,7 +49,7 @@ export const PlantCard: React.FC<PlantCardProps> = ({ plant, onPress }) => {
       </View>
       <View style={styles.plantFooter}>
         <Text style={styles.pointsCost}>{pointsCost} Points</Text>
-        <Text style={styles.plantStatus}>{isPlanted ? 'Planted' : 'Available'}</Text>
+        <Text style={[styles.plantStatus, dynamicStyles.plantStatus]}>{isPlanted ? 'Planted' : 'Available'}</Text>
       </View>
     </TouchableOpacity>
   );

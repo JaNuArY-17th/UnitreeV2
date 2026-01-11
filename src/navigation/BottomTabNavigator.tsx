@@ -11,6 +11,8 @@ import { HomeScreen } from '@/features/home/screens';
 import { ProfileScreen } from '@/features/profile/screens';
 import { PlantScreen } from '@/features/plant/screens';
 import { PointScreen } from '@/features/point/screens';
+import PointsScreen  from '@/features/point/screens/PointsScreen';
+import RedeemScreen from '../features/point/screens/RedeemScreen';
 import { WifiScreen } from '@/features/wifi/screens';
 import { ChatScreen } from '@/features/chat';
 import { colors, spacing, dimensions } from '@/shared/themes';
@@ -26,7 +28,7 @@ const Tab = createBottomTabNavigator();
     { name: 'Plant', icon: Leaf },
     { name: 'Point', icon: StarDouble },
     { name: 'Chat', icon: MessageCircle },
-    { name: 'Wifi', icon: Connect },
+    // { name: 'Wifi', icon: Connect },
     { name: 'Profile', icon: Profile },
   ];
 const AnimatedTabItem = ({
@@ -93,7 +95,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: any) => {
     { name: 'Plant', icon: Leaf },
     { name: 'Point', icon: StarDouble },
     { name: 'Chat', icon: MessageCircle },
-    { name: 'Wifi', icon: Connect },
+    // { name: 'Wifi', icon: Connect },
     { name: 'Profile', icon: Profile },
   ];
 
@@ -167,7 +169,7 @@ export function BottomTabNavigator() {
       />
       <Tab.Screen
         name="Point"
-        component={PointScreen}
+        component={PointsScreen}
         options={{
           title: 'Point',
         }}
@@ -179,13 +181,13 @@ export function BottomTabNavigator() {
           title: 'Chat',
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Wifi"
         component={WifiScreen}
         options={{
           title: 'Wifi',
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Profile"
         component={ProfileScreen}

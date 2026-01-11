@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, Text, FlatList } from 'react-native';
-import { colors } from '@/shared/themes';
+import { colors, spacing } from '@/shared/themes';
 import { PlantHeader, PlantSummaryCard, PlantCard } from '../components';
+import { useStatusBarEffect } from '@/shared/utils/StatusBarManager';
 
 interface Plant {
   id: string;
@@ -16,6 +17,9 @@ interface Plant {
 export function PlantScreen() {
   const [plants, setPlants] = useState<Plant[]>([]);
   const [loading, setLoading] = useState(true);
+
+  useStatusBarEffect(colors.secondary, 'light-content', true);
+
 
   useEffect(() => {
     // Load plants data
@@ -52,13 +56,15 @@ export function PlantScreen() {
   const totalPoints = plants.reduce((sum, p) => sum + (p.isPlanted ? p.pointsCost : 0), 0);
   const activePlants = plants.filter(p => p.isPlanted).length;
 
+  const overlayOpacity = totalPlanted > 5 ? 0.2 : 0.3;
+
   const renderPlantCard = ({ item }: { item: Plant }) => (
     <PlantCard plant={item} onPress={() => { /* Handle plant press */ }} />
   );
 
   return (
     <View style={styles.container}>
-      <PlantHeader />
+      <PlantHeader overlayOpacity={overlayOpacity} />
 
       <View style={styles.contentSection}>
         <ScrollView
@@ -98,14 +104,12 @@ export function PlantScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.secondary,
   },
   contentSection: {
     flex: 1,
-    backgroundColor: colors.primary,
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    paddingTop: 75,
+    backgroundColor: '#085F30',
+    paddingHorizontal: spacing.xl,
+    // paddingTop: 75,
   },
   scrollContainer: {
     flex: 1,
